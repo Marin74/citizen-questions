@@ -4,6 +4,13 @@
 
 {% block body %}
 
+	<nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="{{ url("homepage") }}">{{ "homepage"|trans }}</a></li>
+        <li class="breadcrumb-item active" aria-current="page">{% if city is null %}{{ "unknown_city"|trans }}{% else %}{{ city.name }}{% endif %}</li>
+      </ol>
+    </nav>
+
 	{% if city is null %}
 		<div class="px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
           <h1 class="display-4">{{ "unknown_city"|trans }}</h1>

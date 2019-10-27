@@ -4,6 +4,16 @@
 
 {% block body %}
 
+	<nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="{{ url("homepage") }}">{{ "homepage"|trans }}</a></li>
+        {% if list is not null %}
+        	<li class="breadcrumb-item"><a href="{{ url("city", {"insee": list.city.insee, "name": list.city.nameForUrl}) }}">{{ list.city.name }}</a></li>
+        {% endif %}
+        <li class="breadcrumb-item active" aria-current="page">{% if list is null %}{{ "unknown_list"|trans }}{% else %}{{ list.name }}{% endif %}</li>
+      </ol>
+    </nav>
+
 	{% if list is null %}
 		<div class="px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
           <h1 class="display-4">{{ "unknown_list"|trans }}</h1>
@@ -21,23 +31,28 @@
           </p>
         </div>
 
-		{% for answer in list.generalAnswers %}
+	
+		{% if list.answers|length > 0 %}
             <div class="px-3 py-3 pt-md-5 pb-md-4 mx-auto">
-    			<h2>{{ answer.question.text }}</h2>
-    			<p>
-    				{{ answer.text|nl2br }}
-    			</p>
+        		{% for answer in list.generalAnswers %}
+        			<h2>{{ answer.question.text }}</h2>
+        			<p>
+        				{{ answer.text|nl2br }}
+        			</p>
+                {% endfor %}
+        
+        		{% if list.cityAnswers|length > 0 %}
+        			<h2><em>{{ "city_questions"|trans({"%name%": list.city.name}) }}</em></h2>
+        			
+            		{% for answer in list.cityAnswers %}
+            			<h2>{{ answer.question.text }}</h2>
+            			<p>
+                            {{ answer.text|nl2br }}
+            			</p>
+                    {% endfor %}
+                    {% endif %}
             </div>
-        {% endfor %}
-
-		{% for answer in list.cityAnswers %}
-            <div class="px-3 py-3 pt-md-5 pb-md-4 mx-auto">
-    			<h2>{{ answer.question.text }}</h2>
-    			<p>
-    				{{ answer.text }}
-    			</p>
-            </div>
-        {% endfor %}
+        {% endif %}
         
         <div id="map" style="min-height: 50vh"></div>
 	{% endif %}
