@@ -12,6 +12,10 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class ElectoralList
 {
+    const STATUS_PENDING = "P";
+    const STATUS_REFUSED = "R";
+    const STATUS_VALIDATED = "V";
+    
     /**
      * @var int
      *
@@ -111,6 +115,12 @@ class ElectoralList
      * @ORM\Column(name="validationDate", type="datetime", nullable=true)
      */
     private $validationDate;
+    
+    /**
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\City",inversedBy="lists")
+     * @ORM\JoinColumn(nullable=false, onDelete="CASCADE")
+     */
+    private $city;
 
 
     /**
@@ -433,6 +443,21 @@ class ElectoralList
     public function getValidationDate()
     {
         return $this->validationDate;
+    }
+    
+    public function setCity($city)
+    {
+        $this->city = $city;
+    }
+    
+    public function getCity()
+    {
+        return $this->city;
+    }
+    
+    public function isValidated()
+    {
+        return $this->getStatus() == ElectoralList::STATUS_VALIDATED;
     }
 }
 

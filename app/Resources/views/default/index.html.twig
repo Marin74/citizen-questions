@@ -5,26 +5,6 @@
 {% block body %}
 
 
-    <style>
-      .bd-placeholder-img {
-        font-size: 1.125rem;
-        text-anchor: middle;
-        -webkit-user-select: none;
-        -moz-user-select: none;
-        -ms-user-select: none;
-        user-select: none;
-      }
-
-      @media (min-width: 768px) {
-        .bd-placeholder-img-lg {
-          font-size: 3.5rem;
-        }
-      }
-    </style>
-    <!-- Custom styles for this template -->
-    <link href="product.css" rel="stylesheet">
-  </head>
-  <body>
     <nav class="site-header sticky-top py-1">
   <div class="container d-flex flex-column flex-md-row justify-content-between">
     <a class="py-2" href="#">
@@ -42,13 +22,15 @@
 
 <div class="position-relative overflow-hidden p-3 p-md-5 m-md-3 text-center bg-light">
   <div class="col-md-5 p-lg-5 mx-auto my-5">
-    <h1 class="display-4 font-weight-normal">Punny headline</h1>
+    <h1 class="display-4 font-weight-normal">{{ app_name }}</h1>
     <p class="lead font-weight-normal">And an even wittier subheading to boot. Jumpstart your marketing efforts with this example based on Apple’s marketing pages.</p>
     <a class="btn btn-outline-secondary" href="#">Coming soon</a>
   </div>
   <div class="product-device shadow-sm d-none d-md-block"></div>
   <div class="product-device product-device-2 shadow-sm d-none d-md-block"></div>
 </div>
+
+<div id="mapid" style="min-height: 60vh"></div>
 
 <div class="d-md-flex flex-md-equal w-100 my-md-3 pl-md-3">
   <div class="bg-dark mr-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center text-white overflow-hidden">
@@ -118,51 +100,168 @@
   </div>
 </div>
 
-<footer class="container py-5">
-  <div class="row">
-    <div class="col-12 col-md">
-      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="d-block mb-2" role="img" viewBox="0 0 24 24" focusable="false"><title>Product</title><circle cx="12" cy="12" r="10"/><path d="M14.31 8l5.74 9.94M9.69 8h11.48M7.38 12l5.74-9.94M9.69 16L3.95 6.06M14.31 16H2.83m13.79-4l-5.74 9.94"/></svg>
-      <small class="d-block mb-3 text-muted">&copy; 2017-2019</small>
-    </div>
-    <div class="col-6 col-md">
-      <h5>Features</h5>
-      <ul class="list-unstyled text-small">
-        <li><a class="text-muted" href="#">Cool stuff</a></li>
-        <li><a class="text-muted" href="#">Random feature</a></li>
-        <li><a class="text-muted" href="#">Team feature</a></li>
-        <li><a class="text-muted" href="#">Stuff for developers</a></li>
-        <li><a class="text-muted" href="#">Another one</a></li>
-        <li><a class="text-muted" href="#">Last time</a></li>
-      </ul>
-    </div>
-    <div class="col-6 col-md">
-      <h5>Resources</h5>
-      <ul class="list-unstyled text-small">
-        <li><a class="text-muted" href="#">Resource</a></li>
-        <li><a class="text-muted" href="#">Resource name</a></li>
-        <li><a class="text-muted" href="#">Another resource</a></li>
-        <li><a class="text-muted" href="#">Final resource</a></li>
-      </ul>
-    </div>
-    <div class="col-6 col-md">
-      <h5>Resources</h5>
-      <ul class="list-unstyled text-small">
-        <li><a class="text-muted" href="#">Business</a></li>
-        <li><a class="text-muted" href="#">Education</a></li>
-        <li><a class="text-muted" href="#">Government</a></li>
-        <li><a class="text-muted" href="#">Gaming</a></li>
-      </ul>
-    </div>
-    <div class="col-6 col-md">
-      <h5>About</h5>
-      <ul class="list-unstyled text-small">
-        <li><a class="text-muted" href="#">Team</a></li>
-        <li><a class="text-muted" href="#">Locations</a></li>
-        <li><a class="text-muted" href="#">Privacy</a></li>
-        <li><a class="text-muted" href="#">Terms</a></li>
-      </ul>
-    </div>
-  </div>
-</footer>
+{% endblock %}
 
+{% block js %}
+    <script type="application/javascript">
+
+
+    $(function() {
+        var map = L.map('mapid').setView([{{ map_center }}], {{ map_zoom }});
+        
+        L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={{ mapbox_access_token }}', {
+            maxZoom: 18,
+            attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, ' +
+                '<a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
+                'Imagery © <a href="http://mapbox.com">Mapbox</a>',
+            id: 'mapbox.streets'
+        }).addTo(map);
+
+        // Prevent the zoom when we scroll the webpage
+        map.scrollWheelZoom.disable();
+
+
+
+     	// Control that shows state info on hover
+        var info = L.control();
+        
+        info.onAdd = function (map) {
+    		this._div = L.DomUtil.create('div', 'info');
+    		this.update();
+    		return this._div;
+        };
+        
+        info.update = function (props) {
+
+            if(props != null) {
+
+                var name = "";
+                nbLists = "";
+
+                {% for city in cities %}
+                	if(props.insee == '{{ city.insee }}') {
+                    	name = "{{ city.name }}";
+
+                    	{% if city.validatedLists|length > 1 %}
+                    		nbLists = "{{ "nb_lists"|trans({"%nb%": city.validatedLists|length}) }}";
+                		{% else %}
+                			nbLists = "{{ "zero_one_list"|trans({"%nb%": city.validatedLists|length}) }}";
+                    	{% endif %}
+                	}
+                {% endfor %}
+
+
+                this._div.innerHTML = 
+    			'<h5>' + name + '</h5>' + nbLists;
+    			
+    			this._div.style.color = 'black';
+    			this._div.style.backgroundColor = 'grey';
+    			this._div.style.padding = '0px 10px 5px 10px';
+    			this._div.style.borderRadius = '0.5em';
+    			this._div.style.backgroundColor = 'white';
+            }
+        	else {
+        		this._div.innerHTML = "";
+    			this._div.style.backgroundColor = 'transparent';
+    		}
+    	};
+    	
+    	info.addTo(map);
+  	  
+    	
+    	var district_boundary;
+        
+        // Set geojson shapes
+        $.ajax({
+            dataType: "json",
+            url: "{{ asset("bundles/app/cities.geojson") }}",
+            success: function(data) {
+    
+                var multipolygon = L.geoJson(data, {
+                    style: style, onEachFeature: onEachFeature
+                });
+    
+                district_boundary = multipolygon.addTo(map);
+                map.fitBounds(multipolygon.getBounds());
+            }
+        });
+    
+        // Design layout features
+        function onEachFeature(feature, layer) {
+            
+            layer.on({
+                mouseover: highlightFeature,
+                mouseout: resetHighlight,
+                click: zoomToFeature
+            });
+        }
+    
+        function resetHighlight(e) {
+            district_boundary.resetStyle(e.target);
+            info.update();
+        }
+    
+        function zoomToFeature(e) {
+            
+        	var whereToGo = "{{ url("city", {"insee": "XXX", "name": "YYY"}) }}";
+        	{% for city in cities %}
+        		if(e.target.feature.properties.insee == "{{ city.insee }}") {
+                    whereToGo = whereToGo.replace("XXX", "{{ city.insee }}");
+                    whereToGo = whereToGo.replace("YYY", "{{ city.nameForUrl }}");
+        		}
+        	{% endfor %}
+            window.location.href = whereToGo;
+        }
+    
+        function highlightFeature(e) {
+            var layer = e.target;
+    
+            layer.setStyle({
+                weight: 4,
+                color: '#fff',
+                dashArray: '',
+                fillOpacity: 0.7
+            });
+    
+            if (!L.Browser.ie && !L.Browser.opera) {
+                layer.bringToFront();
+            }
+    
+            info.update(layer.feature.properties);
+        }
+    
+        function style(feature) {
+    
+            return {
+                fillColor: getColor(feature.properties.insee),
+                weight: 1,
+                opacity: 1,
+                color: 'white',
+                dashArray: '3',
+                fillOpacity: 0.7
+            };
+        }
+    
+        function getColor(d) {
+
+            {% for city in cities %}
+            	if(d == "{{ city.insee }}") {
+                	{% if city.validatedLists|length > 0 %}
+                		return "green";
+                	{% endif %}
+            	}
+            {% endfor %}
+    
+    	    
+        	
+            return "lightgrey";
+        }
+
+
+
+
+
+
+    });
+    </script>
 {% endblock %}

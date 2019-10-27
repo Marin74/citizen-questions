@@ -41,6 +41,11 @@ class City
      * @ORM\Column(name="creationDate", type="datetime")
      */
     private $creationDate;
+    
+    /**
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\ElectoralList",mappedBy="city")
+     */
+    private $lists;
 
 
     /**
@@ -123,6 +128,86 @@ class City
     public function getCreationDate()
     {
         return $this->creationDate;
+    }
+    
+    public function getLists()
+    {
+        return $this->lists;
+    }
+    
+    public function getNameForUrl()
+    {
+        $name = "-";
+        
+        if(!empty($name)) {
+            $name = strtolower($this->getName());
+            
+            $name = str_replace("'", "", $name);
+            $name = str_replace('"', "", $name);
+            $name = str_replace("/", "", $name);
+            $name = str_replace("|", "", $name);
+            $name = str_replace('\\', "", $name);
+            $name = str_replace('?', "", $name);
+            $name = str_replace('!', "", $name);
+            $name = str_replace('(', "", $name);
+            $name = str_replace(')', "", $name);
+            $name = str_replace('°', "", $name);
+            $name = str_replace('&', "", $name);
+            $name = str_replace('§', "", $name);
+            $name = str_replace('*', "", $name);
+            $name = str_replace('%', "", $name);
+            $name = str_replace(':', "", $name);
+            $name = str_replace(',', "", $name);
+            $name = str_replace('=', "", $name);
+            $name = str_replace('+', "", $name);
+            $name = str_replace('%', "", $name);
+            $name = str_replace('.', "", $name);
+            $name = str_replace('<', "", $name);
+            $name = str_replace('>', "", $name);
+            $name = str_replace('@', "", $name);
+            $name = str_replace('#', "", $name);
+            
+            $name = str_replace("é", "e", $name);
+            $name = str_replace("è", "e", $name);
+            $name = str_replace("ê", "e", $name);
+            $name = str_replace("ë", "e", $name);
+            $name = str_replace("â", "a", $name);
+            $name = str_replace("à", "a", $name);
+            $name = str_replace("ä", "a", $name);
+            $name = str_replace("ô", "o", $name);
+            $name = str_replace("ö", "o", $name);
+            $name = str_replace("ù", "u", $name);
+            $name = str_replace("ü", "u", $name);
+            $name = str_replace("î", "i", $name);
+            $name = str_replace("ï", "i", $name);
+            $name = str_replace("ç", "c", $name);
+            $name = str_replace("æ", "ae", $name);
+            $name = str_replace("œ", "oe", $name);
+            
+            $name = trim($name);
+            
+            $name = str_replace(" ", "-", $name);
+            
+            while(strpos($name, "--") !== false) {
+                
+                $name = str_replace("--", "-", $name);
+            }
+        }
+        
+        return $name;
+    }
+    
+    public function getValidatedLists()
+    {
+        $lists = array();
+        
+        foreach($this->getLists() as $list) {
+            if($list->isValidated()) {
+                $lists[] = $list;
+            }
+        }
+        
+        return $lists;
     }
 }
 
