@@ -17,6 +17,17 @@
     
     <div id="map" style="min-height: 80vh"></div>
     
+    {% if lists|length > 0 %}
+    	<div class="px-3 py-3 pt-md-5 pb-md-4 mx-auto">
+    	
+        	<h2>{{ "last_lists"|trans }}</h2>
+        
+    		{% for list in lists %}
+    			<a href="{{ url("list", {"id": list.id, "name": list.nameForUrl}) }}"><h3>{{ list.name }} - {{ list.city.name }}</h3></a>
+    		{% endfor %}
+    	</div>
+    {% endif %}
+    
     <!-- 
     <div class="d-md-flex flex-md-equal w-100 my-md-3 pl-md-3">
       <div class="bg-dark mr-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center text-white overflow-hidden">
@@ -247,7 +258,6 @@
             	if(d == "{{ city.insee }}") {
                 	{% if city.validatedLists|length > 0 %}
                 	return colors[{{ loop.index0 }}%colors.length];
-                		//return "green";
                 	{% endif %}
             	}
             {% endfor %}

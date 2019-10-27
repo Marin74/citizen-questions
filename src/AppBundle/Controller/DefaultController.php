@@ -16,11 +16,14 @@ class DefaultController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $repoCity = $em->getRepository("AppBundle:City");
+        $repoElectoralList = $em->getRepository("AppBundle:ElectoralList");
         
         $cities = $repoCity->findAll();
+        $lists = $repoElectoralList->findBy(array("status" => ElectoralList::STATUS_VALIDATED), array("validationDate" => "DESC"), 10);
         
         return $this->render('default/index.html.twig', [
-            "cities"    => $cities
+            "cities"    => $cities,
+            "lists"     => $lists
         ]);
     }
     
