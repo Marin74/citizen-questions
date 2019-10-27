@@ -1,0 +1,143 @@
+{% extends "base.html.twig" %}
+
+{% block title %}{% if list is not null %}{{ list.name }} - {{ parent() }}{% endif %}{% endblock %}
+
+{% block body %}
+
+	{% if list is null %}
+		<div class="px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
+          <h1 class="display-4">{{ "unknown_list"|trans }}</h1>
+        </div>
+	{% else %}
+
+        <div class="px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
+          <h1 class="display-4">{{ list.name }}</h1>
+          <p class="lead">
+            {{ "list_led_by"|trans({"%name%": list.fistnameHeadOfList~" "~list.lastnameHeadOfList}) }}
+            {% if list.supportedBy is not null and list.supportedBy|trim != "" %}
+            	<br/>
+            	{{ "supported_by"|trans({"%text%": list.supportedBy}) }}
+            {% endif %}
+          </p>
+        </div>
+
+		{% for answer in list.generalAnswers %}
+            <div class="px-3 py-3 pt-md-5 pb-md-4 mx-auto">
+    			<h2>{{ answer.question.text }}</h2>
+    			<p>
+    				{{ answer.text|nl2br }}
+    			</p>
+            </div>
+        {% endfor %}
+
+		{% for answer in list.cityAnswers %}
+            <div class="px-3 py-3 pt-md-5 pb-md-4 mx-auto">
+    			<h2>{{ answer.question.text }}</h2>
+    			<p>
+    				{{ answer.text }}
+    			</p>
+            </div>
+        {% endfor %}
+        
+        <div id="map" style="min-height: 50vh"></div>
+	{% endif %}
+{% endblock %}
+
+{% block js %}
+    <script type="application/javascript">
+
+    {% if list is not null %}
+        $(function() {
+            var map = L.map('map').setView([{{ map_center }}], {{ map_zoom }});
+            
+            L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={{ mapbox_access_token }}', {
+                maxZoom: 18,
+                attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, ' +
+                    '<a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
+                    'Imagery © <a href="http://mapbox.com">Mapbox</a>',
+                id: 'mapbox.streets'
+            }).addTo(map);
+    
+            // Prevent the zoom when we scroll the webpage
+            map.scrollWheelZoom.disable();
+    
+    
+    
+         	// Control that shows state info on hover
+            var info = L.control();
+            
+            info.onAdd = function (map) {
+        		this._div = L.DomUtil.create('div', 'info');
+        		this.update();
+        		return this._div;
+            };
+            
+            info.update = function (props) {
+    
+            	this._div.innerHTML = "";
+    			this._div.style.backgroundColor = 'transparent';
+        	};
+        	
+        	info.addTo(map);
+      	  
+        	
+        	var district_boundary;
+            
+            // Set geojson shapes
+            $.ajax({
+                dataType: "json",
+                url: "{{ asset("bundles/app/cities.geojson") }}",
+                success: function(data) {
+        
+                    var multipolygon = L.geoJson(data, {
+                        style: style, onEachFeature: onEachFeature
+                    });
+        
+                    district_boundary = multipolygon.addTo(map);
+                    map.fitBounds(multipolygon.getBounds());
+                }
+            });
+        
+            // Design layout features
+            function onEachFeature(feature, layer) {
+                
+                layer.on({
+                    mouseover: highlightFeature,
+                    mouseout: resetHighlight
+                });
+            }
+        
+            function resetHighlight(e) {
+            }
+        
+            function highlightFeature(e) {
+            }
+        
+            function style(feature) {
+        
+                return {
+                    fillColor: getColor(feature.properties.insee),
+                    weight: 1,
+                    opacity: 1,
+                    color: 'white',
+                    dashArray: '3',
+                    fillOpacity: 0.7
+                };
+            }
+        
+            function getColor(d) {
+    
+            	if(d == "{{ list.city.insee }}") {
+                	return "#238b45";
+            	}
+        
+        	    
+            	
+                return "#f0f0f0";
+            }
+    
+    
+        });
+    {% endif %}
+    </script>
+{% endblock %}

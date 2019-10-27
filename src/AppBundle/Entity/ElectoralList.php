@@ -121,6 +121,18 @@ class ElectoralList
      * @ORM\JoinColumn(nullable=false, onDelete="CASCADE")
      */
     private $city;
+    
+    /**
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Answer",mappedBy="list")
+     */
+    private $answers;
+    
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="creationDate", type="datetime")
+     */
+    private $creationDate;
 
 
     /**
@@ -458,6 +470,123 @@ class ElectoralList
     public function isValidated()
     {
         return $this->getStatus() == ElectoralList::STATUS_VALIDATED;
+    }
+    
+    public function getNameForUrl()
+    {
+        $name = "-";
+        
+        if(!empty($name)) {
+            $name = strtolower($this->getName());
+            
+            $name = str_replace("'", "", $name);
+            $name = str_replace('"', "", $name);
+            $name = str_replace("/", "", $name);
+            $name = str_replace("|", "", $name);
+            $name = str_replace('\\', "", $name);
+            $name = str_replace('?', "", $name);
+            $name = str_replace('!', "", $name);
+            $name = str_replace('(', "", $name);
+            $name = str_replace(')', "", $name);
+            $name = str_replace('°', "", $name);
+            $name = str_replace('&', "", $name);
+            $name = str_replace('§', "", $name);
+            $name = str_replace('*', "", $name);
+            $name = str_replace('%', "", $name);
+            $name = str_replace(':', "", $name);
+            $name = str_replace(',', "", $name);
+            $name = str_replace('=', "", $name);
+            $name = str_replace('+', "", $name);
+            $name = str_replace('%', "", $name);
+            $name = str_replace('.', "", $name);
+            $name = str_replace('<', "", $name);
+            $name = str_replace('>', "", $name);
+            $name = str_replace('@', "", $name);
+            $name = str_replace('#', "", $name);
+            
+            $name = str_replace("é", "e", $name);
+            $name = str_replace("è", "e", $name);
+            $name = str_replace("ê", "e", $name);
+            $name = str_replace("ë", "e", $name);
+            $name = str_replace("â", "a", $name);
+            $name = str_replace("à", "a", $name);
+            $name = str_replace("ä", "a", $name);
+            $name = str_replace("ô", "o", $name);
+            $name = str_replace("ö", "o", $name);
+            $name = str_replace("ù", "u", $name);
+            $name = str_replace("ü", "u", $name);
+            $name = str_replace("î", "i", $name);
+            $name = str_replace("ï", "i", $name);
+            $name = str_replace("ç", "c", $name);
+            $name = str_replace("æ", "ae", $name);
+            $name = str_replace("œ", "oe", $name);
+            
+            $name = trim($name);
+            
+            $name = str_replace(" ", "-", $name);
+            
+            while(strpos($name, "--") !== false) {
+                
+                $name = str_replace("--", "-", $name);
+            }
+        }
+        
+        return $name;
+    }
+    
+    public function getAnswers()
+    {
+        return $this->answers;
+    }
+    
+    public function getCityAnswers()
+    {
+        $answers = array();
+        
+        foreach($this->getAnswers() as $answer) {
+            if($answer->getQuestion()->getCity() != null) {
+                $answers[] = $answer;
+            }
+        }
+        
+        return $answers;
+    }
+    
+    public function getGeneralAnswers()
+    {
+        $answers = array();
+        
+        foreach($this->getAnswers() as $answer) {
+            if($answer->getQuestion()->getCity() == null) {
+                $answers[] = $answer;
+            }
+        }
+        
+        return $answers;
+    }
+    
+    /**
+     * Set creationDate
+     *
+     * @param \DateTime $creationDate
+     *
+     * @return ElectoralList
+     */
+    public function setCreationDate($creationDate)
+    {
+        $this->creationDate = $creationDate;
+        
+        return $this;
+    }
+    
+    /**
+     * Get creationDate
+     *
+     * @return \DateTime
+     */
+    public function getCreationDate()
+    {
+        return $this->creationDate;
     }
 }
 

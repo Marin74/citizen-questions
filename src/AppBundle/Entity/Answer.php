@@ -48,6 +48,18 @@ class Answer
      * @ORM\Column(name="creationDate", type="datetime")
      */
     private $creationDate;
+    
+    /**
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\ElectoralList",inversedBy="answers")
+     * @ORM\JoinColumn(nullable=false, onDelete="CASCADE")
+     */
+    private $list;
+    
+    /**
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Question",inversedBy="answers")
+     * @ORM\JoinColumn(nullable=false, onDelete="CASCADE")
+     */
+    private $question;
 
 
     /**
@@ -154,6 +166,30 @@ class Answer
     public function getCreationDate()
     {
         return $this->creationDate;
+    }
+    
+    public function setList($list)
+    {
+        $this->list = $list;
+        
+        return $this;
+    }
+    
+    public function getList()
+    {
+        return $this->list;
+    }
+    
+    public function setQuestion($question)
+    {
+        $this->question = $question;
+        
+        return $this;
+    }
+    
+    public function getQuestion()
+    {
+        return $this->question;
     }
 }
 

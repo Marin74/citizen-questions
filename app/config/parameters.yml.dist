@@ -21,4 +21,4 @@ parameters:
     name: ~
     mapbox_access_token: ~
     map_center: ~
-    map_zoom: 10
+    map_zoom: 8

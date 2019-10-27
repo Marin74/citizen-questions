@@ -41,6 +41,17 @@ class Question
      * @ORM\Column(name="isPriority", type="boolean")
      */
     private $isPriority;
+    
+    /**
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Answer",mappedBy="question")
+     */
+    private $answers;
+    
+    /**
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\City",inversedBy="questions")
+     * @ORM\JoinColumn(nullable=true, onDelete="CASCADE")
+     */
+    private $city;
 
     /**
      * @var \DateTime
@@ -154,6 +165,23 @@ class Question
     public function getCreationDate()
     {
         return $this->creationDate;
+    }
+    
+    public function getAnswers()
+    {
+        return $this->answers;
+    }
+    
+    public function setCity($city)
+    {
+        $this->city = $city;
+        
+        return $this;
+    }
+    
+    public function getCity()
+    {
+        return $this->city;
     }
 }
 

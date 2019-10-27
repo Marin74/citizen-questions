@@ -3,3 +3,12 @@ legal_terms: Mentions légales
 contact: Contact
 zero_one_list: "%nb% liste"
 nb_lists: "%nb% listes"
+show_answers: Découvrir les réponses
+subtitle: "Les citoyens du Chablais blablabla blablabla...."
+encourage_lists: Encouragez les listes de votre commune à répondre aux questions des citoyens !
+list_led_by: "Conduite par %name%"
+no_list: Aucune liste pour le moment
+unknown_city: Commune inconnue
+lists_that_answered: "Listes qui ont répondu :"
+unknown_list: Liste inconnue
+supported_by: "Liste soutenue par %text%"

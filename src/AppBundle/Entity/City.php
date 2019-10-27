@@ -46,6 +46,11 @@ class City
      * @ORM\OneToMany(targetEntity="AppBundle\Entity\ElectoralList",mappedBy="city")
      */
     private $lists;
+    
+    /**
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Question",mappedBy="city")
+     */
+    private $questions;
 
 
     /**
@@ -208,6 +213,11 @@ class City
         }
         
         return $lists;
+    }
+    
+    public function getQuestions()
+    {
+        return $this->questions;
     }
 }
 
