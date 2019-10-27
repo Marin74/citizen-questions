@@ -22,3 +22,4 @@ parameters:
     mapbox_access_token: ~
     map_center: ~
     map_zoom: 8
+    piwik_url: ~

@@ -40,6 +40,7 @@ twig:
         mapbox_access_token: "%mapbox_access_token%"
         map_center: "%map_center%"
         map_zoom: "%map_zoom%"
+        piwik_url: "%piwik_url%"
 
 # Doctrine Configuration
 doctrine:
