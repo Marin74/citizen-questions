@@ -49,20 +49,6 @@ class ElectoralList
     /**
      * @var string
      *
-     * @ORM\Column(name="website", type="string", length=255, nullable=true)
-     */
-    private $website;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="facebook", type="string", length=255, nullable=true)
-     */
-    private $facebook;
-
-    /**
-     * @var string
-     *
      * @ORM\Column(name="supportedBy", type="string", length=255, nullable=true)
      */
     private $supportedBy;
@@ -215,54 +201,6 @@ class ElectoralList
     public function getLastnameHeadOfList()
     {
         return $this->lastnameHeadOfList;
-    }
-
-    /**
-     * Set website
-     *
-     * @param string $website
-     *
-     * @return ElectoralList
-     */
-    public function setWebsite($website)
-    {
-        $this->website = $website;
-
-        return $this;
-    }
-
-    /**
-     * Get website
-     *
-     * @return string
-     */
-    public function getWebsite()
-    {
-        return $this->website;
-    }
-
-    /**
-     * Set facebook
-     *
-     * @param string $facebook
-     *
-     * @return ElectoralList
-     */
-    public function setFacebook($facebook)
-    {
-        $this->facebook = $facebook;
-
-        return $this;
-    }
-
-    /**
-     * Get facebook
-     *
-     * @return string
-     */
-    public function getFacebook()
-    {
-        return $this->facebook;
     }
 
     /**

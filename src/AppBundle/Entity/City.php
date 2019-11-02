@@ -44,11 +44,13 @@ class City
     
     /**
      * @ORM\OneToMany(targetEntity="AppBundle\Entity\ElectoralList",mappedBy="city")
+     * @ORM\OrderBy({"id" = "ASC"})
      */
     private $lists;
     
     /**
      * @ORM\OneToMany(targetEntity="AppBundle\Entity\Question",mappedBy="city")
+     * @ORM\OrderBy({"id" = "ASC"})
      */
     private $questions;
 

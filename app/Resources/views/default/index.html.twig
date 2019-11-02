@@ -27,9 +27,75 @@
         	<h2>{{ "last_lists"|trans }}</h2>
         
     		{% for list in lists %}
-    			<a href="{{ url("list", {"id": list.id, "name": list.nameForUrl}) }}"><h3>{{ list.name }} - {{ list.city.name }}</h3></a>
+    			<h3><a href="{{ url("city", {"insee": list.city.insee, "name": list.city.nameForUrl}) }}">{{ list.city.name }}</a> - <a href="{{ url("list", {"id": list.id, "name": list.nameForUrl}) }}">{{ list.name }}</a></h3>
     		{% endfor %}
     	</div>
+    {% endif %}
+    
+    {% if cities|length > 0 %}
+    	<div class="px-3 py-3 mx-auto">
+    	
+        	<h2>{{ "cities"|trans }}</h2>
+    	</div>
+    	
+    	{% set nbOnEachLine = (cities|length/3)|round(0, 'floor') %}
+    	
+    	{% set nbLine1 = nbOnEachLine %}
+    	{% set nbLine2 = nbOnEachLine %}
+    	{% set nbLine3 = nbOnEachLine %}
+    	
+    	{% set rest = cities|length%3 %}
+    	
+    	{% if rest == 1 %}
+    	    {% set nbLine1 = nbLine1 + 1 %}
+	    {% elseif rest == 2 %}
+    	    {% set nbLine1 = nbLine1 + 1 %}
+    	    {% set nbLine2 = nbLine2 + 1 %}
+	    {% endif %}
+    		
+    	
+        <div class="container">
+      	  <div class="row">
+            <div class="col-6 col-md">
+              <ul class="list-unstyled text-small">
+              	
+        	    {% for i in 0..(nbLine1-1) %}
+                	<li>{{ i+1 }}
+                		<a href="{{ url("city", {"insee": cities[i].insee, "name": cities[i].nameForUrl}) }}">{{ cities[i].name }}</a>
+                	</li>
+                {% endfor %}
+              </ul>
+            </div>
+            
+            <div class="col-6 col-md">
+              <ul class="list-unstyled text-small">
+              	{% if nbLine2 == 0 %}
+                	<li></li>
+            	{% else %}
+            	    {% for i in nbLine1..(nbLine1+nbLine2-1) %}
+                    	<li>{{ i+1 }}
+                    		<a href="{{ url("city", {"insee": cities[i].insee, "name": cities[i].nameForUrl}) }}">{{ cities[i].name }}</a>
+                    	</li>
+                    {% endfor %}
+                {% endif %}
+              </ul>
+            </div>
+            
+            <div class="col-6 col-md">
+              <ul class="list-unstyled text-small">
+              	{% if nbLine3 == 0 %}
+                	<li></li>
+            	{% else %}
+            	    {% for i in (nbLine1+nbLine2)..(cities|length-1) %}
+                    	<li>{{ i+1 }}
+                    		<a href="{{ url("city", {"insee": cities[i].insee, "name": cities[i].nameForUrl}) }}">{{ cities[i].name }}</a>
+                    	</li>
+                    {% endfor %}
+                {% endif %}
+              </ul>
+            </div>	
+          </div>
+        </div>
     {% endif %}
     
     <!-- 

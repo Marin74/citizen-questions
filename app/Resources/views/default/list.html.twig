@@ -41,16 +41,12 @@
         			</p>
                 {% endfor %}
         
-        		{% if list.cityAnswers|length > 0 %}
-        			<h2><em>{{ "city_questions"|trans({"%name%": list.city.name}) }}</em></h2>
-        			
-            		{% for answer in list.cityAnswers %}
-            			<h2>{{ answer.question.text }}</h2>
-            			<p>
-                            {{ answer.text|nl2br }}
-            			</p>
-                    {% endfor %}
-                    {% endif %}
+        		{% for answer in list.cityAnswers %}
+        			<h2>{{ answer.question.text }}</h2>
+        			<p>
+                        {{ answer.text|nl2br }}
+        			</p>
+                {% endfor %}
             </div>
         {% endif %}
         

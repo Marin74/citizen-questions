@@ -13,7 +13,7 @@ lists_that_answered: "Listes qui ont répondu :"
 unknown_list: Liste inconnue
 supported_by: "Liste soutenue par %text%"
 homepage: Accueil
-city_questions: "Questions spéciales pour %name%"
 last_lists: "Dernières listes qui ont répondu :"
 answer_as_a_list: Répondre au nom d'une liste
 are_you_candidate: "Vous êtes candidat(e) ?"
+cities: Communes
