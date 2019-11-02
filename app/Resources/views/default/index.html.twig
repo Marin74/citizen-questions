@@ -57,10 +57,10 @@
         <div class="container">
       	  <div class="row">
             <div class="col-6 col-md">
-              <ul class="list-unstyled text-small">
+              <ul class="text-small">
               	
         	    {% for i in 0..(nbLine1-1) %}
-                	<li>{{ i+1 }}
+                	<li>
                 		<a href="{{ url("city", {"insee": cities[i].insee, "name": cities[i].nameForUrl}) }}">{{ cities[i].name }}</a>
                 	</li>
                 {% endfor %}
@@ -68,12 +68,12 @@
             </div>
             
             <div class="col-6 col-md">
-              <ul class="list-unstyled text-small">
+              <ul class="text-small">
               	{% if nbLine2 == 0 %}
                 	<li></li>
             	{% else %}
             	    {% for i in nbLine1..(nbLine1+nbLine2-1) %}
-                    	<li>{{ i+1 }}
+                    	<li>
                     		<a href="{{ url("city", {"insee": cities[i].insee, "name": cities[i].nameForUrl}) }}">{{ cities[i].name }}</a>
                     	</li>
                     {% endfor %}
@@ -82,13 +82,13 @@
             </div>
             
             <div class="col-6 col-md">
-              <ul class="list-unstyled text-small">
+              <ul class="text-small">
               	{% if nbLine3 == 0 %}
                 	<li></li>
             	{% else %}
             	    {% for i in (nbLine1+nbLine2)..(cities|length-1) %}
-                    	<li>{{ i+1 }}
-                    		<a href="{{ url("city", {"insee": cities[i].insee, "name": cities[i].nameForUrl}) }}">{{ cities[i].name }}</a>
+                    	<li>
+                    		<a href="{{ url("city", {"insee": cities[i].insee, "name": cities[i].nameForUrl}) }}" {% if cities[i].validatedLists|length > 0 %}style="color: #41ab5d;"{% endif %}>{{ cities[i].name }}</a>
                     	</li>
                     {% endfor %}
                 {% endif %}
@@ -97,93 +97,11 @@
           </div>
         </div>
     {% endif %}
-    
-    <!-- 
-    <div class="d-md-flex flex-md-equal w-100 my-md-3 pl-md-3">
-      <div class="bg-dark mr-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center text-white overflow-hidden">
-        <div class="my-3 py-3">
-          <h2 class="display-5">Another headline</h2>
-          <p class="lead">And an even wittier subheading.</p>
-        </div>
-        <div class="bg-light shadow-sm mx-auto" style="width: 80%; height: 300px; border-radius: 21px 21px 0 0;"></div>
-      </div>
-      <div class="bg-light mr-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center overflow-hidden">
-        <div class="my-3 p-3">
-          <h2 class="display-5">Another headline</h2>
-          <p class="lead">And an even wittier subheading.</p>
-        </div>
-        <div class="bg-dark shadow-sm mx-auto" style="width: 80%; height: 300px; border-radius: 21px 21px 0 0;"></div>
-      </div>
-    </div>
-    
-    <div class="d-md-flex flex-md-equal w-100 my-md-3 pl-md-3">
-      <div class="bg-light mr-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center overflow-hidden">
-        <div class="my-3 p-3">
-          <h2 class="display-5">Another headline</h2>
-          <p class="lead">And an even wittier subheading.</p>
-        </div>
-        <div class="bg-dark shadow-sm mx-auto" style="width: 80%; height: 300px; border-radius: 21px 21px 0 0;"></div>
-      </div>
-      <div class="bg-primary mr-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center text-white overflow-hidden">
-        <div class="my-3 py-3">
-          <h2 class="display-5">Another headline</h2>
-          <p class="lead">And an even wittier subheading.</p>
-        </div>
-        <div class="bg-light shadow-sm mx-auto" style="width: 80%; height: 300px; border-radius: 21px 21px 0 0;"></div>
-      </div>
-    </div>
-    
-    <div class="d-md-flex flex-md-equal w-100 my-md-3 pl-md-3">
-      <div class="bg-light mr-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center overflow-hidden">
-        <div class="my-3 p-3">
-          <h2 class="display-5">Another headline</h2>
-          <p class="lead">And an even wittier subheading.</p>
-        </div>
-        <div class="bg-white shadow-sm mx-auto" style="width: 80%; height: 300px; border-radius: 21px 21px 0 0;"></div>
-      </div>
-      <div class="bg-light mr-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center overflow-hidden">
-        <div class="my-3 py-3">
-          <h2 class="display-5">Another headline</h2>
-          <p class="lead">And an even wittier subheading.</p>
-        </div>
-        <div class="bg-white shadow-sm mx-auto" style="width: 80%; height: 300px; border-radius: 21px 21px 0 0;"></div>
-      </div>
-    </div>
-    
-    <div class="d-md-flex flex-md-equal w-100 my-md-3 pl-md-3">
-      <div class="bg-light mr-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center overflow-hidden">
-        <div class="my-3 p-3">
-          <h2 class="display-5">Another headline</h2>
-          <p class="lead">And an even wittier subheading.</p>
-        </div>
-        <div class="bg-white shadow-sm mx-auto" style="width: 80%; height: 300px; border-radius: 21px 21px 0 0;"></div>
-      </div>
-      <div class="bg-light mr-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center overflow-hidden">
-        <div class="my-3 py-3">
-          <h2 class="display-5">Another headline</h2>
-          <p class="lead">And an even wittier subheading.</p>
-        </div>
-        <div class="bg-white shadow-sm mx-auto" style="width: 80%; height: 300px; border-radius: 21px 21px 0 0;"></div>
-      </div>
-    </div>-->
 	
 {% endblock %}
 
 {% block js %}
     <script type="application/javascript">
-
-    // http://colorbrewer2.org/#type=sequential&scheme=Greens&n=9
-    var colors = [
-		//"#f7fcf5",
-		"#e5f5e0",
-		"#c7e9c0",
-		"#a1d99b",
-		"#74c476",
-		"#41ab5d",
-		"#238b45",
-		"#006d2c",
-		"#00441b"
-    ];
 
 
     $(function() {
@@ -223,9 +141,9 @@
                     	name = "{{ city.name }}";
 
                     	{% if city.validatedLists|length > 1 %}
-                    		nbLists = "{{ "nb_lists"|trans({"%nb%": city.validatedLists|length}) }}";
+                    		nbLists = "{{ "nb_answers"|trans({"%nb%": city.validatedLists|length}) }}";
                 		{% else %}
-                			nbLists = "{{ "zero_one_list"|trans({"%nb%": city.validatedLists|length}) }}";
+                			nbLists = "{{ "zero_one_answer"|trans({"%nb%": city.validatedLists|length}) }}";
                     	{% endif %}
                 	}
                 {% endfor %}
@@ -325,16 +243,17 @@
         function getColor(d) {
 
             {% for city in cities %}
+            	
             	if(d == "{{ city.insee }}") {
                 	{% if city.validatedLists|length > 0 %}
-                	return colors[{{ loop.index0 }}%colors.length];
+                		return "#41ab5d";
                 	{% endif %}
             	}
             {% endfor %}
     
     	    
         	
-            return "#f0f0f0";
+            return "#cccccc";
         }
 
 
