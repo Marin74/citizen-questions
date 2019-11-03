@@ -23,7 +23,7 @@
           	{{ "encourage_lists"|trans }}
           </p>
         </div>
-        {% if city.lists|length == 0 %}
+        {% if city.validatedLists|length == 0 %}
             <div class="px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
         		<h2>{{ "no_list"|trans }}</h2>
             </div>
@@ -34,8 +34,50 @@
             
         		{% for list in city.validatedLists %}
         			<a href="{{ url("list", {"id": list.id, "name": list.nameForUrl}) }}"><h3>{{ list.name }}</h3></a>
-{{ "list_led_by"|trans({"%name1%": list.firstnameHeadOfList1~" "~list.lastnameHeadOfList1, "%name2%": list.firstnameHeadOfList2~" "~list.lastnameHeadOfList2}) }}
+                    {{ "list_led_by"|trans({"%name1%": list.firstnameHeadOfList1~" "~list.lastnameHeadOfList1, "%name2%": list.firstnameHeadOfList2~" "~list.lastnameHeadOfList2}) }}
         		{% endfor %}
+        	</div>
+        	
+        	<div class="px-3 py-3 pb-md-4 mx-auto">
+        	
+            	<h2>{{ "answers"|trans }}</h2>
+            	
+            	{% for question in questions %}
+            		<h3>{{ question.text }}</h3>
+            
+            		{% for list in city.validatedLists %}
+            			{% for answer in list.answers %}
+            				{% if answer.question.id == question.id %}
+            					
+                    			<a href="{{ url("list", {"id": list.id, "name": list.nameForUrl}) }}"><strong>{{ list.name }}</strong></a> - {{ "list_led_by"|trans({"%name1%": list.firstnameHeadOfList1~" "~list.lastnameHeadOfList1, "%name2%": list.firstnameHeadOfList2~" "~list.lastnameHeadOfList2}) }}
+                                
+                                <ul>
+                    				<li>
+                    					{% if answer.inProgram %}
+                    					    <strong><span style="color: #41ab5d;">{{ "in_program"|trans }}</span></strong>
+                    					{% else %}
+                    					    <span style="color: #3182bd;">{{ "not_in_program"|trans }}</span>
+                    					{% endif %}
+                    				</li>
+                    				{% if answer.inProgram %}
+                    					<li>
+                        					{% if answer.isPriority %}
+                        					    <strong><span style="color: #41ab5d;">{{ "is_priority"|trans }}</span></strong>
+                        					{% else %}
+                        					    <span style="color: #3182bd;">{{ "is_not_priority"|trans }}</span>
+                        					{% endif %}
+                        				</li>
+                    				{% endif %}
+                    			</ul>
+                    			{% if answer.text is not empty %}
+                        			<p>
+                        				<em>{{ answer.text|nl2br }}</em>
+                        			</p>
+                    			{% endif %}
+            				{% endif %}
+            			{% endfor %}
+            		{% endfor %}
+            	{% endfor %}
         	</div>
     	{% endif %}
         

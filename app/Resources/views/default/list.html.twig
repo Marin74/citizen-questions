@@ -36,16 +36,56 @@
             <div class="px-3 py-3 pt-md-5 pb-md-4 mx-auto">
         		{% for answer in list.generalAnswers %}
         			<h2>{{ answer.question.text }}</h2>
-        			<p>
-        				{{ answer.text|nl2br }}
-        			</p>
+        			<ul>
+        				<li>
+        					{% if answer.inProgram %}
+        					    {{ "in_program"|trans }}
+        					{% else %}
+        					    {{ "not_in_program"|trans }}
+        					{% endif %}
+        				</li>
+        				{% if answer.inProgram %}
+        					<li>
+            					{% if answer.isPriority %}
+            					    {{ "is_priority"|trans }}
+            					{% else %}
+            					    {{ "is_not_priority"|trans }}
+            					{% endif %}
+            				</li>
+        				{% endif %}
+        			</ul>
+        			{% if answer.text is not empty %}
+            			<p>
+            				<em>{{ answer.text|nl2br }}</em>
+            			</p>
+        			{% endif %}
                 {% endfor %}
         
         		{% for answer in list.cityAnswers %}
         			<h2>{{ answer.question.text }}</h2>
-        			<p>
-                        {{ answer.text|nl2br }}
-        			</p>
+        			<ul>
+        				<li>
+        					{% if answer.inProgram %}
+        					    {{ "in_program"|trans }}
+        					{% else %}
+        					    {{ "not_in_program"|trans }}
+        					{% endif %}
+        				</li>
+        				{% if answer.inProgram %}
+        					<li>
+            					{% if answer.isPriority %}
+            					    {{ "is_priority"|trans }}
+            					{% else %}
+            					    {{ "is_not_priority"|trans }}
+            					{% endif %}
+            				</li>
+        				{% endif %}
+        			</ul>
+        			{% if answer.text is not empty %}
+            			<p>
+            				<em>{{ answer.text|nl2br }}</em>
+            			</p>
+        			{% endif %}
                 {% endfor %}
             </div>
         {% endif %}

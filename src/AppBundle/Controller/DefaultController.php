@@ -34,11 +34,21 @@ class DefaultController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $repoCity = $em->getRepository("AppBundle:City");
+        $repoQuestion = $em->getRepository("AppBundle:Question");
         
         $city = $repoCity->findOneByInsee($request->get("insee"));
+        $generalQuestions = $repoQuestion->findBy(array("city" => null));
+        $cityQuestions = array();
+        
+        if($city != null) {
+            $cityQuestions = $repoQuestion->findBy(array("city" => $city));
+        }
+        
+        $questions = array_merge($generalQuestions, $cityQuestions);
         
         return $this->render('default/city.html.twig', [
-            "city"  => $city
+            "city"      => $city,
+            "questions" => $questions
         ]);
     }
     

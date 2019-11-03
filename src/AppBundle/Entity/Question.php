@@ -27,20 +27,6 @@ class Question
      * @ORM\Column(name="text", type="text")
      */
     private $text;
-
-    /**
-     * @var bool
-     *
-     * @ORM\Column(name="inProgram", type="boolean")
-     */
-    private $inProgram;
-
-    /**
-     * @var bool
-     *
-     * @ORM\Column(name="isPriority", type="boolean")
-     */
-    private $isPriority;
     
     /**
      * @ORM\OneToMany(targetEntity="AppBundle\Entity\Answer",mappedBy="question")
@@ -93,54 +79,6 @@ class Question
     public function getText()
     {
         return $this->text;
-    }
-
-    /**
-     * Set inProgram
-     *
-     * @param boolean $inProgram
-     *
-     * @return Question
-     */
-    public function setInProgram($inProgram)
-    {
-        $this->inProgram = $inProgram;
-
-        return $this;
-    }
-
-    /**
-     * Get inProgram
-     *
-     * @return bool
-     */
-    public function getInProgram()
-    {
-        return $this->inProgram;
-    }
-
-    /**
-     * Set isPriority
-     *
-     * @param boolean $isPriority
-     *
-     * @return Question
-     */
-    public function setIsPriority($isPriority)
-    {
-        $this->isPriority = $isPriority;
-
-        return $this;
-    }
-
-    /**
-     * Get isPriority
-     *
-     * @return bool
-     */
-    public function getIsPriority()
-    {
-        return $this->isPriority;
     }
 
     /**
