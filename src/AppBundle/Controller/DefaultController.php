@@ -75,11 +75,14 @@ class DefaultController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $repoCity = $em->getRepository("AppBundle:City");
+        $repoQuestion = $em->getRepository("AppBundle:Question");
         
         $cities = $repoCity->findBy(array(), array("name" => "ASC"));
+        $questions = $repoQuestion->findBy(array("city" => null));
         
         return $this->render('default/answer_form.html.twig', [
-            "cities"    => $cities
+            "cities"    => $cities,
+            "questions" => $questions
         ]);
     }
     

@@ -5,7 +5,7 @@ zero_one_answer: "%nb% réponse"
 nb_answers: "%nb% réponses"
 show_answers: Découvrir les réponses
 subtitle: "Les citoyens du Chablais blablabla blablabla...."
-encourage_lists: Encouragez les listes de votre commune à répondre aux questions des citoyens !
+encourage_lists: "Encouragez les listes de votre commune à répondre aux questions des citoyens !"
 list_led_by: "Conduite par %name1% et %name2%"
 no_list: Aucune liste pour le moment
 unknown_city: Commune inconnue
@@ -33,3 +33,25 @@ i_agree: Je suis d'accord
 previous: Précédent
 next: Suivant
 share: "Partagez !"
+form_list_name: Nom de la liste
+firstname: Prénom
+lastname: Nom
+your_name: Votre nom
+your_details: Vos coordonnées
+your_role: Votre rôle
+your_role_hint: "Tête de liste, membre de la liste..."
+phone: Téléphone
+email: Email
+head_of_list1: Nom de la tête de liste
+head_of_list2: Nom de la seconde personne de la liste
+question_step2: "Dans quelle commune se présente votre liste ?"
+question_step3: "Informations sur la liste"
+question_step4: "Informations sur le déclarant"
+question_step4_hint: "Ces informations ne seront pas publiques. Elles sont destinées à vérifier si besoin l'identité du déclarant."
+form_supported_by: "Soutiens déclarés (mouvements, partis politiques) (facultatif)"
+form_supported_by_hint: "Les soutiens déclarés doivent être apportés officiellement."
+answer: Réponse
+answer_text: "Réponse (facultative)"
+program: Programme électoral
+priority: Priorité
+
