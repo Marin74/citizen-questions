@@ -27,7 +27,7 @@
         	<h2>{{ "last_lists"|trans }}</h2>
         
     		{% for list in lists %}
-    			<h3><a href="{{ url("city", {"insee": list.city.insee, "name": list.city.nameForUrl}) }}">{{ list.city.name }}</a> - <a href="{{ url("list", {"id": list.id, "name": list.nameForUrl}) }}">{{ list.name }}</a></h3>
+    			<h4><a href="{{ url("city", {"insee": list.city.insee, "name": list.city.nameForUrl}) }}">{{ list.city.name }}</a> - <a href="{{ url("list", {"id": list.id, "name": list.nameForUrl}) }}">{{ list.name }}</a></h4>
     		{% endfor %}
     	</div>
     {% endif %}
@@ -36,6 +36,7 @@
     	<div class="px-3 py-3 mx-auto">
     	
         	<h2>{{ "cities"|trans }}</h2>
+        	<p><em style="color: #41ab5d;">{{ "color_of_city_with_answer"|trans }}</em> {{ "colored_city_legend"|trans }}</p>
     	</div>
     	
     	{% set nbOnEachLine = (cities|length/3)|round(0, 'floor') %}
@@ -61,7 +62,7 @@
               	
         	    {% for i in 0..(nbLine1-1) %}
                 	<li>
-                		<a href="{{ url("city", {"insee": cities[i].insee, "name": cities[i].nameForUrl}) }}">{{ cities[i].name }}</a>
+                		<a href="{{ url("city", {"insee": cities[i].insee, "name": cities[i].nameForUrl}) }}" {% if cities[i].validatedLists|length > 0 %}style="color: #41ab5d;"{% endif %}>{{ cities[i].name }}</a>
                 	</li>
                 {% endfor %}
               </ul>
@@ -74,7 +75,7 @@
             	{% else %}
             	    {% for i in nbLine1..(nbLine1+nbLine2-1) %}
                     	<li>
-                    		<a href="{{ url("city", {"insee": cities[i].insee, "name": cities[i].nameForUrl}) }}">{{ cities[i].name }}</a>
+                    		<a href="{{ url("city", {"insee": cities[i].insee, "name": cities[i].nameForUrl}) }}" {% if cities[i].validatedLists|length > 0 %}style="color: #41ab5d;"{% endif %}>{{ cities[i].name }}</a>
                     	</li>
                     {% endfor %}
                 {% endif %}
@@ -122,6 +123,31 @@
 
      	// Control that shows state info on hover
         var info = L.control();
+
+        var legend = L.control({position: 'bottomright'});
+
+        legend.onAdd = function (map) {
+
+            var div = L.DomUtil.create('div', 'info legend'),
+            grades = ["#41ab5d"],
+            legends = ["{{ "color_of_city_with_answer"|trans }}"]
+            labels = [" {{ "colored_city_legend"|trans }}"];
+
+            // loop through our density intervals and generate a label with a colored square for each interval
+            for (var i = 0; i < grades.length; i++) {
+                div.innerHTML +=
+                    '<h6 style="padding: 0px;"><em style="color: '+grades[i]+'; background: white; padding-left: 5px; padding-right: 5px;"> '+legends[i]+'</em> '+labels[i]+"</h6>";
+        	}
+
+            div.style.color = 'black';
+			div.style.padding = '0px 10px 5px 10px';
+			div.style.borderRadius = '0.5em';
+			div.style.backgroundColor = 'white';
+
+        return div;
+        };
+
+        legend.addTo(map);
         
         info.onAdd = function (map) {
     		this._div = L.DomUtil.create('div', 'info');
@@ -135,6 +161,8 @@
 
                 var name = "";
                 nbLists = "";
+                
+    			this._div.style.color = 'black';
 
                 {% for city in cities %}
                 	if(props.insee == '{{ city.insee }}') {
@@ -145,6 +173,10 @@
                 		{% else %}
                 			nbLists = "{{ "zero_one_answer"|trans({"%nb%": city.validatedLists|length}) }}";
                     	{% endif %}
+
+                    	{% if city.validatedLists|length > 0 %}
+            				this._div.style.color = '#41ab5d';
+                    	{% endif %}
                 	}
                 {% endfor %}
 
@@ -152,8 +184,6 @@
                 this._div.innerHTML = 
     			'<h5>' + name + '</h5>' + nbLists;
     			
-    			this._div.style.color = 'black';
-    			this._div.style.backgroundColor = 'grey';
     			this._div.style.padding = '0px 10px 5px 10px';
     			this._div.style.borderRadius = '0.5em';
     			this._div.style.backgroundColor = 'white';

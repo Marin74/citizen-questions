@@ -17,3 +17,5 @@ last_lists: "Dernières listes qui ont répondu :"
 answer_as_a_list: Répondez au nom d'une liste
 are_you_candidate: "Vous êtes candidat(e) ?"
 cities: Communes
+color_of_city_with_answer: "En vert"
+colored_city_legend: les communes qui ont une réponse
