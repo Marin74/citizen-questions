@@ -16,255 +16,278 @@
     		<div id="progress" class="progress-bar w-5 bg-success" role="progressbar" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100"></div>
     	</div>
 	</div>
+	
+	<form id="formList">
 
-	<div id="step1" class="px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
-      <h1 class="display-5">{{ "answer_form"|trans }}</h1>
-      <p class="lead">{{ "answer_form_hint"|trans }}</p>
-      <span class="btn btn-outline-secondary" onclick="nextStep(1);">{{ "i_agree"|trans }}</span>
-    </div>
-
-	<div id="step2" class="container x-3 py-3 pt-md-5 pb-md-4 mx-auto" style="display: none;">
-      	
-      	<center>
-      		<h1 class="display-5">{{ "question_step2"|trans }}</h1>
-      	</center>
-    
-    	<div class="form-group">
-            <label for="city">{{ "city"|trans }}</label>
-            <select class="form-control" id="city">
-    			{% for city in cities %}
-    				<option value="{{ city.insee }}">{{ city.name }}</option>
-    			{% endfor %}
-            </select>
-      	</div>
-        
-        <p>
-            <center>
-                <span class="btn btn-outline-secondary" onclick="previousStep(2);">{{ "previous"|trans }}</span>
-                <span class="btn btn-outline-secondary" onclick="nextStep(2);">{{ "next"|trans }}</span>
-            </center>
-        </p>
-    </div>
-
-	<div id="step3" class="container x-3 py-3 pt-md-5 pb-md-4 mx-auto" style="display: none;">
-      	
-      	<center>
-      		<h1 class="display-5">{{ "question_step3"|trans }}</h1>
-      	</center>
-    
-    	<div class="form-group">
-        	<label for="name">{{ "form_list_name"|trans }}</label>
-        	<input type="text" class="form-control" id="name" placeholder="">
-		</div>
-		
-    	<div class="form-group">
-    		<label>{{ "head_of_list1"|trans }}</label>
-    		<div class="row">
-                <div class="col">
-    				<input id="firstnameHeadOfList1" type="text" class="form-control" placeholder="{{ "firstname"|trans }}">
-                </div>
-                <div class="col">
-    				<input id="lastnameHeadOfList1" type="text" class="form-control" placeholder="{{ "lastname"|trans }}">
-                </div>
-            </div>
-        </div>
-        
-    	<div class="form-group">
-        	<label>{{ "head_of_list2"|trans }}</label>
-    		<div class="row">
-                <div class="col">
-    				<input id="firstnameHeadOfList2" type="text" class="form-control" placeholder="{{ "firstname"|trans }}">
-                </div>
-                <div class="col">
-    				<input id="lastnameHeadOfList2" type="text" class="form-control" placeholder="{{ "lastname"|trans }}">
-                </div>
-            </div>
+    	<div id="step1" class="px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
+          <h1 class="display-5">{{ "answer_form"|trans }}</h1>
+          <p class="lead">{{ "answer_form_hint"|trans }}</p>
+          <span class="btn btn-outline-secondary" onclick="nextStep(1);">{{ "i_agree"|trans }}</span>
         </div>
     
-    	<div class="form-group">
-        	<label for="supportedBy">{{ "form_supported_by"|trans }}</label>
-        	<input type="text" class="form-control" id="supportedBy" placeholder="{{ "form_supported_by_hint"|trans }}">
-		</div>
-        
-        
-        <p>
-            <center>
-                <span class="btn btn-outline-secondary" onclick="previousStep(3);">{{ "previous"|trans }}</span>
-                <span class="btn btn-outline-secondary" onclick="nextStep(3);">{{ "next"|trans }}</span>
-            </center>
-        </p>
-    </div>
-
-	<div id="step4" class="container x-3 py-3 pt-md-5 pb-md-4 mx-auto" style="display: none;">
-      	
-      	<center>
-      		<h1 class="display-5">{{ "question_step4"|trans }}</h1>
-      		<p class="lead">{{ "question_step4_hint"|trans }}</p>
-      	</center>
-		
-    	<div class="form-group">
-    		<label>{{ "your_name"|trans }}</label>
-    		<div class="row">
-                <div class="col">
-    				<input id="contactFirstname" type="text" class="form-control" placeholder="{{ "firstname"|trans }}">
-                </div>
-                <div class="col">
-    				<input id="contactLastName" type="text" class="form-control" placeholder="{{ "lastname"|trans }}">
-                </div>
-            </div>
-        </div>
-    
-    	<div class="form-group">
-        	<label for="contactRole">{{ "your_role"|trans }}</label>
-        	<input type="text" class="form-control" id="contactRole" placeholder="{{ "your_role_hint"|trans }}">
-		</div>
-        
-    	<div class="form-group">
-        	<label>{{ "your_details"|trans }}</label>
-    		<div class="row">
-                <div class="col">
-    				<input id="contactPhone" type="text" class="form-control" placeholder="{{ "phone"|trans }}">
-                </div>
-                <div class="col">
-    				<input id="contactEmail" type="email" class="form-control" placeholder="{{ "email"|trans }}">
-                </div>
-            </div>
-        </div>
-        
-        
-        <p>
-            <center>
-                <span class="btn btn-outline-secondary" onclick="previousStep(4);">{{ "previous"|trans }}</span>
-                <span class="btn btn-outline-secondary" onclick="nextStep(4);">{{ "next"|trans }}</span>
-            </center>
-        </p>
-    </div>
-
-	{% for question in questions %}
-    	<div id="step{{ 4+loop.index }}" class="container x-3 py-3 pt-md-5 pb-md-4 mx-auto" style="display: none;">
+    	<div id="step2" class="container x-3 py-3 pt-md-5 pb-md-4 mx-auto" style="display: none;">
           	
           	<center>
-          		<h1 class="display-5">{{ question.text }}</h1>
+          		<h1 class="display-5">{{ "question_step2"|trans }}</h1>
           	</center>
-    		
-        	
-            <fieldset class="form-group">
-                <div class="row">
-                    <legend class="col-form-label col-sm-2 pt-0">{{ "program"|trans }}</legend>
-                    <div class="col-sm-10">
-                        <div class="form-check">
-                            <input class="form-check-input" type="radio" name="gridRadios" id="inProgram_{{ question.id }}" value="true">
-                            <label class="form-check-label" for="inProgram_{{ question.id }}">
-                            	{{ "in_program"|trans }}
-                            </label>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="radio" name="gridRadios" id="notInProgram_{{ question.id }}" value="true">
-                            <label class="form-check-label" for="notInProgram_{{ question.id }}">
-                            	{{ "not_in_program"|trans }}
-                            </label>
-                        </div>
-                    </div>
-                </div>
-            </fieldset>
-        	
-            <fieldset class="form-group">
-                <div class="row">
-                    <legend class="col-form-label col-sm-2 pt-0">{{ "priority"|trans }}</legend>
-                    <div class="col-sm-10">
-                        <div class="form-check">
-                            <input class="form-check-input" type="radio" name="gridRadios" id="isPriority_{{ question.id }}" value="true" disabled>
-                            <label class="form-check-label" for="isPriority_{{ question.id }}">
-                            	{{ "is_priority"|trans }}
-                            </label>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="radio" name="gridRadios" id="isnotPriority_{{ question.id }}" value="true" disabled>
-                            <label class="form-check-label" for="isnotPriority_{{ question.id }}">
-                            	{{ "is_not_priority"|trans }}
-                            </label>
-                        </div>
-                    </div>
-                </div>
-            </fieldset>
         
         	<div class="form-group">
-            	<label for="text_{{ question.id }}">{{ "answer_text"|trans }}</label>
-            	<textarea class="form-control" id="text_{{ question.id }}" rows="4" placeholder="{{ "answer"|trans }}"></textarea>
+                <label for="city">{{ "city"|trans }}</label>
+                <select class="form-control" id="city">
+        			{% for city in cities %}
+        				<option value="{{ city.insee }}">{{ city.name }}</option>
+        			{% endfor %}
+                </select>
+          	</div>
+            
+            <p>
+                <center>
+                    <span class="btn btn-outline-secondary" onclick="previousStep(2);">{{ "previous"|trans }}</span>
+                    <span class="btn btn-outline-secondary" onclick="nextStep(2);">{{ "next"|trans }}</span>
+                </center>
+            </p>
+        </div>
+    
+    	<div id="step3" class="container x-3 py-3 pt-md-5 pb-md-4 mx-auto" style="display: none;">
+          	
+          	<center>
+          		<h1 class="display-5">{{ "question_step3"|trans }}</h1>
+          	</center>
+        
+        	<div class="form-group">
+            	<label for="name">{{ "form_list_name"|trans }}</label>
+            	<input type="text" class="form-control" id="name" placeholder="">
+    		</div>
+    		
+        	<div class="form-group">
+        		<label>{{ "head_of_list1"|trans }}</label>
+        		<div class="row">
+                    <div class="col">
+        				<input id="firstnameHeadOfList1" type="text" class="form-control" placeholder="{{ "firstname"|trans }}">
+                    </div>
+                    <div class="col">
+        				<input id="lastnameHeadOfList1" type="text" class="form-control" placeholder="{{ "lastname"|trans }}">
+                    </div>
+                </div>
+            </div>
+            
+        	<div class="form-group">
+            	<label>{{ "head_of_list2"|trans }}</label>
+        		<div class="row">
+                    <div class="col">
+        				<input id="firstnameHeadOfList2" type="text" class="form-control" placeholder="{{ "firstname"|trans }}">
+                    </div>
+                    <div class="col">
+        				<input id="lastnameHeadOfList2" type="text" class="form-control" placeholder="{{ "lastname"|trans }}">
+                    </div>
+                </div>
+            </div>
+        
+        	<div class="form-group">
+            	<label for="supportedBy">{{ "form_supported_by"|trans }}</label>
+            	<input type="text" class="form-control" id="supportedBy" placeholder="{{ "form_supported_by_hint"|trans }}">
     		</div>
             
             
             <p>
                 <center>
-                    <span class="btn btn-outline-secondary" onclick="previousStep({{ 4+loop.index }});">{{ "previous"|trans }}</span>
-                    <span class="btn btn-outline-secondary" onclick="nextStep({{ 4+loop.index }});">{{ "next"|trans }}</span>
+                    <span class="btn btn-outline-secondary" onclick="previousStep(3);">{{ "previous"|trans }}</span>
+                    <span class="btn btn-outline-secondary" onclick="nextStep(3);">{{ "next"|trans }}</span>
                 </center>
             </p>
         </div>
-    {% endfor %}
     
+    	<div id="step4" class="container x-3 py-3 pt-md-5 pb-md-4 mx-auto" style="display: none;">
+          	
+          	<center>
+          		<h1 class="display-5">{{ "question_step4"|trans }}</h1>
+          		<p class="lead">{{ "question_step4_hint"|trans }}</p>
+          	</center>
+    		
+        	<div class="form-group">
+        		<label>{{ "your_name"|trans }}</label>
+        		<div class="row">
+                    <div class="col">
+        				<input id="contactFirstname" type="text" class="form-control" placeholder="{{ "firstname"|trans }}">
+                    </div>
+                    <div class="col">
+        				<input id="contactLastname" type="text" class="form-control" placeholder="{{ "lastname"|trans }}">
+                    </div>
+                </div>
+            </div>
+        
+        	<div class="form-group">
+            	<label for="contactRole">{{ "your_role"|trans }}</label>
+            	<input type="text" class="form-control" id="contactRole" placeholder="{{ "your_role_hint"|trans }}">
+    		</div>
+            
+        	<div class="form-group">
+            	<label>{{ "your_details"|trans }}</label>
+        		<div class="row">
+                    <div class="col">
+        				<input id="contactPhone" type="text" class="form-control" placeholder="{{ "phone"|trans }}">
+                    </div>
+                    <div class="col">
+        				<input id="contactEmail" type="email" class="form-control" placeholder="{{ "email"|trans }}">
+                    </div>
+                </div>
+            </div>
+            
+            
+            <p>
+                <center>
+                    <span class="btn btn-outline-secondary" onclick="previousStep(4);">{{ "previous"|trans }}</span>
+                    <span class="btn btn-outline-secondary" onclick="nextStep(4);">{{ "next"|trans }}</span>
+                </center>
+            </p>
+        </div>
     
-
-	<div id="step{{ 5+questions|length }}" class="container x-3 py-3 pt-md-5 pb-md-4 mx-auto" style="display: none;">
-      	
-      	<center>
-      		<h1 class="display-5">{{ "overview"|trans }}</h1>
-      		<p class="lead">{{ "overview_hint"|trans }}</p>
-      	</center>
-      	
-      	<p>
-      		<strong>{{ "city"|trans }}</strong><br/>
-			<span id="overview_city"></span>
-      	</p>
-      	
-      	<p>
-      		<strong>{{ "form_list_name"|trans }}</strong><br/>
-			<span id="overview_name"></span>
-      	</p>
-      	
-      	<p>
-      		<strong>{{ "head_of_list1"|trans }}</strong><br/>
-			<span id="overview_headOfList1"></span>
-      	</p>
-      	
-      	<p>
-      		<strong>{{ "head_of_list2"|trans }}</strong><br/>
-			<span id="overview_headOfList2"></span>
-      	</p>
-      	
-      	<p>
-      		<strong>{{ "city"|trans }}</strong><br/>
-			<span id="overview_city"></span>
-      	</p>
-      	
-      	<p>
-      		<strong>{{ "city"|trans }}</strong><br/>
-			<span id="overview_city"></span>
-      	</p>
-      	
-      	<p>
-      		<strong>{{ "city"|trans }}</strong><br/>
-			<span id="overview_city"></span>
-      	</p>
-      	
-      	<p>
-      		<strong>{{ "city"|trans }}</strong><br/>
-			<span id="overview_city"></span>
-      	</p>
-      	
-      	<p>
-      		<strong>{{ "city"|trans }}</strong><br/>
-			<span id="overview_city"></span>
-      	</p>
+    	{% for question in questions %}
+        	<div id="step{{ 4+loop.index }}" class="container x-3 py-3 pt-md-5 pb-md-4 mx-auto" style="display: none;">
+              	
+              	<center>
+              		<h1 class="display-5">{{ question.text }}</h1>
+              	</center>
+        		
+            	
+                <fieldset class="form-group">
+                    <div class="row">
+                        <legend class="col-form-label col-sm-2 pt-0">{{ "program"|trans }}</legend>
+                        <div class="col-sm-10">
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="gridRadios" id="inProgram_{{ question.id }}" value="true">
+                                <label class="form-check-label" for="inProgram_{{ question.id }}">
+                                	{{ "in_program"|trans }}
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="gridRadios" id="notInProgram_{{ question.id }}" value="true">
+                                <label class="form-check-label" for="notInProgram_{{ question.id }}">
+                                	{{ "not_in_program"|trans }}
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+            	
+                <fieldset class="form-group">
+                    <div class="row">
+                        <legend class="col-form-label col-sm-2 pt-0">{{ "priority"|trans }}</legend>
+                        <div class="col-sm-10">
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="gridRadios" id="isPriority_{{ question.id }}" value="true" disabled>
+                                <label class="form-check-label" for="isPriority_{{ question.id }}">
+                                	{{ "is_priority"|trans }}
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="gridRadios" id="isnotPriority_{{ question.id }}" value="true" disabled>
+                                <label class="form-check-label" for="isnotPriority_{{ question.id }}">
+                                	{{ "is_not_priority"|trans }}
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+            
+            	<div class="form-group">
+                	<label for="text_{{ question.id }}">{{ "answer_text"|trans }}</label>
+                	<textarea class="form-control" id="text_{{ question.id }}" rows="4" placeholder="{{ "answer"|trans }}"></textarea>
+        		</div>
+                
+                
+                <p>
+                    <center>
+                        <span class="btn btn-outline-secondary" onclick="previousStep({{ 4+loop.index }});">{{ "previous"|trans }}</span>
+                        <span class="btn btn-outline-secondary" onclick="nextStep({{ 4+loop.index }});">{{ "next"|trans }}</span>
+                    </center>
+                </p>
+            </div>
+        {% endfor %}
         
         
-        <p>
-            <center>
-                <span class="btn btn-outline-secondary" onclick="previousStep({{ 5+questions|length }});">{{ "previous"|trans }}</span>
-                <span class="btn btn-outline-secondary" onclick="nextStep({{ 5+questions|length }});">{{ "next"|trans }}</span>
-            </center>
-        </p>
-    </div>
+    
+    	<div id="step{{ 5+questions|length }}" class="container x-3 py-3 pt-md-5 pb-md-4 mx-auto" style="display: none;">
+          	
+          	<center>
+          		<h1 class="display-5">{{ "overview"|trans }}</h1>
+          		<p class="lead">{{ "overview_hint"|trans }}</p>
+          	</center>
+          	
+          	<p class="lead"><em>{{ "question_step2"|trans }}</em></p>
+          	
+          	<p>
+          		<strong>{{ "city"|trans }}</strong><br/>
+    			<span id="overview_city"></span>
+          	</p>
+          	
+          	<p class="lead"><em>{{ "question_step3"|trans }}</em></p>
+          	
+          	<p>
+          		<strong>{{ "form_list_name"|trans }}</strong><br/>
+    			<span id="overview_name"></span>
+          	</p>
+          	
+          	<p>
+          		<strong>{{ "head_of_list1"|trans }}</strong><br/>
+    			<span id="overview_headOfList1"></span>
+          	</p>
+          	
+          	<p>
+          		<strong>{{ "head_of_list2"|trans }}</strong><br/>
+    			<span id="overview_headOfList2"></span>
+          	</p>
+          	
+          	<p>
+          		<strong>{{ "form_supported_by"|trans }}</strong><br/>
+    			<span id="overview_supportedBy"></span>
+          	</p>
+          	
+          	<p class="lead"><em>{{ "question_step4"|trans }}</em></p>
+          	
+          	<p>
+          		<strong>{{ "your_name"|trans }}</strong><br/>
+    			<span id="overview_contactName"></span>
+          	</p>
+          	
+          	<p>
+          		<strong>{{ "your_role"|trans }}</strong><br/>
+    			<span id="overview_contactRole"></span>
+          	</p>
+          	
+          	<p>
+          		<strong>{{ "phone"|trans }}</strong><br/>
+    			<span id="overview_contactPhone"></span>
+          	</p>
+          	
+          	<p>
+          		<strong>{{ "email"|trans }}</strong><br/>
+    			<span id="overview_contactEmail"></span>
+          	</p>
+          	
+        	{% for question in questions %}
+          	
+          		<p class="lead"><em>{{ question.text }}</em></p>
+          		
+              	<p>
+              		<strong>{{ "program"|trans }}</strong><br/>
+        			<span id="overview_inProgram_{{ question.id }}"></span>
+              	</p>
+              	<p>
+              		<strong>{{ "answer"|trans }}</strong><br/>
+        			<span id="overview_text_{{ question.id }}"></span>
+              	</p>
+        	{% endfor %}
+            
+            
+            <p>
+                <center>
+                    <span class="btn btn-outline-secondary" onclick="previousStep({{ 5+questions|length }});">{{ "previous"|trans }}</span>
+                    <span class="btn btn-outline-secondary" onclick="nextStep({{ 5+questions|length }});">{{ "next"|trans }}</span>
+                </center>
+            </p>
+        </div>
+    </form>
 {% endblock %}
 
 {% block js %}
@@ -331,9 +354,29 @@
         	$("#overview_name").text($("#name").val());
         	$("#overview_headOfList1").text($("#firstnameHeadOfList1").val() + " " + $("#lastnameHeadOfList1").val());
         	$("#overview_headOfList2").text($("#firstnameHeadOfList2").val() + " " + $("#lastnameHeadOfList2").val());
+        	$("#overview_supportedBy").text($("#supportedBy").val());
+        	$("#overview_contactName").text($("#contactFirstname").val() + " " + $("#contactLastname").val());
+        	$("#overview_contactRole").text($("#contactRole").val());
+        	$("#overview_contactPhone").text($("#contactPhone").val());
+        	$("#overview_contactEmail").text($("#contactEmail").val());
+
+        	{% for question in questions %}
+        		if($('#inProgram_{{ question.id }}').is(':checked')) {
+
+                	$("#overview_inProgram_{{ question.id }}").text("{{ "in_program"|trans }}");
+				}
+        		else {
+                	$("#overview_inProgram_{{ question.id }}").text("{{ "not_in_program"|trans }}");
+        		}
+
+        		if($("#text_{{ question.id }}").val().trim() == "") {
+                	$("#overview_text_{{ question.id }}").text("/");
+        		}
+        		else {
+                	$("#overview_text_{{ question.id }}").text($("#text_{{ question.id }}").val());
+        		}
+        	{% endfor %}
         	/*
-        	$("#overview_").text($("#").val());
-        	$("#overview_").text($("#").val());
         	$("#overview_").text($("#").val());
         	$("#overview_").text($("#").val());
         	$("#overview_").text($("#").val());
