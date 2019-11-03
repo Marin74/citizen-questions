@@ -39,17 +39,17 @@
         			<ul>
         				<li>
         					{% if answer.inProgram %}
-        					    {{ "in_program"|trans }}
+        					    <strong><span style="color: #41ab5d;">{{ "in_program"|trans }}</span></strong>
         					{% else %}
-        					    {{ "not_in_program"|trans }}
+        					    <span style="color: #3182bd;">{{ "not_in_program"|trans }}</span>
         					{% endif %}
         				</li>
         				{% if answer.inProgram %}
         					<li>
             					{% if answer.isPriority %}
-            					    {{ "is_priority"|trans }}
+            					    <strong><span style="color: #41ab5d;">{{ "is_priority"|trans }}</span></strong>
             					{% else %}
-            					    {{ "is_not_priority"|trans }}
+            					    <span style="color: #3182bd;">{{ "is_not_priority"|trans }}</span>
             					{% endif %}
             				</li>
         				{% endif %}
@@ -66,17 +66,17 @@
         			<ul>
         				<li>
         					{% if answer.inProgram %}
-        					    {{ "in_program"|trans }}
+        					    <strong><span style="color: #41ab5d;">{{ "in_program"|trans }}</span></strong>
         					{% else %}
-        					    {{ "not_in_program"|trans }}
+        					    <span style="color: #3182bd;">{{ "not_in_program"|trans }}</span>
         					{% endif %}
         				</li>
         				{% if answer.inProgram %}
         					<li>
             					{% if answer.isPriority %}
-            					    {{ "is_priority"|trans }}
+            					    <strong><span style="color: #41ab5d;">{{ "is_priority"|trans }}</span></strong>
             					{% else %}
-            					    {{ "is_not_priority"|trans }}
+            					    <span style="color: #3182bd;">{{ "is_not_priority"|trans }}</span>
             					{% endif %}
             				</li>
         				{% endif %}
