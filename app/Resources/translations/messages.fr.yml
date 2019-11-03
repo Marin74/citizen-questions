@@ -27,7 +27,7 @@ in_program: "Figure dans le programme"
 not_in_program: "Ne figure pas dans le programme"
 is_priority: "Est prioritaire"
 is_not_priority: "N'est pas prioritaire"
-answers: Réponses
+answers: "Réponses groupées des listes ci-dessus :"
 answer_form: Répondre aux questions citoyennes
 answer_form_hint: "En répondant pour une liste électorale, vous certifiez être un(e) des candidat(e)s de cette liste et avoir l’aval de votre liste pour répondre aux questions citoyennes de ce site."
 i_agree: Je suis d'accord

@@ -30,7 +30,7 @@
         	<h2>{{ "last_lists"|trans }}</h2>
         
     		{% for list in lists %}
-    			<h4><a href="{{ url("city", {"insee": list.city.insee, "name": list.city.nameForUrl}) }}">{{ list.city.name }}</a> - <a href="{{ url("list", {"id": list.id, "name": list.nameForUrl}) }}">{{ list.name }}</a></h4>
+    			<h5><a href="{{ url("city", {"insee": list.city.insee, "name": list.city.nameForUrl}) }}">{{ list.city.name }}</a> - <a href="{{ url("list", {"id": list.id, "name": list.nameForUrl}) }}">{{ list.name }}</a></h5>
     		{% endfor %}
     	</div>
     {% endif %}
@@ -193,6 +193,7 @@
         }
     
         function resetHighlight(e) {
+            e.target.closePopup();
             district_boundary.resetStyle(e.target);
             info.update();
         }
