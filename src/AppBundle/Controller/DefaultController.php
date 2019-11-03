@@ -4,6 +4,7 @@ namespace AppBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use AppBundle\Entity\ElectoralList;
 
@@ -84,6 +85,34 @@ class DefaultController extends Controller
             "cities"    => $cities,
             "questions" => $questions
         ]);
+    }
+    
+    /**
+     * @Route("/questions/ville/{insee}", name="answer_form_questions_of_city")
+     */
+    public function answerFormQuestionsOfCityAction(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $repoCity = $em->getRepository("AppBundle:City");
+        
+        $city = $repoCity->findOneByInsee($request->get("insee"));
+        
+        $questions = array();
+        
+        foreach($city->getQuestions() as $question) {
+            $questions[] = array(
+                "id"    => $question->getId(),
+                "text"  => $question->getText()
+            );
+        }
+        
+        $params = array(
+            "questions"	=> $questions
+        );
+        
+        $response = new Response(json_encode($params));
+        $response->headers->set("Content-Type", "application/json");
+        return $response;
     }
     
     /**

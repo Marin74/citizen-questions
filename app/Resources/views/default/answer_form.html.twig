@@ -33,7 +33,7 @@
             <label for="city">{{ "city"|trans }}</label>
             <select class="form-control" id="city">
     			{% for city in cities %}
-    				<option value="{{ city.id }}">{{ city.name }}</option>
+    				<option value="{{ city.insee }}">{{ city.name }}</option>
     			{% endfor %}
             </select>
       	</div>
@@ -53,7 +53,7 @@
       	</center>
     
     	<div class="form-group">
-        	<label for="form_listname_name">{{ "form_list_name"|trans }}</label>
+        	<label for="name">{{ "form_list_name"|trans }}</label>
         	<input type="text" class="form-control" id="name" placeholder="">
 		</div>
 		
@@ -202,6 +202,69 @@
             </p>
         </div>
     {% endfor %}
+    
+    
+
+	<div id="step{{ 5+questions|length }}" class="container x-3 py-3 pt-md-5 pb-md-4 mx-auto" style="display: none;">
+      	
+      	<center>
+      		<h1 class="display-5">{{ "overview"|trans }}</h1>
+      		<p class="lead">{{ "overview_hint"|trans }}</p>
+      	</center>
+      	
+      	<p>
+      		<strong>{{ "city"|trans }}</strong><br/>
+			<span id="overview_city"></span>
+      	</p>
+      	
+      	<p>
+      		<strong>{{ "form_list_name"|trans }}</strong><br/>
+			<span id="overview_name"></span>
+      	</p>
+      	
+      	<p>
+      		<strong>{{ "head_of_list1"|trans }}</strong><br/>
+			<span id="overview_headOfList1"></span>
+      	</p>
+      	
+      	<p>
+      		<strong>{{ "head_of_list2"|trans }}</strong><br/>
+			<span id="overview_headOfList2"></span>
+      	</p>
+      	
+      	<p>
+      		<strong>{{ "city"|trans }}</strong><br/>
+			<span id="overview_city"></span>
+      	</p>
+      	
+      	<p>
+      		<strong>{{ "city"|trans }}</strong><br/>
+			<span id="overview_city"></span>
+      	</p>
+      	
+      	<p>
+      		<strong>{{ "city"|trans }}</strong><br/>
+			<span id="overview_city"></span>
+      	</p>
+      	
+      	<p>
+      		<strong>{{ "city"|trans }}</strong><br/>
+			<span id="overview_city"></span>
+      	</p>
+      	
+      	<p>
+      		<strong>{{ "city"|trans }}</strong><br/>
+			<span id="overview_city"></span>
+      	</p>
+        
+        
+        <p>
+            <center>
+                <span class="btn btn-outline-secondary" onclick="previousStep({{ 5+questions|length }});">{{ "previous"|trans }}</span>
+                <span class="btn btn-outline-secondary" onclick="nextStep({{ 5+questions|length }});">{{ "next"|trans }}</span>
+            </center>
+        </p>
+    </div>
 {% endblock %}
 
 {% block js %}
@@ -212,6 +275,13 @@
 
     	function nextStep(step)
     	{
+        	if(step == 2) {
+        		getQuestionOfCity();
+        	}
+        	else if(step == {{ 4+questions|length }}) {
+            	fillOverview();
+        	}
+        	
     		$("#step"+step.toString()).fadeOut(duration, function() {
             	$("#step"+(step+1).toString()).delay(durationDelay).fadeIn(duration);
             });
@@ -223,6 +293,7 @@
         	value -= 5;
         	$("#progress").removeClass("w-"+value.toString());
     	}
+    	
     	function previousStep(step)
     	{
     		$("#step"+step.toString()).fadeOut(duration, function() {
@@ -234,6 +305,39 @@
         	$("#progress").addClass("w-"+value.toString());
         	value += 5;
         	$("#progress").removeClass("w-"+value.toString());
+    	}
+
+    	function getQuestionOfCity()
+    	{
+        	url = "{{ url("answer_form_questions_of_city", {"insee": "XXX"}) }}";
+        	url = url.replace("XXX", $("#city").val());
+        	
+    		$.ajax({url: url, success: function(result){
+
+        		for(i = 0; i < result.questions.length; i++) {
+            		alert(result.questions[i].text)
+        		}
+		    }});
+    	}
+
+    	function fillOverview()
+    	{
+        	{% for city in cities %}
+				if($("#city").val() == {{ city.insee }}) {
+		        	$("#overview_city").text("{{ city.name }}");
+				}
+        	{% endfor %}
+
+        	$("#overview_name").text($("#name").val());
+        	$("#overview_headOfList1").text($("#firstnameHeadOfList1").val() + " " + $("#lastnameHeadOfList1").val());
+        	$("#overview_headOfList2").text($("#firstnameHeadOfList2").val() + " " + $("#lastnameHeadOfList2").val());
+        	/*
+        	$("#overview_").text($("#").val());
+        	$("#overview_").text($("#").val());
+        	$("#overview_").text($("#").val());
+        	$("#overview_").text($("#").val());
+        	$("#overview_").text($("#").val());
+        	*/
     	}
     </script>
 {% endblock %}
