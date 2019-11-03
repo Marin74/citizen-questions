@@ -23,3 +23,5 @@ parameters:
     map_center: ~
     map_zoom: 8
     piwik_url: ~
+    creator: ~
+    creator_website: ~

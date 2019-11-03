@@ -41,6 +41,8 @@ twig:
         map_center: "%map_center%"
         map_zoom: "%map_zoom%"
         piwik_url: "%piwik_url%"
+        creator: "%creator%"
+        creator_website: "%creator_website%"
 
 # Doctrine Configuration
 doctrine:

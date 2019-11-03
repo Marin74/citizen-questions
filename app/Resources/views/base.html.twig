@@ -72,15 +72,16 @@
             <li></li>
           </ul>
         </div>
-        <div class="col-6 col-md">
-          <h5></h5>
-          <ul class="list-unstyled text-small">
-            <li></li>
-          </ul>
-        </div>
-        <div class="col-6 col-md">
+        <div class="col-12 col-md">
           <h5>{{ "about"|trans }}</h5>
           <ul class="list-unstyled text-small">
+          	{% if creator is not empty %}
+          		{% if creator_website is not empty %}
+          			<li><a class="text-muted" href="{{ creator_website }}">{{ "created_by"|trans({"%name%": creator}) }}</a></li>
+          		{% else %}
+          			<li>{{ "created_by"|trans({"%name%": creator}) }}</li>
+      			{% endif %}
+          	{% endif %}
             <li><a class="text-muted" href="{{ url("terms") }}">{{ "legal_terms"|trans }}</a></li>
             <li><a class="text-muted" href="{{ url("contact") }}">{{ "contact"|trans }}</a></li>
           </ul>
