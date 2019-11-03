@@ -23,7 +23,7 @@
         <div class="px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
           <h1 class="display-4">{{ list.name }}</h1>
           <p class="lead">
-            {{ "list_led_by"|trans({"%name%": list.fistnameHeadOfList~" "~list.lastnameHeadOfList}) }}
+            {{ "list_led_by"|trans({"%name1%": list.firstnameHeadOfList1~" "~list.lastnameHeadOfList1, "%name2%": list.firstnameHeadOfList2~" "~list.lastnameHeadOfList2}) }}
             {% if list.supportedBy is not null and list.supportedBy|trim != "" %}
             	<br/>
             	{{ "supported_by"|trans({"%text%": list.supportedBy}) }}

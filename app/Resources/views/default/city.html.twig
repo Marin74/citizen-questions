@@ -34,7 +34,7 @@
             
         		{% for list in city.validatedLists %}
         			<a href="{{ url("list", {"id": list.id, "name": list.nameForUrl}) }}"><h3>{{ list.name }}</h3></a>
-        			{{ "list_led_by"|trans({"%name%": list.fistnameHeadOfList~" "~list.lastnameHeadOfList}) }}
+{{ "list_led_by"|trans({"%name1%": list.firstnameHeadOfList1~" "~list.lastnameHeadOfList1, "%name2%": list.firstnameHeadOfList2~" "~list.lastnameHeadOfList2}) }}
         		{% endfor %}
         	</div>
     	{% endif %}

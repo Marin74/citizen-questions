@@ -35,16 +35,30 @@ class ElectoralList
     /**
      * @var string
      *
-     * @ORM\Column(name="fistnameHeadOfList", type="string", length=255)
+     * @ORM\Column(name="firstnameHeadOfList1", type="string", length=255)
      */
-    private $fistnameHeadOfList;
+    private $firstnameHeadOfList1;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="lastnameHeadOfList", type="string", length=255)
+     * @ORM\Column(name="lastnameHeadOfList1", type="string", length=255)
      */
-    private $lastnameHeadOfList;
+    private $lastnameHeadOfList1;
+    
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="firstnameHeadOfList2", type="string", length=255)
+     */
+    private $firstnameHeadOfList2;
+    
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="lastnameHeadOfList2", type="string", length=255)
+     */
+    private $lastnameHeadOfList2;
 
     /**
      * @var string
@@ -156,51 +170,99 @@ class ElectoralList
     }
 
     /**
-     * Set fistnameHeadOfList
+     * Set firstnameHeadOfList1
      *
-     * @param string $fistnameHeadOfList
+     * @param string $firstnameHeadOfList1
      *
      * @return ElectoralList
      */
-    public function setFistnameHeadOfList($fistnameHeadOfList)
+    public function setFirstnameHeadOfList1($firstnameHeadOfList1)
     {
-        $this->fistnameHeadOfList = $fistnameHeadOfList;
+        $this->firstnameHeadOfList1 = $firstnameHeadOfList1;
 
         return $this;
     }
 
     /**
-     * Get fistnameHeadOfList
+     * Get firstnameHeadOfList1
      *
      * @return string
      */
-    public function getFistnameHeadOfList()
+    public function getFirstnameHeadOfList1()
     {
-        return $this->fistnameHeadOfList;
+        return $this->firstnameHeadOfList1;
     }
 
     /**
-     * Set lastnameHeadOfList
+     * Set lastnameHeadOfList1
      *
-     * @param string $lastnameHeadOfList
+     * @param string $lastnameHeadOfList1
      *
      * @return ElectoralList
      */
-    public function setLastnameHeadOfList($lastnameHeadOfList)
+    public function setLastnameHeadOfList1($lastnameHeadOfList1)
     {
-        $this->lastnameHeadOfList = $lastnameHeadOfList;
+        $this->lastnameHeadOfList1 = $lastnameHeadOfList1;
 
         return $this;
     }
 
     /**
-     * Get lastnameHeadOfList
+     * Get lastnameHeadOfList1
      *
      * @return string
      */
-    public function getLastnameHeadOfList()
+    public function getLastnameHeadOfList1()
     {
-        return $this->lastnameHeadOfList;
+        return $this->lastnameHeadOfList1;
+    }
+    
+    /**
+     * Set firstnameHeadOfList2
+     *
+     * @param string $firstnameHeadOfList2
+     *
+     * @return ElectoralList
+     */
+    public function setFirstnameHeadOfList2($firstnameHeadOfList2)
+    {
+        $this->firstnameHeadOfList2 = $firstnameHeadOfList2;
+        
+        return $this;
+    }
+    
+    /**
+     * Get firstnameHeadOfList2
+     *
+     * @return string
+     */
+    public function getFirstnameHeadOfList2()
+    {
+        return $this->firstnameHeadOfList2;
+    }
+    
+    /**
+     * Set lastnameHeadOfList2
+     *
+     * @param string $lastnameHeadOfList2
+     *
+     * @return ElectoralList
+     */
+    public function setLastnameHeadOfList2($lastnameHeadOfList2)
+    {
+        $this->lastnameHeadOfList2 = $lastnameHeadOfList2;
+        
+        return $this;
+    }
+    
+    /**
+     * Get lastnameHeadOfList2
+     *
+     * @return string
+     */
+    public function getLastnameHeadOfList2()
+    {
+        return $this->lastnameHeadOfList2;
     }
 
     /**
