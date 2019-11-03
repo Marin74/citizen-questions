@@ -29,7 +29,7 @@ is_priority: "Est prioritaire"
 is_not_priority: "N'est pas prioritaire"
 answers: Réponses
 answer_form: Répondre aux questions citoyennes
-answer_form_hint: "En répondant aux questions, vous certifiez être un(e) des candidat(e)s de la liste électorale et avez l'aval de votre liste pour y répondre."
+answer_form_hint: "En répondant pour une liste électorale, vous certifiez être un(e) des candidat(e)s de cette liste et avoir l’aval de votre liste pour répondre aux questions citoyennes de ce site."
 i_agree: Je suis d'accord
 previous: Précédent
 next: Suivant

@@ -52,7 +52,7 @@
             			{% for answer in list.answers %}
             				{% if answer.question.id == question.id %}
             					
-                    			<a href="{{ url("list", {"id": list.id, "name": list.nameForUrl}) }}"><strong>{{ list.name }}</strong></a> - {{ "list_led_by"|trans({"%name1%": list.firstnameHeadOfList1~" "~list.lastnameHeadOfList1, "%name2%": list.firstnameHeadOfList2~" "~list.lastnameHeadOfList2}) }}
+                    			<a href="{{ url("list", {"id": list.id, "name": list.nameForUrl}) }}"><strong>{{ list.name }}</strong></a>
                                 
                                 <ul>
                     				<li>
