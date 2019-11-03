@@ -1,0 +1,38 @@
+{% extends "base.html.twig" %}
+
+{% block title %}{{ "answer_form"|trans }} - {{ parent() }}{% endblock %}
+
+{% block body %}
+
+	<nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="{{ url("homepage") }}">{{ "homepage"|trans }}</a></li>
+        <li class="breadcrumb-item active" aria-current="page">{{ "answer_form"|trans }}</li>
+      </ol>
+    </nav>
+
+	<div class="px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
+      <h1 class="display-4">{{ "answer_form"|trans }}</h1>
+      <p class="lead">{{ "answer_form_hint"|trans }}</p>
+      <span class="btn btn-outline-secondary">{{ "i_agree"|trans }}</span>
+    </div>
+
+	<div class="px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
+    
+    	<div class="form-group">
+            <label for="exampleFormControlSelect1">{{ "city"|trans }}</label>
+            <select class="form-control" id="exampleFormControlSelect1">
+    			{% for city in cities %}
+    				<option value="{{ city.id }}">{{ city.name }}</option>
+    			{% endfor %}
+            </select>
+      	</div>
+        
+        <span class="btn btn-outline-secondary">{{ "next"|trans }}</span>
+    </div>
+{% endblock %}
+
+{% block js %}
+    <script type="application/javascript">
+    </script>
+{% endblock %}

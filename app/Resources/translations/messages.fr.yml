@@ -16,6 +16,7 @@ homepage: Accueil
 last_lists: "Dernières listes qui ont répondu :"
 answer_as_a_list: Répondez au nom d'une liste
 are_you_candidate: "Vous êtes candidat(e) ?"
+city: Commune
 cities: Communes
 color_of_city_with_answer: "En vert"
 colored_city_legend: les communes qui ont une réponse
@@ -26,3 +27,8 @@ not_in_program: "Ne figure pas dans le programme"
 is_priority: "Est prioritaire"
 is_not_priority: "N'est pas prioritaire"
 answers: Réponses
+answer_form: Répondre aux questions citoyennes
+answer_form_hint: "En répondant aux questions, vous certifiez être un(e) des candidat(e)s de la liste électorale et avez l'aval de votre liste pour y répondre."
+i_agree: Je suis d'accord
+previous: Précédent
+next: Suivant

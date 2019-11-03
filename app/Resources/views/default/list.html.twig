@@ -1,6 +1,6 @@
 {% extends "base.html.twig" %}
 
-{% block title %}{% if list is not null %}{{ list.name }} - {{ parent() }}{% endif %}{% endblock %}
+{% block title %}{% if list is not null %}{{ list.name }} - {{ parent() }}{% else %}{{ parent() }}{% endif %}{% endblock %}
 
 {% block body %}
 

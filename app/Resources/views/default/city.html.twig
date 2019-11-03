@@ -1,6 +1,6 @@
 {% extends "base.html.twig" %}
 
-{% block title %}{% if city is not null %}{{ city.name }} - {{ parent() }}{% endif %}{% endblock %}
+{% block title %}{% if city is not null %}{{ city.name }} - {{ parent() }}{% else %}{{ parent() }}{% endif %}{% endblock %}
 
 {% block body %}
 

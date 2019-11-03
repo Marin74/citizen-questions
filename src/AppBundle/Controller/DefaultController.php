@@ -69,6 +69,21 @@ class DefaultController extends Controller
     }
     
     /**
+     * @Route("/repondre", name="answer_form")
+     */
+    public function answerFormAction(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $repoCity = $em->getRepository("AppBundle:City");
+        
+        $cities = $repoCity->findBy(array(), array("name" => "ASC"));
+        
+        return $this->render('default/answerForm.html.twig', [
+            "cities"    => $cities
+        ]);
+    }
+    
+    /**
      * @Route("/contact", name="contact")
      */
     public function contactAction(Request $request)
