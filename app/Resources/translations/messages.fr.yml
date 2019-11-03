@@ -20,3 +20,4 @@ cities: Communes
 color_of_city_with_answer: "En vert"
 colored_city_legend: les communes qui ont une réponse
 created_by: "Créé par %name%"
+map_hint: Cliquez sur la commune pour voir les réponses
