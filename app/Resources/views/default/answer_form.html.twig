@@ -205,6 +205,8 @@
             </div>
         {% endfor %}
         
+        <div id="div_questions_of_city"></div>
+        
         
     
     	<div id="step{{ 5+questions|length }}" class="container x-3 py-3 pt-md-5 pb-md-4 mx-auto" style="display: none;">
@@ -214,14 +216,14 @@
           		<p class="lead">{{ "overview_hint"|trans }}</p>
           	</center>
           	
-          	<p class="lead"><em>{{ "question_step2"|trans }}</em></p>
+          	<p class="lead"><em>{{ "question_step2"|trans }}</em> <a href="#" onclick="previousStep(getOverviewStepId(), 2);">{{ "modify"|trans }}</a></p>
           	
           	<p>
           		<strong>{{ "city"|trans }}</strong><br/>
     			<span id="overview_city"></span>
           	</p>
           	
-          	<p class="lead"><em>{{ "question_step3"|trans }}</em></p>
+          	<p class="lead"><em>{{ "question_step3"|trans }}</em> <a href="#" onclick="previousStep(getOverviewStepId(), 3);">{{ "modify"|trans }}</a></p>
           	
           	<p>
           		<strong>{{ "form_list_name"|trans }}</strong><br/>
@@ -243,7 +245,7 @@
     			<span id="overview_supportedBy"></span>
           	</p>
           	
-          	<p class="lead"><em>{{ "question_step4"|trans }}</em></p>
+          	<p class="lead"><em>{{ "question_step4"|trans }}</em> <a href="#" onclick="previousStep(getOverviewStepId(), 4);">{{ "modify"|trans }}</a></p>
           	
           	<p>
           		<strong>{{ "your_name"|trans }}</strong><br/>
@@ -267,7 +269,7 @@
           	
         	{% for question in questions %}
           	
-          		<p class="lead"><em>{{ question.text }}</em></p>
+          		<p class="lead"><em>{{ question.text }}</em> <a href="#" onclick="previousStep(getOverviewStepId(), {{ 4+loop.index }});">{{ "modify"|trans }}</a></p>
           		
               	<p>
               		<strong>{{ "program"|trans }}</strong><br/>
@@ -282,8 +284,8 @@
             
             <p>
                 <center>
-                    <span class="btn btn-outline-secondary" onclick="previousStep({{ 5+questions|length }});">{{ "previous"|trans }}</span>
-                    <span class="btn btn-outline-secondary" onclick="nextStep({{ 5+questions|length }});">{{ "next"|trans }}</span>
+                    <span id="overviewPreviousStep" class="btn btn-outline-secondary" onclick="previousStep({{ 5+questions|length }});">{{ "previous"|trans }}</span>
+                    <span id="overviewNextStep"     class="btn btn-outline-secondary" onclick="nextStep({{ 5+questions|length }});">{{ "next"|trans }}</span>
                 </center>
             </p>
         </div>
@@ -295,49 +297,80 @@
 
     	var duration = 500;
     	var durationDelay = 200;
-    	var stepSize = {{ 100/(6+questions|length) }};
+    	var nbQuestionsOfCity = 0;
+    	var questionsOfCityIds = [];
+    	var previousCity = "";
 
         $(function() {
-
-        	$("#progress").addClass("w-"+Math.floor(stepSize));
+        	$("#progress").addClass("w-"+Math.floor(getStepSize()));
         });
+
+        function getStepSize()
+        {
+            return 100/({{ 6+questions|length }}+nbQuestionsOfCity);
+        }
+
+        function getOverviewStepId()
+        {
+            return {{ 5+questions|length }}+nbQuestionsOfCity;
+        }
         
-    	function nextStep(step)
+    	function nextStep(actualStep, nextStep)
     	{
-        	if(step == 2) {
+        	if(nextStep == null) {
+            	nextStep = actualStep + 1;
+        	}
+        	
+        	if(actualStep == 2 && $("#city").val() != previousCity) {
+            	previousCity = $("#city").val();
         		getQuestionOfCity();
         	}
-        	else if(step == {{ 4+questions|length }}) {
+        	else if(nextStep == getOverviewStepId()) {
             	fillOverview();
         	}
         	
-    		$("#step"+step.toString()).fadeOut(duration, function() {
-            	$("#step"+(step+1).toString()).delay(durationDelay).fadeIn(duration);
+    		$("#step"+actualStep.toString()).fadeOut(duration, function() {
+            	$("#step"+nextStep.toString()).delay(durationDelay).fadeIn(duration);
             });
 
-    		if(step == {{ 5+questions|length }}) {
+    		if(actualStep == getOverviewStepId()+1) {
         		value = 100;// Last step
     		}
     		else {
-            	value = Math.floor((step+1) * stepSize);
+            	value = Math.floor(nextStep * getStepSize());
     		}
         	
         	$("#progress").addClass("w-"+value.toString());
-        	value = Math.floor(step * stepSize);
-        	$("#progress").removeClass("w-"+value.toString());
+        	//value = Math.floor(step * getStepSize());
+        	//$("#progress").removeClass("w-"+value.toString());
+        	for(i = 0; i <= 100; i++) {
+            	if(i != value) {
+            		$("#progress").removeClass("w-"+i.toString());
+            	}
+        	}
     	}
     	
-    	function previousStep(step)
+    	function previousStep(actualStep, previousStep)
     	{
-    		$("#step"+step.toString()).fadeOut(duration, function() {
-            	$("#step"+(step-1).toString()).delay(durationDelay).fadeIn(duration);
+        	if(previousStep == null) {
+        		previousStep = actualStep - 1;
+        	}
+        	
+    		$("#step"+actualStep.toString()).fadeOut(duration, function() {
+            	$("#step"+previousStep.toString()).delay(durationDelay).fadeIn(duration);
             });
             
-        	value = Math.floor((step-1) * stepSize);
+        	value = Math.floor(previousStep * getStepSize());
         	
         	$("#progress").addClass("w-"+value.toString());
-        	value = Math.floor(step * stepSize);
-        	$("#progress").removeClass("w-"+value.toString());
+        	//value = Math.floor(step * getStepSize());
+        	//$("#progress").removeClass("w-"+value.toString());
+        	
+        	for(i = 0; i <= 100; i++) {
+            	if(i != value) {
+            		$("#progress").removeClass("w-"+i.toString());
+            	}
+        	}
     	}
 
     	function getQuestionOfCity()
@@ -347,9 +380,41 @@
         	
     		$.ajax({url: url, success: function(result){
 
+    			questionsOfCityIds = [];
+
+        		var content = "";
+        		
+        		var newStepId = {{ 5+questions|length }}+result.questions.length;
+
+    			$("#overviewPreviousStep").attr("onclick", "previousStep("+newStepId.toString()+");");
+    			$("#overviewNextStep").attr("onclick", "nextStep("+newStepId.toString()+");");
+        		$("#step"+getOverviewStepId().toString()).attr("id", "step"+newStepId.toString());
+        		
+        		// TODO Supprimer les anciens div des questionsOfCity (s'il y en avait plus) => Peut-être pas besoin car on clean le div_questions_of_city 
+
+        		nbQuestionsOfCity = result.questions.length;
+
         		for(i = 0; i < result.questions.length; i++) {
-            		alert(result.questions[i].text)
+            		
+            		var stepId = {{ 4+questions|length }}+i+1;
+
+            		var templatequestionForm = "{% include "template/question_form.html.twig" %}";
+            		while(templatequestionForm.indexOf("STEP_INDEX") >= 0) {
+                		templatequestionForm = templatequestionForm.replace("STEP_INDEX", stepId.toString());
+            		}
+            		while(templatequestionForm.indexOf("QUESTION_ID") >= 0) {
+                		templatequestionForm = templatequestionForm.replace("QUESTION_ID", result.questions[i].id);
+            		}
+            		while(templatequestionForm.indexOf("QUESTION_TEXT") >= 0) {
+                		templatequestionForm = templatequestionForm.replace("QUESTION_TEXT", result.questions[i].text);
+            		}
+            		
+            		questionsOfCityIds.push(result.questions[i].id);
+
+            		content += templatequestionForm;
         		}
+
+        		$("#div_questions_of_city").html(content);
 		    }});
     	}
 
@@ -379,6 +444,8 @@
                 	$("#overview_inProgram_{{ question.id }}").text("{{ "not_in_program"|trans }}");
         		}
 
+        		// TODO Faire isPriority
+
         		if($("#text_{{ question.id }}").val().trim() == "") {
                 	$("#overview_text_{{ question.id }}").text("/");
         		}
@@ -386,11 +453,8 @@
                 	$("#overview_text_{{ question.id }}").text($("#text_{{ question.id }}").val());
         		}
         	{% endfor %}
-        	/*
-        	$("#overview_").text($("#").val());
-        	$("#overview_").text($("#").val());
-        	$("#overview_").text($("#").val());
-        	*/
+
+        	// TODO Ajouter les réponses aux questions de la ville
     	}
     </script>
 {% endblock %}
