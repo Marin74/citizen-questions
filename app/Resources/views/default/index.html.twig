@@ -39,7 +39,7 @@
     	<div class="px-3 py-3 mx-auto">
     	
         	<h2>{{ "cities"|trans }}</h2>
-        	<p><em style="color: #41ab5d;">{{ "color_of_city_with_answer"|trans }}</em> {{ "colored_city_legend"|trans }}</p>
+        	<p><em style="color: #feb24c;">{{ "color_of_city_with_answer"|trans }}</em> {{ "colored_city_legend"|trans }}</p>
     	</div>
     	
     	{% set nbOnEachLine = (cities|length/3)|round(0, 'floor') %}
@@ -65,7 +65,7 @@
               	
         	    {% for i in 0..(nbLine1-1) %}
                 	<li>
-                		<a href="{{ url("city", {"insee": cities[i].insee, "name": cities[i].nameForUrl}) }}" {% if cities[i].validatedLists|length > 0 %}style="color: #41ab5d;"{% endif %}>{{ cities[i].name }}</a>
+                		<a href="{{ url("city", {"insee": cities[i].insee, "name": cities[i].nameForUrl}) }}" {% if cities[i].validatedLists|length > 0 %}style="color: #feb24c;"{% endif %}>{{ cities[i].name }}</a>
                 	</li>
                 {% endfor %}
               </ul>
@@ -78,7 +78,7 @@
             	{% else %}
             	    {% for i in nbLine1..(nbLine1+nbLine2-1) %}
                     	<li>
-                    		<a href="{{ url("city", {"insee": cities[i].insee, "name": cities[i].nameForUrl}) }}" {% if cities[i].validatedLists|length > 0 %}style="color: #41ab5d;"{% endif %}>{{ cities[i].name }}</a>
+                    		<a href="{{ url("city", {"insee": cities[i].insee, "name": cities[i].nameForUrl}) }}" {% if cities[i].validatedLists|length > 0 %}style="color: #feb24c;"{% endif %}>{{ cities[i].name }}</a>
                     	</li>
                     {% endfor %}
                 {% endif %}
@@ -92,7 +92,7 @@
             	{% else %}
             	    {% for i in (nbLine1+nbLine2)..(cities|length-1) %}
                     	<li>
-                    		<a href="{{ url("city", {"insee": cities[i].insee, "name": cities[i].nameForUrl}) }}" {% if cities[i].validatedLists|length > 0 %}style="color: #41ab5d;"{% endif %}>{{ cities[i].name }}</a>
+                    		<a href="{{ url("city", {"insee": cities[i].insee, "name": cities[i].nameForUrl}) }}" {% if cities[i].validatedLists|length > 0 %}style="color: #feb24c;"{% endif %}>{{ cities[i].name }}</a>
                     	</li>
                     {% endfor %}
                 {% endif %}
@@ -132,7 +132,7 @@
         legend.onAdd = function (map) {
 
             var div = L.DomUtil.create('div', 'info legend'),
-            grades = ["#41ab5d"],
+            grades = ["#feb24c"],
             legends = ["{{ "color_of_city_with_answer"|trans }}"]
             labels = [" {{ "colored_city_legend"|trans }}"];
 
@@ -211,7 +211,7 @@
 
             {% for city in cities %}
                 if(e.target.feature.properties.insee == "{{ city.insee }}") {
-                	textPopup = "<span style='{% if city.validatedLists|length > 0 %}color: #41ab5d;{% endif %}'><h6>{{ city.name }}</h6>";
+                	textPopup = "<span style='{% if city.validatedLists|length > 0 %}color: #feb24c;{% endif %}'><h6>{{ city.name }}</h6>";
 
                 	{% if city.validatedLists|length > 1 %}
                 		textPopup += "{{ "nb_answers"|trans({"%nb%": city.validatedLists|length}) }}";
@@ -254,7 +254,7 @@
             	
             	if(d == "{{ city.insee }}") {
                 	{% if city.validatedLists|length > 0 %}
-                		return "#41ab5d";
+                		return "#feb24c";
                 	{% endif %}
             	}
             {% endfor %}
