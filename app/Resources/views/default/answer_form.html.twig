@@ -13,7 +13,7 @@
     
     <div class="container">
         <div class="progress">
-    		<div id="progress" class="progress-bar w-5 bg-success" role="progressbar" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100"></div>
+    		<div id="progress" class="progress-bar bg-success" role="progressbar" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100"></div>
     	</div>
 	</div>
 	
@@ -294,8 +294,14 @@
     <script type="application/javascript">
 
     	var duration = 500;
-    	durationDelay = 200;
+    	var durationDelay = 200;
+    	var stepSize = {{ 100/(6+questions|length) }};
 
+        $(function() {
+
+        	$("#progress").addClass("w-"+Math.floor(stepSize));
+        });
+        
     	function nextStep(step)
     	{
         	if(step == 2) {
@@ -309,11 +315,15 @@
             	$("#step"+(step+1).toString()).delay(durationDelay).fadeIn(duration);
             });
 
-        	
-        	value = (step+1) * 5;
+    		if(step == {{ 5+questions|length }}) {
+        		value = 100;// Last step
+    		}
+    		else {
+            	value = Math.floor((step+1) * stepSize);
+    		}
         	
         	$("#progress").addClass("w-"+value.toString());
-        	value -= 5;
+        	value = Math.floor(step * stepSize);
         	$("#progress").removeClass("w-"+value.toString());
     	}
     	
@@ -323,10 +333,10 @@
             	$("#step"+(step-1).toString()).delay(durationDelay).fadeIn(duration);
             });
             
-        	value = (step-1) * 5;
+        	value = Math.floor((step-1) * stepSize);
         	
         	$("#progress").addClass("w-"+value.toString());
-        	value += 5;
+        	value = Math.floor(step * stepSize);
         	$("#progress").removeClass("w-"+value.toString());
     	}
 
