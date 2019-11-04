@@ -472,6 +472,8 @@
         		hideErrors(actualStep);
         		
         		$("#step"+actualStep.toString()).fadeOut(duration, function() {
+                	$("#city_loader").hide();
+                	$("#city_form").show();
                 	$("#step"+stepWhereToGo.toString()).delay(durationDelay).fadeIn(duration);
                 });
     
@@ -613,8 +615,6 @@
         		
 				// Display the next step
             	previousCity = $("#city").val();
-            	$("#city_loader").hide();
-            	$("#city_form").show();
             	nextStep(actualStep, stepWhereToGo);
 		    }, error: function(result) {
             	$("#city_loader").hide();
