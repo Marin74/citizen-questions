@@ -115,6 +115,13 @@ class ElectoralList
      * @ORM\Column(name="confirmationCode", type="string", length=255)
      */
     private $confirmationCode;
+    
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="confirmationDate", type="datetime", nullable=true)
+     */
+    private $confirmationDate;
 
     /**
      * @var string
@@ -458,6 +465,18 @@ class ElectoralList
     public function getConfirmationCode()
     {
         return $this->confirmationCode;
+    }
+    
+    public function setConfirmationDate($confirmationDate)
+    {
+        $this->confirmationDate = $confirmationDate;
+        
+        return $this;
+    }
+    
+    public function getConfirmationDate()
+    {
+        return $this->confirmationDate;
     }
 
     /**

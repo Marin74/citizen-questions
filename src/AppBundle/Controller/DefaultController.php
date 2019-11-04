@@ -6,6 +6,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use AppBundle\Entity\ElectoralList;
 use AppBundle\Entity\Answer;
 
@@ -73,11 +74,12 @@ class DefaultController extends Controller
     /**
      * @Route("/repondre", name="answer_form")
      */
-    public function answerFormAction(Request $request)
+    public function answerFormAction(Request $request, \Swift_Mailer $mailer)
     {
         $em = $this->getDoctrine()->getManager();
         $repoCity = $em->getRepository("AppBundle:City");
         $repoQuestion = $em->getRepository("AppBundle:Question");
+        $translator = $this->get("translator");
         
         $cities = $repoCity->findBy(array(), array("name" => "ASC"));
         $questions = $repoQuestion->findBy(array("city" => null));
@@ -159,6 +161,21 @@ class DefaultController extends Controller
             $em->flush();
             
             // TODO Send email with confirmation code
+            
+            $message = (new \Swift_Message($translator->trans("mail_form_title")))
+            ->setFrom($this->getParameter("mailer_user"))
+            ->setTo($electoralList->getContactEmail())
+            ->setBody(
+                $this->renderView(
+                    // app/Resources/views/Emails/registration.html.twig
+                    'email/confirmation.html.twig',
+                    ['url' => $this->generateUrl('confirmation', array('list' => $electoralList->getId(), 'code' => $electoralList->getConfirmationCode()), UrlGeneratorInterface::ABSOLUTE_URL)]
+                ),
+                'text/html'
+            )
+            ;
+            
+            $mailer->send($message);
         }
         
         return $this->render('default/answer_form.html.twig', [
@@ -193,6 +210,39 @@ class DefaultController extends Controller
         $response = new Response(json_encode($params));
         $response->headers->set("Content-Type", "application/json");
         return $response;
+    }
+    
+    /**
+     * @Route("/confirmation/{list}/{code}", name="confirmation")
+     */
+    public function confirmationFormAction(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $repoElectoralList = $em->getRepository("AppBundle:ElectoralList");
+        $translator = $this->get("translator");
+        
+        $electoralList = $repoElectoralList->find($request->get("list"));
+        
+        if($electoralList == null || $electoralList->getConfirmationCode() != $request->get("code")) {
+            $this->addFlash(
+                'warning',
+                $translator->trans("confirmation_code_does_not_match")
+            );
+        }
+        else {
+            $electoralList->setConfirmedByEmail(true);
+            $electoralList->setConfirmationDate(new \Datetime());
+            $em->flush();
+            
+            $this->addFlash(
+                'success',
+                $translator->trans("form_confirmed")
+            );
+        }
+        
+        // TODO Changer la redirection + faire les actions pour confirmer
+        return $this->render('default/confirmation_form.html.twig', [
+        ]);
     }
     
     /**

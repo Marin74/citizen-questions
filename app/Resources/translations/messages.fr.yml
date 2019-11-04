@@ -60,4 +60,9 @@ overview_hint: Vérifiez que les informations sont correctes avant de valider le
 modify: Modifier
 submit: Valider
 field_empty: 'Un des champs obligatoires est vide.'
-
+mail_form_title: Confirmez les réponses aux Questions Citoyennes
+mail_body_title: "Merci pour votre participation !"
+mail_body_text: "Nous avons bien enregistré vos réponses aux Questions Citoyennes. Merci de bien vouloir valider votre adresse email en cliquant sur le lien ci-dessous :"
+confirmation: Confirmation
+form_confirmed: "Adresse email confirmée !\nMerci pour votre participation ! Vos réponses apparaîtront lorsqu'elles seront validées par l'équipe d'administration."
+confirmation_code_does_not_match: "Le code de confirmation ne correspond pas."
