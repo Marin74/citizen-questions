@@ -101,7 +101,8 @@ class DefaultController extends Controller
         $translator = $this->get("translator");
         
         $params = array(
-            "success" => false
+            "success"   => false,
+            "message"   => null
         );
         
         if($request->getMethod() == "POST") {
@@ -182,24 +183,31 @@ class DefaultController extends Controller
             $em->flush();
             
             // Send email with confirmation code
-            
-            $message = (new \Swift_Message($translator->trans("mail_form_title")))
-            ->setFrom($this->getParameter("mailer_user"))
-            ->setTo($electoralList->getContactEmail())
-            ->setBody(
-                $this->renderView(
-                    // app/Resources/views/Emails/registration.html.twig
-                    'email/confirmation.html.twig',
-                    ['url' => $this->generateUrl('confirmation', array('list' => $electoralList->getId(), 'code' => $electoralList->getConfirmationCode()), UrlGeneratorInterface::ABSOLUTE_URL)]
+            try {
+                $message = (new \Swift_Message($translator->trans("mail_form_title")))
+                ->setFrom($this->getParameter("mailer_user"))
+                ->setTo($electoralList->getContactEmail())
+                ->setBody(
+                    $this->renderView(
+                        // app/Resources/views/Emails/registration.html.twig
+                        'email/confirmation.html.twig',
+                        ['url' => $this->generateUrl('confirmation', array('list' => $electoralList->getId(), 'code' => $electoralList->getConfirmationCode()), UrlGeneratorInterface::ABSOLUTE_URL)]
                     ),
-                'text/html'
+                    'text/html'
                 )
                 ;
+            } catch(\Exception $e) {
+                $params = array(
+                    "success"   => true,
+                    "message"   => $translator->trans("confirmation_email_not_sent")
+                );
+            }
             
             $mailer->send($message);
             
             $params = array(
-                "success" => true
+                "success"   => true,
+                "message"   => null
             );
         }
         

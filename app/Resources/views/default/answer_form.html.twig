@@ -209,7 +209,7 @@
               		<h1 class="display-5">{{ question.text }}</h1>
               	</center>
           	
-          	<div class="alert alert-warning" role="alert" id="warning_step{{ 4+loop.index }}" style="display: none;"></div>
+          		<div class="alert alert-warning" role="alert" id="warning_step{{ 4+loop.index }}" style="display: none;"></div>
         		
             	
                 <fieldset class="form-group">
@@ -277,6 +277,8 @@
           		<h1 class="display-5">{{ "overview"|trans }}</h1>
           		<p class="lead">{{ "overview_hint"|trans }}</p>
           	</center>
+          	
+      		<div class="alert alert-warning" role="alert" id="warning_overview" style="display: none;"></div>
           	
           	<p class="lead"><em>{{ "question_step2"|trans }}</em> <a href="#" onclick="previousStep(getOverviewStepId(), 2);">{{ "modify"|trans }}</a></p>
           	
@@ -727,8 +729,7 @@
                 success: function (result) {
                     console.log('Submission was successful.');
                     console.log(result);
-                    if(result.success) {// TODO
-    					alert("ok");
+                    if(result.success) {
     					nextStep(getOverviewStepId());
     				}
     				else {
