@@ -155,13 +155,13 @@
                         <legend class="col-form-label col-sm-2 pt-0">{{ "program"|trans }}</legend>
                         <div class="col-sm-10">
                             <div class="form-check">
-                                <input class="form-check-input" type="radio" name="gridRadios" id="inProgram_{{ question.id }}" value="true">
+                                <input class="form-check-input" type="radio" name="radio_inProgram_{{ question.id }}" id="inProgram_{{ question.id }}" value="true">
                                 <label class="form-check-label" for="inProgram_{{ question.id }}">
                                 	{{ "in_program"|trans }}
                                 </label>
                             </div>
                             <div class="form-check">
-                                <input class="form-check-input" type="radio" name="gridRadios" id="notInProgram_{{ question.id }}" value="true">
+                                <input class="form-check-input" type="radio" name="radio_inProgram_{{ question.id }}" id="notInProgram_{{ question.id }}" value="true">
                                 <label class="form-check-label" for="notInProgram_{{ question.id }}">
                                 	{{ "not_in_program"|trans }}
                                 </label>
@@ -175,14 +175,14 @@
                         <legend class="col-form-label col-sm-2 pt-0">{{ "priority"|trans }}</legend>
                         <div class="col-sm-10">
                             <div class="form-check">
-                                <input class="form-check-input" type="radio" name="gridRadios" id="isPriority_{{ question.id }}" value="true" disabled>
+                                <input class="form-check-input" type="radio" name="radio_isPriority_{{ question.id }}" id="isPriority_{{ question.id }}" value="true" disabled>
                                 <label class="form-check-label" for="isPriority_{{ question.id }}">
                                 	{{ "is_priority"|trans }}
                                 </label>
                             </div>
                             <div class="form-check">
-                                <input class="form-check-input" type="radio" name="gridRadios" id="isnotPriority_{{ question.id }}" value="true" disabled>
-                                <label class="form-check-label" for="isnotPriority_{{ question.id }}">
+                                <input class="form-check-input" type="radio" name="radio_isPriority_{{ question.id }}" id="isNotPriority_{{ question.id }}" value="true" disabled>
+                                <label class="form-check-label" for="isNotPriority_{{ question.id }}">
                                 	{{ "is_not_priority"|trans }}
                                 </label>
                             </div>
@@ -272,20 +272,24 @@
           		<p class="lead"><em>{{ question.text }}</em> <a href="#" onclick="previousStep(getOverviewStepId(), {{ 4+loop.index }});">{{ "modify"|trans }}</a></p>
           		
               	<p>
-              		<strong>{{ "program"|trans }}</strong><br/>
         			<span id="overview_inProgram_{{ question.id }}"></span>
+        			<div id="div_priority_{{ question.id }}" style="display: none;">
+        				<span id="overview_isPriority_{{ question.id }}"></span>
+        			</div>
               	</p>
               	<p>
               		<strong>{{ "answer"|trans }}</strong><br/>
         			<span id="overview_text_{{ question.id }}"></span>
               	</p>
         	{% endfor %}
+        	
+        	<div id="div_overview_city"></div>
             
             
             <p>
                 <center>
                     <span id="overviewPreviousStep" class="btn btn-outline-secondary" onclick="previousStep({{ 5+questions|length }});">{{ "previous"|trans }}</span>
-                    <span id="overviewNextStep"     class="btn btn-outline-secondary" onclick="nextStep({{ 5+questions|length }});">{{ "next"|trans }}</span>
+                    <span id="overviewNextStep"     class="btn btn-outline-secondary" onclick="nextStep({{ 5+questions|length }});">{{ "submit"|trans }}</span>
                 </center>
             </p>
         </div>
@@ -317,35 +321,44 @@
         
     	function nextStep(actualStep, nextStep)
     	{
+        	alert("ok");
         	if(nextStep == null) {
             	nextStep = actualStep + 1;
         	}
+
+        	var canGoFurther = true;
         	
         	if(actualStep == 2 && $("#city").val() != previousCity) {
-            	previousCity = $("#city").val();
-        		getQuestionOfCity();
+        		canGoFurther = false;
+        		getQuestionsOfCity();
         	}
         	else if(nextStep == getOverviewStepId()) {
-            	fillOverview();
+            	fillOverview(actualStep, nextStep);
         	}
-        	
-    		$("#step"+actualStep.toString()).fadeOut(duration, function() {
-            	$("#step"+nextStep.toString()).delay(durationDelay).fadeIn(duration);
-            });
 
-    		if(actualStep == getOverviewStepId()+1) {
-        		value = 100;// Last step
-    		}
-    		else {
-            	value = Math.floor(nextStep * getStepSize());
-    		}
-        	
-        	$("#progress").addClass("w-"+value.toString());
-        	//value = Math.floor(step * getStepSize());
-        	//$("#progress").removeClass("w-"+value.toString());
-        	for(i = 0; i <= 100; i++) {
-            	if(i != value) {
-            		$("#progress").removeClass("w-"+i.toString());
+        	if(actualStep == 3) {
+            	
+        	}
+
+        	if(canGoFurther) {
+        		$("#step"+actualStep.toString()).fadeOut(duration, function() {
+                	$("#step"+nextStep.toString()).delay(durationDelay).fadeIn(duration);
+                });
+    
+        		if(actualStep == getOverviewStepId()+1) {
+            		value = 100;// Last step
+        		}
+        		else {
+                	value = Math.floor(nextStep * getStepSize());
+        		}
+            	
+            	$("#progress").addClass("w-"+value.toString());
+            	//value = Math.floor(step * getStepSize());
+            	//$("#progress").removeClass("w-"+value.toString());
+            	for(i = 0; i <= 100; i++) {
+                	if(i != value) {
+                		$("#progress").removeClass("w-"+i.toString());
+                	}
             	}
         	}
     	}
@@ -373,7 +386,7 @@
         	}
     	}
 
-    	function getQuestionOfCity()
+    	function getQuestionsOfCity(actualStep, nextStep)
     	{
         	url = "{{ url("answer_form_questions_of_city", {"insee": "XXX"}) }}";
         	url = url.replace("XXX", $("#city").val());
@@ -382,7 +395,6 @@
 
     			questionsOfCityIds = [];
 
-        		var content = "";
         		
         		var newStepId = {{ 5+questions|length }}+result.questions.length;
 
@@ -394,10 +406,14 @@
 
         		nbQuestionsOfCity = result.questions.length;
 
+        		var content = "";
+        		var contentOverview = "";
+
         		for(i = 0; i < result.questions.length; i++) {
             		
             		var stepId = {{ 4+questions|length }}+i+1;
 
+            		// Form
             		var templatequestionForm = "{% include "template/question_form.html.twig" %}";
             		while(templatequestionForm.indexOf("STEP_INDEX") >= 0) {
                 		templatequestionForm = templatequestionForm.replace("STEP_INDEX", stepId.toString());
@@ -408,13 +424,54 @@
             		while(templatequestionForm.indexOf("QUESTION_TEXT") >= 0) {
                 		templatequestionForm = templatequestionForm.replace("QUESTION_TEXT", result.questions[i].text);
             		}
-            		
-            		questionsOfCityIds.push(result.questions[i].id);
 
             		content += templatequestionForm;
+
+
+					// Overview
+            		var templateOverview = "{% include "template/question_overview.html.twig" %}";
+            		while(templateOverview.indexOf("STEP_INDEX") >= 0) {
+            			templateOverview = templateOverview.replace("STEP_INDEX", stepId.toString());
+            		}
+            		while(templateOverview.indexOf("QUESTION_ID") >= 0) {
+            			templateOverview = templateOverview.replace("QUESTION_ID", result.questions[i].id);
+            		}
+            		while(templateOverview.indexOf("QUESTION_TEXT") >= 0) {
+            			templateOverview = templateOverview.replace("QUESTION_TEXT", result.questions[i].text);
+            		}
+
+            		contentOverview += templateOverview;
+
+					
+            		questionsOfCityIds.push(result.questions[i].id);
         		}
 
         		$("#div_questions_of_city").html(content);
+        		$("#div_overview_city").html(contentOverview);
+
+        		for(i = 0; i < result.questions.length; i++) {
+
+            		var tempId = result.questions[i].id.toString();
+            		
+            		$("input[name=radio_inProgram_"+tempId+"]").on("change", function()
+    	            {
+    	    			if($('#inProgram_'+tempId).is(':checked')) {
+    	    				$("#isPriority_"+tempId).removeAttr("disabled");
+    	    				$("#isNotPriority_"+tempId).removeAttr("disabled");
+    	    			}
+    	    			else if($('#notInProgram_'+tempId).is(':checked')) {
+    	    				$("#isPriority_"+tempId).attr("disabled", true);
+    	    				$("#isNotPriority_"+tempId).attr("disabled", true);
+    
+    	    				$("#isPriority_"+tempId).prop('checked', false);
+    	    				$("#isNotPriority_"+tempId).prop('checked', false);
+    	    			}
+    	            });
+        		}
+        		
+				// Display the next step
+            	previousCity = $("#city").val();
+            	nextStep(actualStep, nextStep);
 		    }});
     	}
 
@@ -436,25 +493,63 @@
         	$("#overview_contactEmail").text($("#contactEmail").val());
 
         	{% for question in questions %}
-        		if($('#inProgram_{{ question.id }}').is(':checked')) {
-
-                	$("#overview_inProgram_{{ question.id }}").text("{{ "in_program"|trans }}");
-				}
-        		else {
-                	$("#overview_inProgram_{{ question.id }}").text("{{ "not_in_program"|trans }}");
-        		}
-
-        		// TODO Faire isPriority
-
-        		if($("#text_{{ question.id }}").val().trim() == "") {
-                	$("#overview_text_{{ question.id }}").text("/");
-        		}
-        		else {
-                	$("#overview_text_{{ question.id }}").text($("#text_{{ question.id }}").val());
-        		}
+        		displayAnswersOverview({{ question.id }});
         	{% endfor %}
 
         	// TODO Ajouter les réponses aux questions de la ville
+        	$.each(questionsOfCityIds, function(index, value) {
+        		displayAnswersOverview(value);
+			});
     	}
+
+    	function displayAnswersOverview(id) {
+    		if($('#inProgram_'+id).is(':checked')) {
+
+            	$("#overview_inProgram_"+id).html("{{ "in_program"|trans }}");
+			}
+    		else {
+            	$("#overview_inProgram_"+id).html("{{ "not_in_program"|trans }}");
+    		}
+
+    		if($('#inProgram_'+id).is(':checked')) {
+        		
+    			$("#div_priority_"+id).show();
+        		
+        		if($('#isPriority_'+id).is(':checked')) {
+
+                	$("#overview_isPriority_"+id).html("{{ "is_priority"|trans }}");
+				}
+        		else {
+                	$("#overview_isPriority_"+id).html("{{ "is_not_priority"|trans }}");
+        		}
+    		}
+    		else {
+    			$("#div_priority_"+id).hide();
+    		}
+
+    		if($("#text_"+id).val().trim() == "") {
+            	$("#overview_text_"+id).text("/");
+    		}
+    		else {
+            	$("#overview_text_"+id).text($("#text_"+id).val());
+    		}
+    	}
+
+    	{% for question in questions %}
+    		$("input[name=radio_inProgram_{{ question.id }}]").on("change", function()
+            {
+    			if($('#inProgram_{{ question.id }}').is(':checked')) {
+    				$("#isPriority_{{ question.id }}").removeAttr("disabled");
+    				$("#isNotPriority_{{ question.id }}").removeAttr("disabled");
+    			}
+    			else if($('#notInProgram_{{ question.id }}').is(':checked')) {
+    				$("#isPriority_{{ question.id }}").attr("disabled", true);
+    				$("#isNotPriority_{{ question.id }}").attr("disabled", true);
+
+    				$("#isPriority_{{ question.id }}").prop('checked', false);
+    				$("#isNotPriority_{{ question.id }}").prop('checked', false);
+    			}
+            });
+    	{% endfor %}
     </script>
 {% endblock %}
