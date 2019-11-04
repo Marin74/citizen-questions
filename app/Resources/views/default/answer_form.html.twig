@@ -644,7 +644,7 @@
         		displayAnswersOverview({{ question.id }});
         	{% endfor %}
 
-        	// TODO Ajouter les réponses aux questions de la ville
+        	// Ajouter les réponses aux questions de la ville
         	$.each(questionsOfCityIds, function(index, value) {
         		displayAnswersOverview(value);
 			});
@@ -702,7 +702,29 @@
 
     	function submit()
     	{
-        	$("#formList").submit();
+
+        	var frm = $('#formList');
+
+        	$.ajax({
+                type: frm.attr('method'),
+                url: '{{ url("post_answer_form") }}',
+                data: frm.serialize(),
+                success: function (result) {
+                    console.log('Submission was successful.');
+                    console.log(result);
+                    if(result.success) {// TODO
+    					alert("ok");
+    				}
+    				else {
+    					alert("erreur");
+    				}
+                },
+                error: function (result) {
+                    console.log('An error occurred.');
+                    console.log(result);
+                    alert("erreur erreur");// TODO
+                },
+            });
     	}
     </script>
 {% endblock %}

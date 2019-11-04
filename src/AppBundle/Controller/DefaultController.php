@@ -84,8 +84,29 @@ class DefaultController extends Controller
         $cities = $repoCity->findBy(array(), array("name" => "ASC"));
         $questions = $repoQuestion->findBy(array("city" => null));
         
+        return $this->render('default/answer_form.html.twig', [
+            "cities"    => $cities,
+            "questions" => $questions
+        ]);
+    }
+    
+    /**
+     * @Route("/repondre/envoyer", name="post_answer_form")
+     */
+    public function postAnswerFormAction(Request $request, \Swift_Mailer $mailer)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $repoCity = $em->getRepository("AppBundle:City");
+        $repoQuestion = $em->getRepository("AppBundle:Question");
+        $translator = $this->get("translator");
+        
+        $params = array(
+            "success" => false
+        );
+        
         if($request->getMethod() == "POST") {
-            //die("ok");
+            
+            $questions = $repoQuestion->findBy(array("city" => null));
             
             $city = $repoCity->findOneByInsee($request->get("city"));
             
@@ -160,7 +181,7 @@ class DefaultController extends Controller
             
             $em->flush();
             
-            // TODO Send email with confirmation code
+            // Send email with confirmation code
             
             $message = (new \Swift_Message($translator->trans("mail_form_title")))
             ->setFrom($this->getParameter("mailer_user"))
@@ -170,18 +191,21 @@ class DefaultController extends Controller
                     // app/Resources/views/Emails/registration.html.twig
                     'email/confirmation.html.twig',
                     ['url' => $this->generateUrl('confirmation', array('list' => $electoralList->getId(), 'code' => $electoralList->getConfirmationCode()), UrlGeneratorInterface::ABSOLUTE_URL)]
-                ),
+                    ),
                 'text/html'
-            )
-            ;
+                )
+                ;
             
             $mailer->send($message);
+            
+            $params = array(
+                "success" => true
+            );
         }
         
-        return $this->render('default/answer_form.html.twig', [
-            "cities"    => $cities,
-            "questions" => $questions
-        ]);
+        $response = new Response(json_encode($params));
+        $response->headers->set("Content-Type", "application/json");
+        return $response;
     }
     
     /**
@@ -240,7 +264,6 @@ class DefaultController extends Controller
             );
         }
         
-        // TODO Changer la redirection + faire les actions pour confirmer
         return $this->render('default/confirmation_form.html.twig', [
         ]);
     }
