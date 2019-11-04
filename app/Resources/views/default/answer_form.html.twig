@@ -17,7 +17,7 @@
     	</div>
 	</div>
 	
-	<form id="formList">
+	<form id="formList" method="POST">
 
     	<div id="step1" class="px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
           <h1 class="display-5">{{ "answer_form"|trans }}</h1>
@@ -30,22 +30,78 @@
           	<center>
           		<h1 class="display-5">{{ "question_step2"|trans }}</h1>
           	</center>
+          	
+          	<center id="city_loader" style="display: none;">
+          		<div class="lds-css ng-scope"><div style="width:100%;height:100%" class="lds-eclipse"><div></div></div><style type="text/css">@keyframes lds-eclipse {
+                  0% {
+                    -webkit-transform: rotate(0deg);
+                    transform: rotate(0deg);
+                  }
+                  50% {
+                    -webkit-transform: rotate(180deg);
+                    transform: rotate(180deg);
+                  }
+                  100% {
+                    -webkit-transform: rotate(360deg);
+                    transform: rotate(360deg);
+                  }
+                }
+                @-webkit-keyframes lds-eclipse {
+                  0% {
+                    -webkit-transform: rotate(0deg);
+                    transform: rotate(0deg);
+                  }
+                  50% {
+                    -webkit-transform: rotate(180deg);
+                    transform: rotate(180deg);
+                  }
+                  100% {
+                    -webkit-transform: rotate(360deg);
+                    transform: rotate(360deg);
+                  }
+                }
+                .lds-eclipse {
+                  position: relative;
+                }
+                .lds-eclipse div {
+                  position: absolute;
+                  -webkit-animation: lds-eclipse 1s linear infinite;
+                  animation: lds-eclipse 1s linear infinite;
+                  width: 160px;
+                  height: 160px;
+                  top: 20px;
+                  left: 20px;
+                  border-radius: 50%;
+                  box-shadow: 0 4px 0 0 #41ab5d;
+                  -webkit-transform-origin: 80px 82px;
+                  transform-origin: 80px 82px;
+                }
+                .lds-eclipse {
+                  width: 70px !important;
+                  height: 70px !important;
+                  -webkit-transform: translate(-35px, -35px) scale(0.35) translate(35px, 35px);
+                  transform: translate(-35px, -35px) scale(0.35) translate(35px, 35px);
+                }
+                </style></div>
+          	</center>
         
-        	<div class="form-group">
-                <label for="city">{{ "city"|trans }}</label>
-                <select class="form-control" id="city">
-        			{% for city in cities %}
-        				<option value="{{ city.insee }}">{{ city.name }}</option>
-        			{% endfor %}
-                </select>
-          	</div>
-            
-            <p>
-                <center>
-                    <span class="btn btn-outline-secondary" onclick="previousStep(2);">{{ "previous"|trans }}</span>
-                    <span class="btn btn-outline-secondary" onclick="nextStep(2);">{{ "next"|trans }}</span>
-                </center>
-            </p>
+        	<div id="city_form">
+            	<div class="form-group">
+                    <label for="city">{{ "city"|trans }}</label>
+                    <select class="form-control" id="city" name="city">
+            			{% for city in cities %}
+            				<option value="{{ city.insee }}">{{ city.name }}</option>
+            			{% endfor %}
+                    </select>
+              	</div>
+                
+                <p>
+                    <center>
+                        <span class="btn btn-outline-secondary" onclick="previousStep(2);">{{ "previous"|trans }}</span>
+                        <span class="btn btn-outline-secondary" onclick="nextStep(2);">{{ "next"|trans }}</span>
+                    </center>
+                </p>
+            </div>
         </div>
     
     	<div id="step3" class="container x-3 py-3 pt-md-5 pb-md-4 mx-auto" style="display: none;">
@@ -53,20 +109,22 @@
           	<center>
           		<h1 class="display-5">{{ "question_step3"|trans }}</h1>
           	</center>
+          	
+          	<div class="alert alert-warning" role="alert" id="warning_step3" style="display: none;"></div>
         
         	<div class="form-group">
             	<label for="name">{{ "form_list_name"|trans }}</label>
-            	<input type="text" class="form-control" id="name" placeholder="">
+            	<input type="text" class="form-control" id="name" name="name" placeholder="">
     		</div>
     		
         	<div class="form-group">
         		<label>{{ "head_of_list1"|trans }}</label>
         		<div class="row">
                     <div class="col">
-        				<input id="firstnameHeadOfList1" type="text" class="form-control" placeholder="{{ "firstname"|trans }}">
+        				<input id="firstnameHeadOfList1" name="firstnameHeadOfList1" type="text" class="form-control" placeholder="{{ "firstname"|trans }}">
                     </div>
                     <div class="col">
-        				<input id="lastnameHeadOfList1" type="text" class="form-control" placeholder="{{ "lastname"|trans }}">
+        				<input id="lastnameHeadOfList1" name="lastnameHeadOfList1" type="text" class="form-control" placeholder="{{ "lastname"|trans }}">
                     </div>
                 </div>
             </div>
@@ -75,17 +133,17 @@
             	<label>{{ "head_of_list2"|trans }}</label>
         		<div class="row">
                     <div class="col">
-        				<input id="firstnameHeadOfList2" type="text" class="form-control" placeholder="{{ "firstname"|trans }}">
+        				<input id="firstnameHeadOfList2" name="firstnameHeadOfList2" type="text" class="form-control" placeholder="{{ "firstname"|trans }}">
                     </div>
                     <div class="col">
-        				<input id="lastnameHeadOfList2" type="text" class="form-control" placeholder="{{ "lastname"|trans }}">
+        				<input id="lastnameHeadOfList2" name="lastnameHeadOfList2" type="text" class="form-control" placeholder="{{ "lastname"|trans }}">
                     </div>
                 </div>
             </div>
         
         	<div class="form-group">
             	<label for="supportedBy">{{ "form_supported_by"|trans }}</label>
-            	<input type="text" class="form-control" id="supportedBy" placeholder="{{ "form_supported_by_hint"|trans }}">
+            	<input type="text" class="form-control" id="supportedBy" name="supportedBy" placeholder="{{ "form_supported_by_hint"|trans }}">
     		</div>
             
             
@@ -103,32 +161,34 @@
           		<h1 class="display-5">{{ "question_step4"|trans }}</h1>
           		<p class="lead">{{ "question_step4_hint"|trans }}</p>
           	</center>
+          	
+          	<div class="alert alert-warning" role="alert" id="warning_step4" style="display: none;"></div>
     		
         	<div class="form-group">
         		<label>{{ "your_name"|trans }}</label>
         		<div class="row">
                     <div class="col">
-        				<input id="contactFirstname" type="text" class="form-control" placeholder="{{ "firstname"|trans }}">
+        				<input id="contactFirstname" name="contactFirstname" type="text" class="form-control" placeholder="{{ "firstname"|trans }}">
                     </div>
                     <div class="col">
-        				<input id="contactLastname" type="text" class="form-control" placeholder="{{ "lastname"|trans }}">
+        				<input id="contactLastname" name="contactLastname" type="text" class="form-control" placeholder="{{ "lastname"|trans }}">
                     </div>
                 </div>
             </div>
         
         	<div class="form-group">
             	<label for="contactRole">{{ "your_role"|trans }}</label>
-            	<input type="text" class="form-control" id="contactRole" placeholder="{{ "your_role_hint"|trans }}">
+            	<input type="text" class="form-control" id="contactRole" name="contactRole" placeholder="{{ "your_role_hint"|trans }}">
     		</div>
             
         	<div class="form-group">
             	<label>{{ "your_details"|trans }}</label>
         		<div class="row">
                     <div class="col">
-        				<input id="contactPhone" type="text" class="form-control" placeholder="{{ "phone"|trans }}">
+        				<input id="contactPhone" name="contactPhone" type="text" class="form-control" placeholder="{{ "phone"|trans }}">
                     </div>
                     <div class="col">
-        				<input id="contactEmail" type="email" class="form-control" placeholder="{{ "email"|trans }}">
+        				<input id="contactEmail" name="contactEmail" type="text" class="form-control" placeholder="{{ "email"|trans }}">
                     </div>
                 </div>
             </div>
@@ -148,6 +208,8 @@
               	<center>
               		<h1 class="display-5">{{ question.text }}</h1>
               	</center>
+          	
+          	<div class="alert alert-warning" role="alert" id="warning_step{{ 4+loop.index }}" style="display: none;"></div>
         		
             	
                 <fieldset class="form-group">
@@ -192,7 +254,7 @@
             
             	<div class="form-group">
                 	<label for="text_{{ question.id }}">{{ "answer_text"|trans }}</label>
-                	<textarea class="form-control" id="text_{{ question.id }}" rows="4" placeholder="{{ "answer"|trans }}"></textarea>
+                	<textarea class="form-control" id="text_{{ question.id }}" name="text_{{ question.id }}" rows="4" placeholder="{{ "answer"|trans }}"></textarea>
         		</div>
                 
                 
@@ -289,7 +351,7 @@
             <p>
                 <center>
                     <span id="overviewPreviousStep" class="btn btn-outline-secondary" onclick="previousStep({{ 5+questions|length }});">{{ "previous"|trans }}</span>
-                    <span id="overviewNextStep"     class="btn btn-outline-secondary" onclick="nextStep({{ 5+questions|length }});">{{ "submit"|trans }}</span>
+                    <span                           class="btn btn-outline-secondary" onclick="submit();">{{ "submit"|trans }}</span>
                 </center>
             </p>
         </div>
@@ -319,37 +381,105 @@
             return {{ 5+questions|length }}+nbQuestionsOfCity;
         }
         
-    	function nextStep(actualStep, nextStep)
+    	function nextStep(actualStep, stepWhereToGo)
     	{
-        	alert("ok");
-        	if(nextStep == null) {
-            	nextStep = actualStep + 1;
+        	if(stepWhereToGo == null) {
+        		stepWhereToGo = actualStep + 1;
         	}
 
         	var canGoFurther = true;
         	
         	if(actualStep == 2 && $("#city").val() != previousCity) {
         		canGoFurther = false;
-        		getQuestionsOfCity();
+            	
+        		$("#city_form").fadeOut(duration, function() {
+                	$("#city_loader").delay(durationDelay).fadeIn(duration, function() {
+                		getQuestionsOfCity(actualStep, stepWhereToGo);
+                	});
+                });
         	}
-        	else if(nextStep == getOverviewStepId()) {
-            	fillOverview(actualStep, nextStep);
+        	else if(stepWhereToGo == getOverviewStepId()) {
+            	fillOverview(actualStep, stepWhereToGo);
         	}
 
         	if(actualStep == 3) {
-            	
+            	// Step list
+            	if($("#name").val().trim() == ""
+                	|| $("#firstnameHeadOfList1").val().trim() == ""
+                    || $("#lastnameHeadOfList1").val().trim() == ""
+                	|| $("#firstnameHeadOfList2").val().trim() == ""
+                    || $("#lastnameHeadOfList2").val().trim() == ""
+            	) {
+            		canGoFurther = false;
+            		showErrors(actualStep);
+            	}
         	}
+        	else if(actualStep == 4) {
+            	// Step contact
+            	if($("#contactFirstname").val().trim() == ""
+                	|| $("#contactLastname").val().trim() == ""
+                    || $("#contactRole").val().trim() == ""
+                	|| $("#contactPhone").val().trim() == ""
+                    || $("#contactEmail").val().trim() == ""
+            	) {
+            		canGoFurther = false;
+            		showErrors(actualStep);
+            	}
+        	}
+        	{% for question in questions %}
+            	if(actualStep == {{ 4+loop.index }}) {
+                	// Step question
+                	if(!$('#inProgram_{{ question.id }}').is(':checked')
+                        && !$('#notInProgram_{{ question.id }}').is(':checked')
+                	) {
+                		canGoFurther = false;
+                		showErrors(actualStep);
+                	}
+                	else if($('#inProgram_{{ question.id }}').is(':checked')
+                        	&& !$('#isPriority_{{ question.id }}').is(':checked')
+                            && !$('#isNotPriority_{{ question.id }}').is(':checked')
+                	) {
+                		canGoFurther = false;
+                		showErrors(actualStep);
+                	}
+            	}
+        	{% endfor %}
 
+        	var tempStep = {{ 5+questions|length }};
+        	$.each(questionsOfCityIds, function(index, value) {
+        		if(actualStep == tempStep) {
+                	// Step question
+                	if(!$('#inProgram_'+value).is(':checked')
+                        && !$('#notInProgram_'+value).is(':checked')
+                	) {
+                		canGoFurther = false;
+                		showErrors(actualStep);
+                	}
+                	else if($('#inProgram_'+value).is(':checked')
+                        	&& !$('#isPriority_'+value).is(':checked')
+                            && !$('#isNotPriority_'+value).is(':checked')
+                	) {
+                		canGoFurther = false;
+                		showErrors(actualStep);
+                	}
+            	}
+            	
+        		tempStep++;
+			});
+
+        	// Display screen
         	if(canGoFurther) {
+        		hideErrors(actualStep);
+        		
         		$("#step"+actualStep.toString()).fadeOut(duration, function() {
-                	$("#step"+nextStep.toString()).delay(durationDelay).fadeIn(duration);
+                	$("#step"+stepWhereToGo.toString()).delay(durationDelay).fadeIn(duration);
                 });
     
         		if(actualStep == getOverviewStepId()+1) {
             		value = 100;// Last step
         		}
         		else {
-                	value = Math.floor(nextStep * getStepSize());
+                	value = Math.floor(stepWhereToGo * getStepSize());
         		}
             	
             	$("#progress").addClass("w-"+value.toString());
@@ -361,6 +491,18 @@
                 	}
             	}
         	}
+    	}
+
+    	function showErrors(step)
+    	{
+    		$("#warning_step"+step).html("{{ "field_empty"|trans }}");
+        	
+    		$("#warning_step"+step).delay(durationDelay).fadeIn(duration);
+    	}
+
+    	function hideErrors(step)
+    	{
+    		$("#warning_step"+step).delay(durationDelay).fadeOut(duration);
     	}
     	
     	function previousStep(actualStep, previousStep)
@@ -386,7 +528,7 @@
         	}
     	}
 
-    	function getQuestionsOfCity(actualStep, nextStep)
+    	function getQuestionsOfCity(actualStep, stepWhereToGo)
     	{
         	url = "{{ url("answer_form_questions_of_city", {"insee": "XXX"}) }}";
         	url = url.replace("XXX", $("#city").val());
@@ -471,8 +613,14 @@
         		
 				// Display the next step
             	previousCity = $("#city").val();
-            	nextStep(actualStep, nextStep);
-		    }});
+            	$("#city_loader").hide();
+            	$("#city_form").show();
+            	nextStep(actualStep, stepWhereToGo);
+		    }, error: function(result) {
+            	$("#city_loader").hide();
+            	$("#city_form").show();
+		    }
+		    });
     	}
 
     	function fillOverview()
@@ -551,5 +699,10 @@
     			}
             });
     	{% endfor %}
+
+    	function submit()
+    	{
+        	$("#formList").submit();
+    	}
     </script>
 {% endblock %}

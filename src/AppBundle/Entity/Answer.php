@@ -60,6 +60,13 @@ class Answer
      * @ORM\JoinColumn(nullable=false, onDelete="CASCADE")
      */
     private $question;
+    
+    
+    
+    public function __construct()
+    {
+        $this->setCreationDate(new \Datetime());
+    }
 
 
     /**
@@ -81,6 +88,10 @@ class Answer
      */
     public function setText($text)
     {
+        if(empty($text)) {
+            $text = null;
+        }
+        
         $this->text = $text;
 
         return $this;

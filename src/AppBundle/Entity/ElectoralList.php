@@ -101,6 +101,20 @@ class ElectoralList
      * @ORM\Column(name="contactRole", type="string", length=255)
      */
     private $contactRole;
+    
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="confirmedByEmail", type="boolean")
+     */
+    private $confirmedByEmail;
+    
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="confirmationCode", type="string", length=255)
+     */
+    private $confirmationCode;
 
     /**
      * @var string
@@ -133,6 +147,15 @@ class ElectoralList
      * @ORM\Column(name="creationDate", type="datetime")
      */
     private $creationDate;
+    
+    
+    
+    public function __construct()
+    {
+        $this->setConfirmedByEmail(false);
+        $this->setStatus(ElectoralList::STATUS_PENDING);
+        $this->setCreationDate(new \Datetime());
+    }
 
 
     /**
@@ -274,6 +297,10 @@ class ElectoralList
      */
     public function setSupportedBy($supportedBy)
     {
+        if(empty($supportedBy)) {
+            $supportedBy = null;
+        }
+        
         $this->supportedBy = $supportedBy;
 
         return $this;
@@ -407,6 +434,30 @@ class ElectoralList
     public function getContactRole()
     {
         return $this->contactRole;
+    }
+    
+    public function setConfirmedByEmail($confirmedByEmail)
+    {
+        $this->confirmedByEmail = $confirmedByEmail;
+        
+        return $this;
+    }
+    
+    public function isConfirmedByEmail()
+    {
+        return $this->confirmedByEmaill;
+    }
+    
+    public function setConfirmationCode($confirmationCode)
+    {
+        $this->confirmationCode = $confirmationCode;
+        
+        return $this;
+    }
+    
+    public function getConfirmationCode()
+    {
+        return $this->confirmationCode;
     }
 
     /**

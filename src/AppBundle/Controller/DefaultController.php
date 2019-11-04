@@ -7,6 +7,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use AppBundle\Entity\ElectoralList;
+use AppBundle\Entity\Answer;
 
 class DefaultController extends Controller
 {
@@ -80,6 +81,85 @@ class DefaultController extends Controller
         
         $cities = $repoCity->findBy(array(), array("name" => "ASC"));
         $questions = $repoQuestion->findBy(array("city" => null));
+        
+        if($request->getMethod() == "POST") {
+            //die("ok");
+            
+            $city = $repoCity->findOneByInsee($request->get("city"));
+            
+            $electoralList = new ElectoralList();
+            $electoralList->setName(trim($request->get("name")));
+            $electoralList->setFirstnameHeadOfList1(trim($request->get("firstnameHeadOfList1")));
+            $electoralList->setLastnameHeadOfList1(trim($request->get("lastnameHeadOfList1")));
+            $electoralList->setFirstnameHeadOfList2(trim($request->get("firstnameHeadOfList2")));
+            $electoralList->setLastnameHeadOfList2(trim($request->get("lastnameHeadOfList2")));
+            $electoralList->setSupportedBy(trim($request->get("supportedBy")));
+            $electoralList->setContactFirstname(trim($request->get("contactFirstname")));
+            $electoralList->setContactLastname(trim($request->get("contactLastname")));
+            $electoralList->setContactEmail(trim($request->get("contactEmail")));
+            $electoralList->setContactPhone(trim($request->get("contactPhone")));
+            $electoralList->setContactRole(trim($request->get("contactRole")));
+            $electoralList->setCity($city);
+            
+            $characters = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+            $confirmationCode = "";
+            for ($i = 0; $i < 32; $i++) {
+                $confirmationCode .= $characters[rand(0, strlen($characters) - 1)];
+            }
+            $electoralList->setConfirmationCode($confirmationCode);
+            
+            $em->persist($electoralList);
+            
+            foreach($questions as $question) {
+                $answer = new Answer();
+                $answer->setQuestion($question);
+                $answer->setList($electoralList);
+                $answer->setText(trim($request->get("text_".$question->getId())));
+                
+                if($request->get("radio_inProgram_".$question->getId()) == "true") {
+                    $answer->setInProgram(true);
+                    
+                    if($request->get("radio_isPriority_".$question->getId()) == "true") {
+                        $answer->setIsPriority(true);
+                    }
+                    else {
+                        $answer->setIsPriority(false);
+                    }
+                }
+                else {
+                    $answer->setIsPriority(false);
+                }
+                
+                $em->persist($answer);
+            }
+            
+            foreach($city->getQuestions() as $question) {
+                $answer = new Answer();
+                $answer->setQuestion($question);
+                $answer->setList($electoralList);
+                $answer->setText(trim($request->get("text_".$question->getId())));
+                
+                if($request->get("radio_inProgram_".$question->getId()) == "true") {
+                    $answer->setInProgram(true);
+                    
+                    if($request->get("radio_isPriority_".$question->getId()) == "true") {
+                        $answer->setIsPriority(true);
+                    }
+                    else {
+                        $answer->setIsPriority(false);
+                    }
+                }
+                else {
+                    $answer->setIsPriority(false);
+                }
+                
+                $em->persist($answer);
+            }
+            
+            $em->flush();
+            
+            // TODO Send email with confirmation code
+        }
         
         return $this->render('default/answer_form.html.twig', [
             "cities"    => $cities,
