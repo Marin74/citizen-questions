@@ -355,6 +355,14 @@
                 </center>
             </p>
         </div>
+        
+        <div id="stepFinal" class="container x-3 py-3 pt-md-5 pb-md-4 mx-auto" style="display: none;">
+          	
+          	<center>
+          		<h1 class="display-5">{{ "form_final_title"|trans }}</h1>
+          		<p class="lead">{{ "form_final_hint"|trans|nl2br }}</p>
+          	</center>
+        </div>
     </form>
 {% endblock %}
 
@@ -474,10 +482,17 @@
         		$("#step"+actualStep.toString()).fadeOut(duration, function() {
                 	$("#city_loader").hide();
                 	$("#city_form").show();
-                	$("#step"+stepWhereToGo.toString()).delay(durationDelay).fadeIn(duration);
+                	
+                	if(stepWhereToGo == getOverviewStepId()+1) {
+                		// Last step
+                    	$("#stepFinal").delay(durationDelay).fadeIn(duration);
+            		}
+                	else {
+                    	$("#step"+stepWhereToGo.toString()).delay(durationDelay).fadeIn(duration);
+                	}
                 });
     
-        		if(actualStep == getOverviewStepId()+1) {
+        		if(stepWhereToGo == getOverviewStepId()+1) {
             		value = 100;// Last step
         		}
         		else {
@@ -714,15 +729,16 @@
                     console.log(result);
                     if(result.success) {// TODO
     					alert("ok");
+    					nextStep(getOverviewStepId());
     				}
     				else {
-    					alert("erreur");
+    					alert("erreur");// TODO Afficher le message d'erreur error_occurs
     				}
                 },
                 error: function (result) {
                     console.log('An error occurred.');
                     console.log(result);
-                    alert("erreur erreur");// TODO
+                    alert("erreur erreur");// TODO Afficher le message d'erreur error_occurs
                 },
             });
     	}
