@@ -4,7 +4,8 @@ contact: Contact
 zero_one_answer: "%nb% réponse"
 nb_answers: "%nb% réponses"
 show_answers: Découvrir les réponses
-subtitle: "Les citoyens du Chablais blablabla blablabla...."
+subtitle: "L'objectif de ce site est d'offrir la possibilité aux citoyen(ne)s du Chablais d'exprimer leurs souhaits et préoccupations auprès des candidat(e)s aux municipales de 2020.\nLes Questions Citoyennes soumises ici aux listes électorales ont été recueillies lors de  diverses rencontres, réunions, conférences ou projections et auprès d'associations présentes sur le site "
+subtitle_end: " (entre novembre 2019 et le 5 février 2020)."
 encourage_lists: "Encouragez les listes de votre commune à répondre aux questions des citoyens !"
 list_led_by: "Conduite par %name1% et %name2%"
 no_list: Aucune liste pour le moment
