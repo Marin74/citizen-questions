@@ -654,7 +654,12 @@
         	$("#overview_name").text($("#name").val());
         	$("#overview_headOfList1").text($("#firstnameHeadOfList1").val() + " " + $("#lastnameHeadOfList1").val());
         	$("#overview_headOfList2").text($("#firstnameHeadOfList2").val() + " " + $("#lastnameHeadOfList2").val());
-        	$("#overview_supportedBy").text($("#supportedBy").val());
+        	if($("#supportedBy").val().trim() == "") {
+            	$("#overview_supportedBy").text("/"");
+        	}
+        	else {
+            	$("#overview_supportedBy").text($("#supportedBy").val());
+        	}
         	$("#overview_contactName").text($("#contactFirstname").val() + " " + $("#contactLastname").val());
         	$("#overview_contactRole").text($("#contactRole").val());
         	$("#overview_contactPhone").text($("#contactPhone").val());
