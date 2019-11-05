@@ -48,15 +48,15 @@ head_of_list2: Nom de la seconde personne de la liste
 question_step2: "Dans quelle commune se présente votre liste ?"
 question_step3: "Informations sur la liste"
 question_step4: "Informations sur le déclarant"
-question_step4_hint: "Ces informations ne seront pas publiques. Elles sont destinées à vérifier si besoin l'identité du déclarant."
+question_step4_hint: "Ces informations ne seront pas publiques. Elles sont destinées à vérifier l'identité du déclarant."
 form_supported_by: "Soutiens déclarés (mouvements, partis politiques) (facultatif)"
 form_supported_by_hint: "Les soutiens déclarés doivent être apportés officiellement."
 answer: Réponse
 answer_text: "Réponse (facultative)"
 program: Programme électoral
 priority: Priorité
-overview: Récapitulatif
-overview_hint: Vérifiez que les informations sont correctes avant de valider le formulaire et revenez en arrière pour les corriger si besoin.
+overview: Récapitulatif de vos réponses
+overview_hint: Vérifiez que les informations sont correctes, modifiez-les au besoin, puis validez le formulaire.
 modify: Modifier
 submit: Valider
 field_empty: 'Un des champs obligatoires est vide.'
