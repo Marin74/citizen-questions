@@ -18,352 +18,355 @@
 	</div>
 	
 	<form id="formList" method="POST">
-
-    	<div id="step1" class="px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
-          <h1 class="display-5">{{ "answer_form"|trans }}</h1>
-          <p class="lead">{{ "answer_form_hint"|trans }}</p>
-          <span class="btn btn-outline-secondary" onclick="nextStep(1);">{{ "i_agree"|trans }}</span>
-        </div>
+	
+		<div style="min-height: 300px;"><!-- The min height is used to avoid the footer to go up each time the user go to the next step -->
     
-    	<div id="step2" class="container x-3 py-3 pt-md-5 pb-md-4 mx-auto" style="display: none;">
-          	
-          	<center>
-          		<h1 class="display-5">{{ "question_step2"|trans }}</h1>
-          	</center>
-          	
-          	<center id="city_loader" style="display: none;">
-          		<div class="lds-css ng-scope"><div style="width:100%;height:100%" class="lds-eclipse"><div></div></div><style type="text/css">@keyframes lds-eclipse {
-                  0% {
-                    -webkit-transform: rotate(0deg);
-                    transform: rotate(0deg);
-                  }
-                  50% {
-                    -webkit-transform: rotate(180deg);
-                    transform: rotate(180deg);
-                  }
-                  100% {
-                    -webkit-transform: rotate(360deg);
-                    transform: rotate(360deg);
-                  }
-                }
-                @-webkit-keyframes lds-eclipse {
-                  0% {
-                    -webkit-transform: rotate(0deg);
-                    transform: rotate(0deg);
-                  }
-                  50% {
-                    -webkit-transform: rotate(180deg);
-                    transform: rotate(180deg);
-                  }
-                  100% {
-                    -webkit-transform: rotate(360deg);
-                    transform: rotate(360deg);
-                  }
-                }
-                .lds-eclipse {
-                  position: relative;
-                }
-                .lds-eclipse div {
-                  position: absolute;
-                  -webkit-animation: lds-eclipse 1s linear infinite;
-                  animation: lds-eclipse 1s linear infinite;
-                  width: 160px;
-                  height: 160px;
-                  top: 20px;
-                  left: 20px;
-                  border-radius: 50%;
-                  box-shadow: 0 4px 0 0 #41ab5d;
-                  -webkit-transform-origin: 80px 82px;
-                  transform-origin: 80px 82px;
-                }
-                .lds-eclipse {
-                  width: 70px !important;
-                  height: 70px !important;
-                  -webkit-transform: translate(-35px, -35px) scale(0.35) translate(35px, 35px);
-                  transform: translate(-35px, -35px) scale(0.35) translate(35px, 35px);
-                }
-                </style></div>
-          	</center>
-        
-        	<div id="city_form">
-            	<div class="form-group">
-                    <label for="city">{{ "city"|trans }}</label>
-                    <select class="form-control" id="city" name="city">
-            			{% for city in cities %}
-            				<option value="{{ city.insee }}">{{ city.name }}</option>
-            			{% endfor %}
-                    </select>
-              	</div>
-                
-                <p>
-                    <center>
-                        <span class="btn btn-outline-secondary" onclick="previousStep(2);">{{ "previous"|trans }}</span>
-                        <span class="btn btn-outline-secondary" onclick="nextStep(2);">{{ "next"|trans }}</span>
-                    </center>
-                </p>
-            </div>
-        </div>
-    
-    	<div id="step3" class="container x-3 py-3 pt-md-5 pb-md-4 mx-auto" style="display: none;">
-          	
-          	<center>
-          		<h1 class="display-5">{{ "question_step3"|trans }}</h1>
-          	</center>
-          	
-          	<div class="alert alert-warning" role="alert" id="warning_step3" style="display: none;"></div>
-        
-        	<div class="form-group">
-            	<label for="name">{{ "form_list_name"|trans }}</label>
-            	<input type="text" class="form-control" id="name" name="name" placeholder="">
-    		</div>
-    		
-        	<div class="form-group">
-        		<label>{{ "head_of_list1"|trans }}</label>
-        		<div class="row">
-                    <div class="col">
-        				<input id="firstnameHeadOfList1" name="firstnameHeadOfList1" type="text" class="form-control" placeholder="{{ "firstname"|trans }}">
-                    </div>
-                    <div class="col">
-        				<input id="lastnameHeadOfList1" name="lastnameHeadOfList1" type="text" class="form-control" placeholder="{{ "lastname"|trans }}">
-                    </div>
-                </div>
-            </div>
-            
-        	<div class="form-group">
-            	<label>{{ "head_of_list2"|trans }}</label>
-        		<div class="row">
-                    <div class="col">
-        				<input id="firstnameHeadOfList2" name="firstnameHeadOfList2" type="text" class="form-control" placeholder="{{ "firstname"|trans }}">
-                    </div>
-                    <div class="col">
-        				<input id="lastnameHeadOfList2" name="lastnameHeadOfList2" type="text" class="form-control" placeholder="{{ "lastname"|trans }}">
-                    </div>
-                </div>
+        	<div id="step1" class="px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
+              <h1 class="display-5">{{ "answer_form"|trans }}</h1>
+              <p class="lead">{{ "answer_form_hint"|trans }}</p>
+              <span class="btn btn-outline-secondary" onclick="nextStep(1);">{{ "i_agree"|trans }}</span>
             </div>
         
-        	<div class="form-group">
-            	<label for="supportedBy">{{ "form_supported_by"|trans }}</label>
-            	<input type="text" class="form-control" id="supportedBy" name="supportedBy" placeholder="{{ "form_supported_by_hint"|trans }}">
-    		</div>
-            
-            
-            <p>
-                <center>
-                    <span class="btn btn-outline-secondary" onclick="previousStep(3);">{{ "previous"|trans }}</span>
-                    <span class="btn btn-outline-secondary" onclick="nextStep(3);">{{ "next"|trans }}</span>
-                </center>
-            </p>
-        </div>
-    
-    	<div id="step4" class="container x-3 py-3 pt-md-5 pb-md-4 mx-auto" style="display: none;">
-          	
-          	<center>
-          		<h1 class="display-5">{{ "question_step4"|trans }}</h1>
-          		<p class="lead">{{ "question_step4_hint"|trans }}</p>
-          	</center>
-          	
-          	<div class="alert alert-warning" role="alert" id="warning_step4" style="display: none;"></div>
-    		
-        	<div class="form-group">
-        		<label>{{ "your_name"|trans }}</label>
-        		<div class="row">
-                    <div class="col">
-        				<input id="contactFirstname" name="contactFirstname" type="text" class="form-control" placeholder="{{ "firstname"|trans }}">
-                    </div>
-                    <div class="col">
-        				<input id="contactLastname" name="contactLastname" type="text" class="form-control" placeholder="{{ "lastname"|trans }}">
-                    </div>
-                </div>
-            </div>
-        
-        	<div class="form-group">
-            	<label for="contactRole">{{ "your_role"|trans }}</label>
-            	<input type="text" class="form-control" id="contactRole" name="contactRole" placeholder="{{ "your_role_hint"|trans }}">
-    		</div>
-            
-        	<div class="form-group">
-            	<label>{{ "your_details"|trans }}</label>
-        		<div class="row">
-                    <div class="col">
-        				<input id="contactPhone" name="contactPhone" type="text" class="form-control" placeholder="{{ "phone"|trans }}">
-                    </div>
-                    <div class="col">
-        				<input id="contactEmail" name="contactEmail" type="text" class="form-control" placeholder="{{ "email"|trans }}">
-                    </div>
-                </div>
-            </div>
-            
-            
-            <p>
-                <center>
-                    <span class="btn btn-outline-secondary" onclick="previousStep(4);">{{ "previous"|trans }}</span>
-                    <span class="btn btn-outline-secondary" onclick="nextStep(4);">{{ "next"|trans }}</span>
-                </center>
-            </p>
-        </div>
-    
-    	{% for question in questions %}
-        	<div id="step{{ 4+loop.index }}" class="container x-3 py-3 pt-md-5 pb-md-4 mx-auto" style="display: none;">
+        	<div id="step2" class="container x-3 py-3 pt-md-5 pb-md-4 mx-auto" style="display: none;">
               	
               	<center>
-              		<h1 class="display-5">{{ question.text }}</h1>
+              		<h1 class="display-5">{{ "question_step2"|trans }}</h1>
               	</center>
-          	
-          		<div class="alert alert-warning" role="alert" id="warning_step{{ 4+loop.index }}" style="display: none;"></div>
-        		
-            	
-                <fieldset class="form-group">
-                    <div class="row">
-                        <legend class="col-form-label col-sm-2 pt-0">{{ "program"|trans }}</legend>
-                        <div class="col-sm-10">
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" name="radio_inProgram_{{ question.id }}" id="inProgram_{{ question.id }}" value="true">
-                                <label class="form-check-label" for="inProgram_{{ question.id }}">
-                                	{{ "in_program"|trans }}
-                                </label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" name="radio_inProgram_{{ question.id }}" id="notInProgram_{{ question.id }}" value="true">
-                                <label class="form-check-label" for="notInProgram_{{ question.id }}">
-                                	{{ "not_in_program"|trans }}
-                                </label>
-                            </div>
-                        </div>
-                    </div>
-                </fieldset>
-            	
-                <fieldset class="form-group">
-                    <div class="row">
-                        <legend class="col-form-label col-sm-2 pt-0">{{ "priority"|trans }}</legend>
-                        <div class="col-sm-10">
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" name="radio_isPriority_{{ question.id }}" id="isPriority_{{ question.id }}" value="true" disabled>
-                                <label class="form-check-label" for="isPriority_{{ question.id }}">
-                                	{{ "is_priority"|trans }}
-                                </label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" name="radio_isPriority_{{ question.id }}" id="isNotPriority_{{ question.id }}" value="true" disabled>
-                                <label class="form-check-label" for="isNotPriority_{{ question.id }}">
-                                	{{ "is_not_priority"|trans }}
-                                </label>
-                            </div>
-                        </div>
-                    </div>
-                </fieldset>
+              	
+              	<center id="city_loader" style="display: none;">
+              		<div class="lds-css ng-scope"><div style="width:100%;height:100%" class="lds-eclipse"><div></div></div><style type="text/css">@keyframes lds-eclipse {
+                      0% {
+                        -webkit-transform: rotate(0deg);
+                        transform: rotate(0deg);
+                      }
+                      50% {
+                        -webkit-transform: rotate(180deg);
+                        transform: rotate(180deg);
+                      }
+                      100% {
+                        -webkit-transform: rotate(360deg);
+                        transform: rotate(360deg);
+                      }
+                    }
+                    @-webkit-keyframes lds-eclipse {
+                      0% {
+                        -webkit-transform: rotate(0deg);
+                        transform: rotate(0deg);
+                      }
+                      50% {
+                        -webkit-transform: rotate(180deg);
+                        transform: rotate(180deg);
+                      }
+                      100% {
+                        -webkit-transform: rotate(360deg);
+                        transform: rotate(360deg);
+                      }
+                    }
+                    .lds-eclipse {
+                      position: relative;
+                    }
+                    .lds-eclipse div {
+                      position: absolute;
+                      -webkit-animation: lds-eclipse 1s linear infinite;
+                      animation: lds-eclipse 1s linear infinite;
+                      width: 160px;
+                      height: 160px;
+                      top: 20px;
+                      left: 20px;
+                      border-radius: 50%;
+                      box-shadow: 0 4px 0 0 #41ab5d;
+                      -webkit-transform-origin: 80px 82px;
+                      transform-origin: 80px 82px;
+                    }
+                    .lds-eclipse {
+                      width: 70px !important;
+                      height: 70px !important;
+                      -webkit-transform: translate(-35px, -35px) scale(0.35) translate(35px, 35px);
+                      transform: translate(-35px, -35px) scale(0.35) translate(35px, 35px);
+                    }
+                    </style></div>
+              	</center>
+            
+            	<div id="city_form">
+                	<div class="form-group">
+                        <label for="city">{{ "city"|trans }}</label>
+                        <select class="form-control" id="city" name="city">
+                			{% for city in cities %}
+                				<option value="{{ city.insee }}">{{ city.name }}</option>
+                			{% endfor %}
+                        </select>
+                  	</div>
+                    
+                    <p>
+                        <center>
+                            <span class="btn btn-outline-secondary" onclick="previousStep(2);">{{ "previous"|trans }}</span>
+                            <span class="btn btn-outline-secondary" onclick="nextStep(2);">{{ "next"|trans }}</span>
+                        </center>
+                    </p>
+                </div>
+            </div>
+        
+        	<div id="step3" class="container x-3 py-3 pt-md-5 pb-md-4 mx-auto" style="display: none;">
+              	
+              	<center>
+              		<h1 class="display-5">{{ "question_step3"|trans }}</h1>
+              	</center>
+              	
+              	<div class="alert alert-warning" role="alert" id="warning_step3" style="display: none;"></div>
             
             	<div class="form-group">
-                	<label for="text_{{ question.id }}">{{ "answer_text"|trans }}</label>
-                	<textarea class="form-control" id="text_{{ question.id }}" name="text_{{ question.id }}" rows="4" placeholder="{{ "answer"|trans }}"></textarea>
+                	<label for="name">{{ "form_list_name"|trans }}</label>
+                	<input type="text" class="form-control" id="name" name="name" placeholder="">
+        		</div>
+        		
+            	<div class="form-group">
+            		<label>{{ "head_of_list1"|trans }}</label>
+            		<div class="row">
+                        <div class="col">
+            				<input id="firstnameHeadOfList1" name="firstnameHeadOfList1" type="text" class="form-control" placeholder="{{ "firstname"|trans }}">
+                        </div>
+                        <div class="col">
+            				<input id="lastnameHeadOfList1" name="lastnameHeadOfList1" type="text" class="form-control" placeholder="{{ "lastname"|trans }}">
+                        </div>
+                    </div>
+                </div>
+                
+            	<div class="form-group">
+                	<label>{{ "head_of_list2"|trans }}</label>
+            		<div class="row">
+                        <div class="col">
+            				<input id="firstnameHeadOfList2" name="firstnameHeadOfList2" type="text" class="form-control" placeholder="{{ "firstname"|trans }}">
+                        </div>
+                        <div class="col">
+            				<input id="lastnameHeadOfList2" name="lastnameHeadOfList2" type="text" class="form-control" placeholder="{{ "lastname"|trans }}">
+                        </div>
+                    </div>
+                </div>
+            
+            	<div class="form-group">
+                	<label for="supportedBy">{{ "form_supported_by"|trans }}</label>
+                	<input type="text" class="form-control" id="supportedBy" name="supportedBy" placeholder="{{ "form_supported_by_hint"|trans }}">
         		</div>
                 
                 
                 <p>
                     <center>
-                        <span class="btn btn-outline-secondary" onclick="previousStep({{ 4+loop.index }});">{{ "previous"|trans }}</span>
-                        <span class="btn btn-outline-secondary" onclick="nextStep({{ 4+loop.index }});">{{ "next"|trans }}</span>
+                        <span class="btn btn-outline-secondary" onclick="previousStep(3);">{{ "previous"|trans }}</span>
+                        <span class="btn btn-outline-secondary" onclick="nextStep(3);">{{ "next"|trans }}</span>
                     </center>
                 </p>
             </div>
-        {% endfor %}
         
-        <div id="div_questions_of_city"></div>
+        	<div id="step4" class="container x-3 py-3 pt-md-5 pb-md-4 mx-auto" style="display: none;">
+              	
+              	<center>
+              		<h1 class="display-5">{{ "question_step4"|trans }}</h1>
+              		<p class="lead">{{ "question_step4_hint"|trans }}</p>
+              	</center>
+              	
+              	<div class="alert alert-warning" role="alert" id="warning_step4" style="display: none;"></div>
+        		
+            	<div class="form-group">
+            		<label>{{ "your_name"|trans }}</label>
+            		<div class="row">
+                        <div class="col">
+            				<input id="contactFirstname" name="contactFirstname" type="text" class="form-control" placeholder="{{ "firstname"|trans }}">
+                        </div>
+                        <div class="col">
+            				<input id="contactLastname" name="contactLastname" type="text" class="form-control" placeholder="{{ "lastname"|trans }}">
+                        </div>
+                    </div>
+                </div>
+            
+            	<div class="form-group">
+                	<label for="contactRole">{{ "your_role"|trans }}</label>
+                	<input type="text" class="form-control" id="contactRole" name="contactRole" placeholder="{{ "your_role_hint"|trans }}">
+        		</div>
+                
+            	<div class="form-group">
+                	<label>{{ "your_details"|trans }}</label>
+            		<div class="row">
+                        <div class="col">
+            				<input id="contactPhone" name="contactPhone" type="text" class="form-control" placeholder="{{ "phone"|trans }}">
+                        </div>
+                        <div class="col">
+            				<input id="contactEmail" name="contactEmail" type="text" class="form-control" placeholder="{{ "email"|trans }}">
+                        </div>
+                    </div>
+                </div>
+                
+                
+                <p>
+                    <center>
+                        <span class="btn btn-outline-secondary" onclick="previousStep(4);">{{ "previous"|trans }}</span>
+                        <span class="btn btn-outline-secondary" onclick="nextStep(4);">{{ "next"|trans }}</span>
+                    </center>
+                </p>
+            </div>
         
-        
-    
-    	<div id="step{{ 5+questions|length }}" class="container x-3 py-3 pt-md-5 pb-md-4 mx-auto" style="display: none;">
-          	
-          	<center>
-          		<h1 class="display-5">{{ "overview"|trans }}</h1>
-          		<p class="lead">{{ "overview_hint"|trans|nl2br }}</p>
-          	</center>
-          	
-      		<div class="alert alert-warning" role="alert" id="warning_overview" style="display: none;"></div>
-          	
-          	<p class="lead"><em>{{ "question_step2"|trans }}</em> <a href="#" onclick="previousStep(getOverviewStepId(), 2);">{{ "modify"|trans }}</a></p>
-          	
-          	<p>
-          		<strong>{{ "city"|trans }}</strong><br/>
-    			<span id="overview_city"></span>
-          	</p>
-          	
-          	<p class="lead"><em>{{ "question_step3"|trans }}</em> <a href="#" onclick="previousStep(getOverviewStepId(), 3);">{{ "modify"|trans }}</a></p>
-          	
-          	<p>
-          		<strong>{{ "form_list_name"|trans }}</strong><br/>
-    			<span id="overview_name"></span>
-          	</p>
-          	
-          	<p>
-          		<strong>{{ "head_of_list1"|trans }}</strong><br/>
-    			<span id="overview_headOfList1"></span>
-          	</p>
-          	
-          	<p>
-          		<strong>{{ "head_of_list2"|trans }}</strong><br/>
-    			<span id="overview_headOfList2"></span>
-          	</p>
-          	
-          	<p>
-          		<strong>{{ "form_supported_by"|trans }}</strong><br/>
-    			<span id="overview_supportedBy"></span>
-          	</p>
-          	
-          	<p class="lead"><em>{{ "question_step4"|trans }}</em> <a href="#" onclick="previousStep(getOverviewStepId(), 4);">{{ "modify"|trans }}</a></p>
-          	
-          	<p>
-          		<strong>{{ "your_name"|trans }}</strong><br/>
-    			<span id="overview_contactName"></span>
-          	</p>
-          	
-          	<p>
-          		<strong>{{ "your_role"|trans }}</strong><br/>
-    			<span id="overview_contactRole"></span>
-          	</p>
-          	
-          	<p>
-          		<strong>{{ "phone"|trans }}</strong><br/>
-    			<span id="overview_contactPhone"></span>
-          	</p>
-          	
-          	<p>
-          		<strong>{{ "email"|trans }}</strong><br/>
-    			<span id="overview_contactEmail"></span>
-          	</p>
-          	
         	{% for question in questions %}
-          	
-          		<p class="lead"><em>{{ question.text }}</em> <a href="#" onclick="previousStep(getOverviewStepId(), {{ 4+loop.index }});">{{ "modify"|trans }}</a></p>
-          		
-              	<p>
-        			<span id="overview_inProgram_{{ question.id }}"></span>
-        			<div id="div_priority_{{ question.id }}" style="display: none;">
-        				<span id="overview_isPriority_{{ question.id }}"></span>
-        			</div>
-              	</p>
-              	<p>
-              		<strong>{{ "answer"|trans }}</strong><br/>
-        			<span id="overview_text_{{ question.id }}"></span>
-              	</p>
-        	{% endfor %}
-        	
-        	<div id="div_overview_city"></div>
+            	<div id="step{{ 4+loop.index }}" class="container x-3 py-3 pt-md-5 pb-md-4 mx-auto" style="display: none;">
+                  	
+                  	<center>
+                  		<h1 class="display-5">{{ question.text }}</h1>
+                  	</center>
+              	
+              		<div class="alert alert-warning" role="alert" id="warning_step{{ 4+loop.index }}" style="display: none;"></div>
+            		
+                	
+                    <fieldset class="form-group">
+                        <div class="row">
+                            <legend class="col-form-label col-sm-2 pt-0">{{ "program"|trans }}</legend>
+                            <div class="col-sm-10">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="radio_inProgram_{{ question.id }}" id="inProgram_{{ question.id }}" value="true">
+                                    <label class="form-check-label" for="inProgram_{{ question.id }}">
+                                    	{{ "in_program"|trans }}
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="radio_inProgram_{{ question.id }}" id="notInProgram_{{ question.id }}" value="true">
+                                    <label class="form-check-label" for="notInProgram_{{ question.id }}">
+                                    	{{ "not_in_program"|trans }}
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+                	
+                    <fieldset class="form-group">
+                        <div class="row">
+                            <legend class="col-form-label col-sm-2 pt-0">{{ "priority"|trans }}</legend>
+                            <div class="col-sm-10">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="radio_isPriority_{{ question.id }}" id="isPriority_{{ question.id }}" value="true" disabled>
+                                    <label class="form-check-label" for="isPriority_{{ question.id }}">
+                                    	{{ "is_priority"|trans }}
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="radio_isPriority_{{ question.id }}" id="isNotPriority_{{ question.id }}" value="true" disabled>
+                                    <label class="form-check-label" for="isNotPriority_{{ question.id }}">
+                                    	{{ "is_not_priority"|trans }}
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+                
+                	<div class="form-group">
+                    	<label for="text_{{ question.id }}">{{ "answer_text"|trans }}</label>
+                    	<textarea class="form-control" id="text_{{ question.id }}" name="text_{{ question.id }}" rows="4" placeholder="{{ "answer"|trans }}"></textarea>
+            		</div>
+                    
+                    
+                    <p>
+                        <center>
+                            <span class="btn btn-outline-secondary" onclick="previousStep({{ 4+loop.index }});">{{ "previous"|trans }}</span>
+                            <span class="btn btn-outline-secondary" onclick="nextStep({{ 4+loop.index }});">{{ "next"|trans }}</span>
+                        </center>
+                    </p>
+                </div>
+            {% endfor %}
+            
+            <div id="div_questions_of_city"></div>
             
             
-            <p>
-                <center>
-                    <span id="overviewPreviousStep" class="btn btn-outline-secondary" onclick="previousStep({{ 5+questions|length }});">{{ "previous"|trans }}</span>
-                    <span                           class="btn btn-outline-secondary" onclick="submit();">{{ "submit"|trans }}</span>
-                </center>
-            </p>
-        </div>
         
-        <div id="stepFinal" class="container x-3 py-3 pt-md-5 pb-md-4 mx-auto" style="display: none;">
-          	
-          	<center>
-          		<h1 class="display-5">{{ "form_final_title"|trans }}</h1>
-          		<p class="lead">{{ "form_final_hint"|trans|nl2br }}</p>
-          	</center>
+        	<div id="step{{ 5+questions|length }}" class="container x-3 py-3 pt-md-5 pb-md-4 mx-auto" style="display: none;">
+              	
+              	<center>
+              		<h1 class="display-5">{{ "overview"|trans }}</h1>
+              		<p class="lead">{{ "overview_hint"|trans|nl2br }}</p>
+              	</center>
+              	
+          		<div class="alert alert-warning" role="alert" id="warning_overview" style="display: none;"></div>
+              	
+              	<p class="lead"><em>{{ "question_step2"|trans }}</em> <a href="#" onclick="previousStep(getOverviewStepId(), 2);">{{ "modify"|trans }}</a></p>
+              	
+              	<p>
+              		<strong>{{ "city"|trans }}</strong><br/>
+        			<span id="overview_city"></span>
+              	</p>
+              	
+              	<p class="lead"><em>{{ "question_step3"|trans }}</em> <a href="#" onclick="previousStep(getOverviewStepId(), 3);">{{ "modify"|trans }}</a></p>
+              	
+              	<p>
+              		<strong>{{ "form_list_name"|trans }}</strong><br/>
+        			<span id="overview_name"></span>
+              	</p>
+              	
+              	<p>
+              		<strong>{{ "head_of_list1"|trans }}</strong><br/>
+        			<span id="overview_headOfList1"></span>
+              	</p>
+              	
+              	<p>
+              		<strong>{{ "head_of_list2"|trans }}</strong><br/>
+        			<span id="overview_headOfList2"></span>
+              	</p>
+              	
+              	<p>
+              		<strong>{{ "form_supported_by"|trans }}</strong><br/>
+        			<span id="overview_supportedBy"></span>
+              	</p>
+              	
+              	<p class="lead"><em>{{ "question_step4"|trans }}</em> <a href="#" onclick="previousStep(getOverviewStepId(), 4);">{{ "modify"|trans }}</a></p>
+              	
+              	<p>
+              		<strong>{{ "your_name"|trans }}</strong><br/>
+        			<span id="overview_contactName"></span>
+              	</p>
+              	
+              	<p>
+              		<strong>{{ "your_role"|trans }}</strong><br/>
+        			<span id="overview_contactRole"></span>
+              	</p>
+              	
+              	<p>
+              		<strong>{{ "phone"|trans }}</strong><br/>
+        			<span id="overview_contactPhone"></span>
+              	</p>
+              	
+              	<p>
+              		<strong>{{ "email"|trans }}</strong><br/>
+        			<span id="overview_contactEmail"></span>
+              	</p>
+              	
+            	{% for question in questions %}
+              	
+              		<p class="lead"><em>{{ question.text }}</em> <a href="#" onclick="previousStep(getOverviewStepId(), {{ 4+loop.index }});">{{ "modify"|trans }}</a></p>
+              		
+                  	<p>
+            			<span id="overview_inProgram_{{ question.id }}"></span>
+            			<div id="div_priority_{{ question.id }}" style="display: none;">
+            				<span id="overview_isPriority_{{ question.id }}"></span>
+            			</div>
+                  	</p>
+                  	<p>
+                  		<strong>{{ "answer"|trans }}</strong><br/>
+            			<span id="overview_text_{{ question.id }}"></span>
+                  	</p>
+            	{% endfor %}
+            	
+            	<div id="div_overview_city"></div>
+                
+                
+                <p>
+                    <center>
+                        <span id="overviewPreviousStep" class="btn btn-outline-secondary" onclick="previousStep({{ 5+questions|length }});">{{ "previous"|trans }}</span>
+                        <span                           class="btn btn-outline-secondary" onclick="submit();">{{ "submit"|trans }}</span>
+                    </center>
+                </p>
+            </div>
+            
+            <div id="stepFinal" class="container x-3 py-3 pt-md-5 pb-md-4 mx-auto" style="display: none;">
+              	
+              	<center>
+              		<h1 class="display-5">{{ "form_final_title"|trans }}</h1>
+              		<p class="lead">{{ "form_final_hint"|trans|nl2br }}</p>
+              	</center>
+            </div>
         </div>
     </form>
 {% endblock %}
