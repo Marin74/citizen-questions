@@ -56,7 +56,7 @@ answer_text: "Réponse (facultative)"
 program: Programme électoral
 priority: Priorité
 overview: Récapitulatif de vos réponses
-overview_hint: "Vérifiez que les informations sont correctes, modifiez-les au besoin, puis validez le formulaire.\n\nLes réponses seront visibles publiquement après validation par l'équipe d'administration."
+overview_hint: "Vérifiez que les informations sont correctes, modifiez-les au besoin, puis validez le formulaire.\nLes réponses seront visibles publiquement après validation par l'équipe d'administration."
 modify: Modifier
 submit: Valider
 field_empty: 'Un des champs obligatoires est vide.'
