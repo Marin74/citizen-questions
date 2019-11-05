@@ -49,7 +49,7 @@ question_step2: "Dans quelle commune se présente votre liste ?"
 question_step3: "Informations sur la liste"
 question_step4: "Informations sur le déclarant"
 question_step4_hint: "Ces informations ne seront pas publiques. Elles sont destinées à vérifier l'identité du déclarant."
-form_supported_by: "Soutiens déclarés (mouvements, partis politiques) (facultatif)"
+form_supported_by: "Déclarer les soutiens qui ont été officiellement apportés à votre liste (mouvements, partis politiques) - sinon laisser ce champ vide"
 form_supported_by_hint: "Les soutiens déclarés doivent être apportés officiellement."
 answer: Réponse
 answer_text: "Réponse (facultative)"
