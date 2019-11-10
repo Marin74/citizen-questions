@@ -43,6 +43,8 @@ twig:
         piwik_url: "%piwik_url%"
         creator: "%creator%"
         creator_website: "%creator_website%"
+        form_start: "%form_start%"
+        form_end: "%form_end%"
 
 # Doctrine Configuration
 doctrine:

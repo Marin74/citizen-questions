@@ -71,7 +71,8 @@ form_final_title: Réponses envoyées avec succès
 form_final_hint: "Merci beaucoup pour votre participation !\nVous allez recevoir un email avec un lien pour confirmer votre adresse email de contact.\n\nVos réponses apparaîtront lorsqu'elles seront validées par l'équipe d'administration."
 error_occurs: "Une erreur est survenue durant l'envoi. Veuillez réessayer à nouveau. Si le problème persiste, contactez l'équipe d'administration à partir du formulaire de contact."
 confirmation_email_not_sent: "L'email de confirmation n'a pu être envoyé. Vérifiez que votre email de contact est correct."
-
+form_too_early: "Le formulaire sera disponible le %date%."
+form_too_late: "Il n'est plus possible de remplir le formulaire."
 
 
 
