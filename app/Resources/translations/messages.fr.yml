@@ -73,7 +73,6 @@ error_occurs: "Une erreur est survenue durant l'envoi. Veuillez réessayer à no
 confirmation_email_not_sent: "L'email de confirmation n'a pu être envoyé. Vérifiez que votre email de contact est correct."
 form_too_early: "Le formulaire sera disponible le %date%."
 form_too_late: "Il n'est plus possible de remplir le formulaire."
-at_midnight: " à minuit"
 
 
 
