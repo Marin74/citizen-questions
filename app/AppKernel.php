@@ -59,4 +59,10 @@ class AppKernel extends Kernel
         });
         $loader->load($this->getRootDir().'/config/config_'.$this->getEnvironment().'.yml');
     }
+    
+    public function __construct($environment, $debug) {
+        parent::__construct($environment, $debug);
+        // get rid of Warning: date_default_timezone_get(): It is not safe to rely on the system's timezone
+        date_default_timezone_set('UTC');
+    }
 }
