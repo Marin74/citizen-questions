@@ -19,7 +19,9 @@
         </p>
       </div>
       <div class="product-device shadow-sm d-none d-md-block"></div>
-      <div class="product-device product-device-2 shadow-sm d-none d-md-block"></div>
+      <!--<div class="product-device product-device-2 shadow-sm d-none d-md-block"></div>-->
+      <div class="product-device-2 shadow-sm d-none d-md-block" style="background-image: url('{{ absolute_url(asset("bundles/app/picture_1.png")) }}');">
+      </div>
     </div>
     
     <div id="map" style="min-height: 80vh"></div>
@@ -199,15 +201,17 @@
         }
     
         function zoomToFeature(e) {
-            
-        	var whereToGo = "{{ url("city", {"insee": "XXX", "name": "YYY"}) }}";
-        	{% for city in cities %}
-        		if(e.target.feature.properties.insee == "{{ city.insee }}") {
-                    whereToGo = whereToGo.replace("XXX", "{{ city.insee }}");
-                    whereToGo = whereToGo.replace("YYY", "{{ city.nameForUrl }}");
-        		}
-        	{% endfor %}
-            window.location.href = whereToGo;
+
+            {% if is_mobile() == false %}
+            	var whereToGo = "{{ url("city", {"insee": "XXX", "name": "YYY"}) }}";
+            	{% for city in cities %}
+            		if(e.target.feature.properties.insee == "{{ city.insee }}") {
+                        whereToGo = whereToGo.replace("XXX", "{{ city.insee }}");
+                        whereToGo = whereToGo.replace("YYY", "{{ city.nameForUrl }}");
+            		}
+            	{% endfor %}
+                window.location.href = whereToGo;
+            {% endif %}
         }
     
         function highlightFeature(e) {
