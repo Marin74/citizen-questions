@@ -237,7 +237,7 @@
                             whereToGo = whereToGo.replace("XXX", "{{ city.insee }}");
                             whereToGo = whereToGo.replace("YYY", "{{ city.nameForUrl }}");
                     	{% endfor %}
-                    	textPopup += "<a href='"+whereToGo+"'>";
+                    	textPopup += "<a href='"+whereToGo+"' style='color: #feb24c;'>";
                 	{% endif %}
                 	
                 	textPopup += "<span style='{% if city.validatedLists|length > 0 %}color: #feb24c;{% endif %}'><h6>{{ city.name }}</h6>";
