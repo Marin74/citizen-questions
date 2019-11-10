@@ -43,7 +43,7 @@
             	<div id="step1" class="px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
                   <h1 class="display-5">{{ "answer_form"|trans }}</h1>
                   <p class="lead">{{ "answer_form_hint"|trans }}</p>
-                  <span class="btn btn-outline-secondary" onclick="nextStep(1);">{{ "i_agree"|trans }}</span>
+                  <span class="btn btn-outline-secondary" style="cursor: pointer;" onclick="nextStep(1);">{{ "i_agree"|trans }}</span>
                 </div>
             
             	<div id="step2" class="container x-3 py-3 pt-md-5 pb-md-4 mx-auto" style="display: none;">
@@ -118,8 +118,9 @@
                         
                         <p>
                             <center>
-                                <span class="btn btn-outline-secondary" onclick="previousStep(2);">{{ "previous"|trans }}</span>
-                                <span class="btn btn-outline-secondary" onclick="nextStep(2);">{{ "next"|trans }}</span>
+                                <span class="btn btn-outline-secondary" style="cursor: pointer;" onclick="previousStep(2);">{{ "previous"|trans }}</span>
+                                <span class="btn btn-outline-secondary" style="cursor: pointer;" onclick="nextStep(2);">{{ "next"|trans }}</span>
+                  				<span class="btn btn-outline-primary" style="cursor: pointer; display: none;" onclick="nextStep(2, getOverviewStepId());" id="btn_overview_2">{{ "btn_overview"|trans }}</span>
                             </center>
                         </p>
                     </div>
@@ -135,7 +136,7 @@
                 
                 	<div class="form-group">
                     	<label for="name">{{ "form_list_name"|trans }}</label>
-                    	<input type="text" class="form-control" id="name" name="name" placeholder="">
+                    	<input type="text" class="form-control" id="name" name="name" placeholder="{{ "form_list_name"|trans }}">
             		</div>
             		
                 	<div class="form-group">
@@ -170,8 +171,9 @@
                     
                     <p>
                         <center>
-                            <span class="btn btn-outline-secondary" onclick="previousStep(3);">{{ "previous"|trans }}</span>
-                            <span class="btn btn-outline-secondary" onclick="nextStep(3);">{{ "next"|trans }}</span>
+                            <span class="btn btn-outline-secondary" style="cursor: pointer;" onclick="previousStep(3);">{{ "previous"|trans }}</span>
+                            <span class="btn btn-outline-secondary" style="cursor: pointer;" onclick="nextStep(3);">{{ "next"|trans }}</span>
+              				<span class="btn btn-outline-primary" style="cursor: pointer; display: none;" onclick="nextStep(3, getOverviewStepId());" id="btn_overview_3">{{ "btn_overview"|trans }}</span>
                         </center>
                     </p>
                 </div>
@@ -217,8 +219,9 @@
                     
                     <p>
                         <center>
-                            <span class="btn btn-outline-secondary" onclick="previousStep(4);">{{ "previous"|trans }}</span>
-                            <span class="btn btn-outline-secondary" onclick="nextStep(4);">{{ "next"|trans }}</span>
+                            <span class="btn btn-outline-secondary" style="cursor: pointer;" onclick="previousStep(4);">{{ "previous"|trans }}</span>
+                            <span class="btn btn-outline-secondary" style="cursor: pointer;" onclick="nextStep(4);">{{ "next"|trans }}</span>
+              				<span class="btn btn-outline-primary" style="cursor: pointer; display: none;" onclick="nextStep(4, getOverviewStepId());" id="btn_overview_4">{{ "btn_overview"|trans }}</span>
                         </center>
                     </p>
                 </div>
@@ -281,8 +284,9 @@
                         
                         <p>
                             <center>
-                                <span class="btn btn-outline-secondary" onclick="previousStep({{ 4+loop.index }});">{{ "previous"|trans }}</span>
-                                <span class="btn btn-outline-secondary" onclick="nextStep({{ 4+loop.index }});">{{ "next"|trans }}</span>
+                                <span class="btn btn-outline-secondary" style="cursor: pointer;" onclick="previousStep({{ 4+loop.index }});">{{ "previous"|trans }}</span>
+                                <span class="btn btn-outline-secondary" style="cursor: pointer;" onclick="nextStep({{ 4+loop.index }});">{{ "next"|trans }}</span>
+                  				<span class="btn btn-outline-primary" style="cursor: pointer; display: none;" onclick="nextStep({{ 4+loop.index }}, getOverviewStepId());" id="btn_overview_{{ 4+loop.index }}">{{ "btn_overview"|trans }}</span>
                             </center>
                         </p>
                     </div>
@@ -373,8 +377,8 @@
                     
                     <p>
                         <center>
-                            <span id="overviewPreviousStep" class="btn btn-outline-secondary" onclick="previousStep({{ 5+questions|length }});">{{ "previous"|trans }}</span>
-                            <span                           class="btn btn-outline-secondary" onclick="submit();">{{ "submit"|trans }}</span>
+                            <span id="overviewPreviousStep" class="btn btn-outline-secondary" style="cursor: pointer;" onclick="previousStep({{ 5+questions|length }});">{{ "previous"|trans }}</span>
+                            <span                           class="btn btn-outline-primary" style="cursor: pointer;" onclick="submitForm();">{{ "submit"|trans }}</span>
                         </center>
                     </p>
                 </div>
@@ -393,12 +397,13 @@
 
 {% block js %}
     <script type="application/javascript">
-        {% if form_end is empty or "now"|date < form_end|date %}
+        {% if form_end is empty or "now"|date("Y-m-d H:i:s") < form_end|date("Y-m-d H:i:s") %}
         	var duration = 500;
         	var durationDelay = 200;
         	var nbQuestionsOfCity = 0;
         	var questionsOfCityIds = [];
         	var previousCity = "";
+        	var overviewDisplayed = false;
     
             $(function() {
             	$("#progress").addClass("w-"+Math.floor(getStepSize()));
@@ -507,6 +512,23 @@
             		$("#step"+actualStep.toString()).fadeOut(duration, function() {
                     	$("#city_loader").hide();
                     	$("#city_form").show();
+
+
+
+                		if(stepWhereToGo == getOverviewStepId()) {
+
+                    		overviewDisplayed = true;
+                    		
+                    		$("#btn_overview_2").show();
+                    		$("#btn_overview_3").show();
+                    		$("#btn_overview_4").show();
+                    		{% for question in questions %}
+                    			$("#btn_overview_{{ 4+loop.index }}").show();
+                    		{% endfor %}
+                    		$.each(questionsOfCityIds, function(index, value) {
+                    			$("#btn_overview_"+({{ 4+questions|length }}+index+1)).show();
+                			});
+                		}
                     	
                     	if(stepWhereToGo == getOverviewStepId()+1) {
                     		// Last step
@@ -572,6 +594,8 @@
     
         	function getQuestionsOfCity(actualStep, stepWhereToGo)
         	{
+            	var stepToGoIsOverview = stepWhereToGo == getOverviewStepId();
+            	
             	url = "{{ url("answer_form_questions_of_city", {"insee": "XXX"}) }}";
             	url = url.replace("XXX", $("#city").val());
             	
@@ -655,6 +679,27 @@
             		
     				// Display the next step
                 	previousCity = $("#city").val();
+
+            		if(nbQuestionsOfCity > 0) {
+
+            			$("#btn_overview_2").hide();
+                		$("#btn_overview_3").hide();
+                		$("#btn_overview_4").hide();
+                		{% for question in questions %}
+                			$("#btn_overview_{{ 4+loop.index }}").hide();
+                		{% endfor %}
+                		$.each(questionsOfCityIds, function(index, value) {
+                			$("#btn_overview_"+({{ 4+questions|length }}+index+1)).hide();
+            			});
+
+            			stepWhereToGo = {{ 4+questions|length }}+1;// TODO Tester
+            		}
+            		else if(overviewDisplayed == true && stepToGoIsOverview) {
+                		stepWhereToGo = getOverviewStepId();
+            		}
+            		// TODO Dans ce cas (nbQuestionsOfCity > 0) bloquer le saut direct à l'overview (cacher tous les boutons)
+            		// TODO + Rediriger vers les questions à remplir
+            		
                 	nextStep(actualStep, stepWhereToGo);
     		    }, error: function(result) {
                 	$("#city_loader").hide();
@@ -745,9 +790,8 @@
                 });
         	{% endfor %}
     
-        	function submit()
+        	function submitForm()
         	{
-    
             	var frm = $('#formList');
     
             	$.ajax({
@@ -761,17 +805,25 @@
         					nextStep(getOverviewStepId());
         				}
         				else {
-        					alert("erreur");// TODO Afficher le message d'erreur error_occurs
-        		    		//$("#warning_overview").html(result.message);
+        		    		$("#warning_overview").html(result.message);
         		        	
-        		    		//$("#warning_overview").delay(durationDelay).fadeIn(duration);
-        		    		//$("#warning_overview").focus();
+        		    		$("#warning_overview").delay(durationDelay).fadeIn(duration);
+        		        	
+        		    		$("#warning_overview").delay(durationDelay).fadeIn(duration);
+        		    		$("#warning_overview").animate({
+        		    	        scrollTop: $("#warning_overview").offset().top
+        		    	    }, 2000);
         				}
                     },
                     error: function (result) {
                         console.log('An error occurred.');
                         console.log(result);
-                        alert("erreur erreur");// TODO Afficher le message d'erreur error_occurs
+    		    		$("#warning_overview").html("{{ "error_occurs"|trans }}");
+    		        	
+    		    		$("#warning_overview").delay(durationDelay).fadeIn(duration);
+    		    		$("#warning_overview").animate({
+    		    	        scrollTop: $("#warning_overview").offset().top
+    		    	    }, 2000);
                     },
                 });
         	}
