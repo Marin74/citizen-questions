@@ -27,3 +27,5 @@ parameters:
     creator_website: ~
     form_start: ~
     form_end: ~
+    locale: ~
+    time_zone: ~

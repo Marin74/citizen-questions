@@ -24,7 +24,7 @@
         
         	<div id="step1" class="px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
               <h1 class="display-5">{{ "answer_form"|trans }}</h1>
-              <p class="lead">{{ "form_too_early"|trans }}</p>
+              <p class="lead">{{ "form_too_early"|trans({"%date%": form_start|date("Y-m-d H:i:s")|localizeddate("full", "short", locale, time_zone)}) }}</p>
             </div>
         </div>
 	{% else %}

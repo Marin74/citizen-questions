@@ -45,6 +45,8 @@ twig:
         creator_website: "%creator_website%"
         form_start: "%form_start%"
         form_end: "%form_end%"
+        locale: "%locale%"
+        time_zone: "%time_zone%"
 
 # Doctrine Configuration
 doctrine:
@@ -79,3 +81,10 @@ swiftmailer:
 sensio_framework_extra:
    router:
         annotations: false
+    
+# Services
+services:
+    twig.extension.intl:
+       class: Twig_Extensions_Extension_Intl
+       tags:
+           - { name: twig.extension }
