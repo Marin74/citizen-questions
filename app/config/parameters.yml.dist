@@ -29,3 +29,4 @@ parameters:
     form_end: ~
     locale: ~
     time_zone: ~
+    send_question_url: ~
