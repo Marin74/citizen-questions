@@ -230,8 +230,9 @@
                 	<div id="step{{ 4+loop.index }}" class="container x-3 py-3 pt-md-5 pb-md-4 mx-auto" style="display: none;">
                       	
                       	<center>
-                      		<h1 class="display-5">{{ question.text }}</h1>
+                      		<h2 class="display-5">{{ "question_beginning"|trans }}</h2>
                       	</center>
+                      	<h3 style="margin-top: 2em;">{{ question.text }}</h3>
                   	
                   		<div class="alert alert-warning" role="alert" id="warning_step{{ 4+loop.index }}" style="display: none;"></div>
                 		

@@ -36,9 +36,13 @@
 
 	
 		{% if list.answers|length > 0 %}
+		
             <div class="px-3 py-3 pt-md-5 pb-md-4 mx-auto">
+            	<h2>{{ "question_beginning"|trans }}</h2>
+            </div>
+            <div class="px-3 py-3 pb-md-4 mx-auto">
         		{% for answer in list.generalAnswers %}
-        			<h2>{{ answer.question.text }}</h2>
+        			<h4>{{ answer.question.text }}</h4>
         			<ul>
         				<li>
         					{% if answer.inProgram %}
@@ -65,7 +69,7 @@
                 {% endfor %}
         
         		{% for answer in list.cityAnswers %}
-        			<h2>{{ answer.question.text }}</h2>
+        			<h4>{{ answer.question.text }}</h4>
         			<ul>
         				<li>
         					{% if answer.inProgram %}

@@ -5,14 +5,14 @@ zero_one_answer: "%nb% réponse"
 nb_answers: "%nb% réponses"
 show_answers: Découvrir les réponses
 subtitle: "L'objectif de ce site est d'offrir la possibilité aux citoyen(ne)s du Chablais d'exprimer leurs souhaits et préoccupations auprès des candidat(e)s aux municipales de 2020."
-explanations: "Les Questions Citoyennes ont été recueillies entre le 12 novembre 2019 et le 5 février 2020. Elles ont été synthétisées lors de deux séances publiques les 10 décembre et 10 février. Les questions originales sont disponibles pour consultation"
+explanations: "Les Questions Citoyennes ont été recueillies entre le 12 novembre 2019 et le 5 février 2020.\nElles ont été synthétisées lors de deux séances publiques les 10 décembre et 10 février.\nLes questions originales sont disponibles pour consultation"
 here: ici
 ask_questions: "Posez vos questions ici !"
 encourage_lists: "Encouragez les listes de votre commune à répondre aux questions des citoyens !"
 list_led_by: "Conduite par %name1% et %name2%"
 no_list: Aucune liste pour le moment
 unknown_city: Commune inconnue
-lists_that_answered: "Listes qui ont répondu :"
+lists_that_answered: "Listes qui ont répondu"
 unknown_list: Liste inconnue
 supported_by: "Liste soutenue par %text%"
 homepage: Accueil
@@ -30,7 +30,7 @@ in_program: "Figure dans le programme"
 not_in_program: "Ne figure pas dans le programme"
 is_priority: "Est prioritaire"
 is_not_priority: "N'est pas prioritaire"
-answers: "Réponses groupées des listes ci-dessus :"
+answers: "Consultez leurs réponses ci-dessous"
 answer_form: Répondre aux questions citoyennes
 answer_form_hint: "En répondant pour une liste électorale, vous certifiez être un(e) des candidat(e)s de cette liste et avoir l’aval de votre liste pour répondre aux questions citoyennes de ce site."
 i_agree: Je suis d'accord
@@ -54,8 +54,9 @@ question_step4: "Informations sur le déclarant"
 question_step4_hint: "Ces informations ne seront pas publiques. Elles sont destinées à vérifier l'identité du déclarant."
 form_supported_by: "Déclarer les soutiens qui ont été officiellement apportés à votre liste (mouvements, partis politiques) - sinon laisser ce champ vide"
 form_supported_by_hint: "Soutiens"
-answer: Réponse
-answer_text: "Réponse (facultative)"
+answer: Précisions
+answer_text: "Précisions (facultatif)"
+question_beginning: "Si votre liste a des représentant(e)s élu(e)s au conseil municipal, dans la majorité ou dans l’opposition,..."
 program: Programme électoral
 priority: Priorité
 overview: Récapitulatif de vos réponses
