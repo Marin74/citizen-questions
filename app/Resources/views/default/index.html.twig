@@ -4,11 +4,14 @@
 
 {% block body %}
 
-    
-    <div class="position-relative overflow-hidden p-3 p-md-5 m-md-3 text-center bg-light">
+    <!-- The style attribute replaces p-3, p-md-5 and m-md-3 classes -->
+    <div class="position-relative overflow-hidden text-center bg-light" style="padding-left: 3rem !important; padding-top: 3rem !important; padding-right: 3rem !important; margin-left: 1rem !important; margin-top: 1rem !important; margin-right: 1rem !important;">
       <div class="col-md-5 p-lg-4 mx-auto my-3">
-        <h1 class="display-4 font-weight-normal">{{ app_name }}</h1>
-        <p class="lead font-weight-normal">{{ "subtitle"|trans|nl2br }}<a href='{{ creator_website }}'>{{ creator }}</a>{{ "subtitle_end"|trans|nl2br }}</p>
+        <h1 class="display-4" style="font-family: Holiday; font-size: 5em;">{{ app_name }}</h1>
+        <p class="lead font-weight-normal" style="margin-top: 2rem;">{{ "subtitle"|trans|nl2br }}</p>
+        <p class="lead">
+        	<a href="">{{ "ask_questions"|trans }}</a>
+        </p>
         <p class="lead">
       	  {% include 'template/share_buttons.html.twig' %}
         </p>
@@ -20,9 +23,9 @@
             </p>
         {% endif %}
       </div>
-      <div class="product-device shadow-sm d-none d-md-block"></div>
-      <div class="product-device product-device-2 shadow-sm d-none d-md-block"></div>
-      </div>
+      <!--<div class="product-device shadow-sm d-none d-md-block"></div>-->
+      <!--<div class="product-device product-device-2 shadow-sm d-none d-md-block"></div>-->
+	  	<img class="d-none d-md-block" style="position: absolute; top: 0%; right: auto; bottom: 0; width: 30%;" src="{{ absolute_url(asset("bundles/app/picture_1.png")) }}">
     </div>
     
     <div id="map" style="min-height: 80vh"></div>
@@ -34,9 +37,11 @@
         	<h5>/</h5>
     	{% else %}
         
-    		{% for list in lists %}
-    			<h5><a href="{{ url("city", {"insee": list.city.insee, "name": list.city.nameForUrl}) }}">{{ list.city.name }}</a> - <a href="{{ url("list", {"id": list.id, "name": list.nameForUrl}) }}">{{ list.name }}</a></h5>
-    		{% endfor %}
+        	<center>
+        		{% for list in lists %}
+        			<h5><a href="{{ url("city", {"insee": list.city.insee, "name": list.city.nameForUrl}) }}">{{ list.city.name }}</a> - <a href="{{ url("list", {"id": list.id, "name": list.nameForUrl}) }}">{{ list.name }}</a></h5>
+        		{% endfor %}
+    		</center>
         {% endif %}
 	</div>
     
@@ -118,6 +123,13 @@
           </div>
         </div>
     {% endif %}
+    
+	<div class="px-3 py-3 pt-md-5 pb-md-4 mx-auto">
+		<center>
+    		<h4 class="font-weight-normal">{{ "explanations"|trans|nl2br }} <a href="{{ url("questions") }}">{{ "here"|trans }}</a>.</h4>
+    	</center>
+	</div>
+        
 	
 {% endblock %}
 

@@ -4,8 +4,10 @@ contact: Contact
 zero_one_answer: "%nb% réponse"
 nb_answers: "%nb% réponses"
 show_answers: Découvrir les réponses
-subtitle: "L'objectif de ce site est d'offrir la possibilité aux citoyen(ne)s du Chablais d'exprimer leurs souhaits et préoccupations auprès des candidat(e)s aux municipales de 2020.\n\nLes Questions Citoyennes soumises ici aux listes électorales ont été recueillies lors de diverses rencontres, réunions, conférences ou projections et auprès d'associations présentes sur le site "
-subtitle_end: " (entre novembre 2019 et le 5 février 2020)."
+subtitle: "L'objectif de ce site est d'offrir la possibilité aux citoyen(ne)s du Chablais d'exprimer leurs souhaits et préoccupations auprès des candidat(e)s aux municipales de 2020."
+explanations: "Les Questions Citoyennes ont été recueillies entre le 12 novembre 2019 et le 5 février 2020. Elles ont été synthétisées lors de deux séances publiques les 10 décembre et 10 février. Les questions originales sont disponibles pour consultation"
+here: ici
+ask_questions: "Posez vos questions ici !"
 encourage_lists: "Encouragez les listes de votre commune à répondre aux questions des citoyens !"
 list_led_by: "Conduite par %name1% et %name2%"
 no_list: Aucune liste pour le moment
@@ -74,6 +76,9 @@ error_occurs: "Une erreur est survenue durant l'envoi. Veuillez réessayer à no
 confirmation_email_not_sent: "L'email de confirmation n'a pu être envoyé. Vérifiez que votre email de contact est correct."
 form_too_early: "Le formulaire sera ouvert le %date%."
 form_too_late: "Il n'est plus possible de remplir le formulaire."
+questions_soon_date: "Les questions originales posées par les citoyen(ne)s seront consultables dès l'ouverture du site le %date%."
+questions_soon: "Les questions originales posées par les citoyen(ne)s seront consultables dès l'ouverture du site."
+original_questions: Questions originales
 
 
 

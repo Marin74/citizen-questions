@@ -142,6 +142,38 @@
         .w-98{width: 98% !important;}
         .w-99{width: 99% !important;}
         .w-100{width: 100% !important;}
+        
+        @font-face {
+         font-family: "Holiday";
+         src: url("{{ absolute_url(asset("bundles/app/fonts/HolidayFree.otf")) }}");
+        }
+        
+        .site-header {
+        	background-color: #3495eb;
+        }
+        
+        .btn:hover {
+        	color: #ff6c00;
+        }
+        
+        .btn {
+        	color: #ff6c00;
+        	border-color: #ff6c00;
+        }
+        
+        .btn-outline-secondary:hover {
+        	color: #fff;
+        	background-color: #ff6c00;
+        	border-color: #ff6c00;
+        }
+        
+        a {
+        	color: #3495eb;
+        }
+        
+        a:hover {
+        	color: #3495eb;
+        }
     </style>
     
     <!-- Custom styles for this template -->
@@ -152,11 +184,17 @@
   <body>
   
 
-    <nav class="site-header sticky-top py-1">
-      <div class="container d-flex flex-column flex-md-row justify-content-between">
-        <a class="py-2" href="{{ url("homepage") }}">
+    <nav class="site-header sticky-top py-1" style="background-color: #3495eb; padding-bottom: 0rem;">
+      <div class="{% if is_mobile() %}container{% endif %} d-flex flex-column flex-md-row justify-content-between" style="{% if is_mobile() == false %}margin-left: 5%;{% endif %}">
+        <a class="py-2" href="{{ url("homepage") }}" style="font-family: Holiday; color: white;">
+        	{{ app_name }}
+        <!--
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="d-block mx-auto" role="img" viewBox="0 0 24 24" focusable="false"><title>{{ app_name }}</title><circle cx="12" cy="12" r="10"/><path d="M14.31 8l5.74 9.94M9.69 8h11.48M7.38 12l5.74-9.94M9.69 16L3.95 6.06M14.31 16H2.83m13.79-4l-5.74 9.94"/></svg>
+        -->
         </a>
+        <a class="py-2 d-none d-md-inline-block" href="#"></a>
+        <a class="py-2 d-none d-md-inline-block" href="#"></a>
+        <a class="py-2 d-none d-md-inline-block" href="#"></a>
         <a class="py-2 d-none d-md-inline-block" href="#"></a>
         <a class="py-2 d-none d-md-inline-block" href="#"></a>
         <a class="py-2 d-none d-md-inline-block" href="#"></a>

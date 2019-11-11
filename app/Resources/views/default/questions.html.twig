@@ -1,0 +1,29 @@
+{% extends "base.html.twig" %}
+
+{% block title %}{{ "original_questions"|trans }} - {{ parent() }}{% endblock %}
+
+{% block body %}
+
+	<nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="{{ url("homepage") }}">{{ "homepage"|trans }}</a></li>
+        <li class="breadcrumb-item active" aria-current="page">{{ "original_questions"|trans }}</li>
+      </ol>
+    </nav>
+
+    <div class="px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
+      <h1 class="display-4">{{ "original_questions"|trans }}</h1>
+      <p class="lead">
+      	{% if form_start is not empty %}
+      	    {{ "questions_soon_date"|trans({"%date%": form_start|date("Y-m-d H:i:s")|localizeddate("full", "short", locale, time_zone)}) }}
+      	{% else %}
+      	    {{ "questions_soon"|trans({"%date%": form_start|date("Y-m-d H:i:s")|localizeddate("full", "short", locale, time_zone)}) }}
+      	{% endif %}
+      </p>
+    </div>
+{% endblock %}
+
+{% block js %}
+    <script type="application/javascript">
+    </script>
+{% endblock %}

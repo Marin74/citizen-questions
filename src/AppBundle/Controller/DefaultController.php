@@ -277,6 +277,15 @@ class DefaultController extends Controller
     }
     
     /**
+     * @Route("/questions", name="questions")
+     */
+    public function questionsAction(Request $request)
+    {
+        return $this->render('default/questions.html.twig', [
+        ]);
+    }
+    
+    /**
      * @Route("/contact", name="contact")
      */
     public function contactAction(Request $request)
