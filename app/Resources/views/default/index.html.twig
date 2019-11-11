@@ -27,16 +27,18 @@
     
     <div id="map" style="min-height: 80vh"></div>
     
-    {% if lists|length > 0 %}
-    	<div class="px-3 py-3 pt-md-5 pb-md-4 mx-auto">
-    	
-        	<h2>{{ "last_lists"|trans }}</h2>
+	<div class="px-3 py-3 pt-md-5 pb-md-4 mx-auto">
+	
+    	<h2>{{ "last_lists"|trans }}</h2>
+        {% if lists|length == 0 %}
+        	<h5>/</h5>
+    	{% else %}
         
     		{% for list in lists %}
     			<h5><a href="{{ url("city", {"insee": list.city.insee, "name": list.city.nameForUrl}) }}">{{ list.city.name }}</a> - <a href="{{ url("list", {"id": list.id, "name": list.nameForUrl}) }}">{{ list.name }}</a></h5>
     		{% endfor %}
-    	</div>
-    {% endif %}
+        {% endif %}
+	</div>
     
     {% if cities|length > 0 %}
     	<div class="px-3 py-3 mx-auto">
