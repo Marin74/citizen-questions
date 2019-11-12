@@ -286,7 +286,7 @@ class DefaultController extends Controller
     }
     
     /**
-     * @Route("/poser-une-question", name="ask_question")
+     * @Route("/posez-une-question", name="ask_question")
      */
     public function askQuestionAction(Request $request)
     {
