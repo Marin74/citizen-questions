@@ -1,0 +1,25 @@
+{% extends "base.html.twig" %}
+
+{% block title %}{{ "legal_terms"|trans }} - {{ parent() }}{% endblock %}
+
+{% block body %}
+
+	<nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="{{ url("homepage") }}">{{ "homepage"|trans }}</a></li>
+        <li class="breadcrumb-item active" aria-current="page">{{ "legal_terms"|trans }}</li>
+      </ol>
+    </nav>
+
+    <div class="container x-3 py-3 pt-md-5 pb-md-4 mx-auto">
+      	
+      	<center>
+      		<h1 class="display-4">{{ "legal_terms"|trans }}</h1>
+      	</center>
+    </div>
+{% endblock %}
+
+{% block js %}
+    <script type="application/javascript">
+    </script>
+{% endblock %}
