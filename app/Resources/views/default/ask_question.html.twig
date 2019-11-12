@@ -23,6 +23,8 @@
           	{% endfor %}
       	{% endfor %}
       	
+      	<p class="lead" style="margin-bottom: 1.5rem;">{{ "ask_question_hint"|trans|nl2br }}</p>
+      	
       	<form method="POST" id="form">
       	
       		
@@ -96,7 +98,7 @@
             </center>
                     
         	<div class="form-group">
-            	<label for="body">{{ "ask_question_beginning"|trans }}</label>
+            	<label for="body"><em>{{ "ask_question_beginning"|trans }}</em></label>
             	<textarea class="form-control" name="text" id="text" rows="5" placeholder="{{ "ask_question_beginning_hint"|trans }}" required></textarea>
     		</div>
             
