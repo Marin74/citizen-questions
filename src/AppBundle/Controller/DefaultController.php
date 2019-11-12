@@ -308,7 +308,9 @@ class DefaultController extends Controller
                 }
             }
             
-            $originalQuestion->setCities($tempCities);
+            if(count($tempCities) < count($cities)) {
+                $originalQuestion->setCities($tempCities);
+            }
             
             $em->persist($originalQuestion);
             $em->flush();
