@@ -19,6 +19,12 @@ parameters:
     secret: ThisTokenIsNotSoSecretChangeIt
     
     name: ~
+    app_owner: ~
+    app_address: ~
+    webmaster: ~
+    app_mail: ~
+    web_host: ~
+    url_source_code: ~
     mapbox_access_token: ~
     map_center: ~
     map_zoom: 8
