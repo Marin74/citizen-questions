@@ -1,0 +1,158 @@
+{% extends "base.html.twig" %}
+
+{% block title %}{{ "ask_question"|trans }} - {{ parent() }}{% endblock %}
+
+{% block body %}
+
+	<nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="{{ url("homepage") }}">{{ "homepage"|trans }}</a></li>
+        <li class="breadcrumb-item active" aria-current="page">{{ "ask_question"|trans }}</li>
+      </ol>
+    </nav>
+
+    <div class="container x-3 py-3 pt-md-5 pb-md-4 mx-auto">
+      	
+      	<center>
+      		<h1 class="display-4">{{ "ask_question"|trans }}</h1>
+      	</center>
+      	
+      	{% for label, messages in app.flashes %}
+          	{% for message in messages %}
+          		<div class="alert alert-{{ label }}" role="alert">{{ message }}</div>
+          	{% endfor %}
+      	{% endfor %}
+      	
+      	<form method="POST" id="form">
+      	
+      		
+            <fieldset class="form-group">
+                <div class="row">
+                    <legend class="col-form-label col-sm-2 pt-0">{{ "ask_question_to"|trans }}</legend>
+                    <div class="col-sm-10">
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="radio_cities" id="radio_all_cities" value="true" checked>
+                            <label class="form-check-label" for="radio_all_cities">
+                            	{{ "all_cities"|trans }}
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="radio_cities" id="radio_few_cities" value="true">
+                            <label class="form-check-label" for="radio_few_cities">
+                            	{{ "few_cities"|trans }}
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+      	
+      		{% set nbOnEachLine = (cities|length/3)|round(0, 'floor') %}
+    	
+        	{% set nbLine1 = nbOnEachLine %}
+        	{% set nbLine2 = nbOnEachLine %}
+        	{% set nbLine3 = nbOnEachLine %}
+        	
+        	{% set rest = cities|length%3 %}
+        	
+        	{% if rest == 1 %}
+        	    {% set nbLine1 = nbLine1 + 1 %}
+    	    {% elseif rest == 2 %}
+        	    {% set nbLine1 = nbLine1 + 1 %}
+        	    {% set nbLine2 = nbLine2 + 1 %}
+    	    {% endif %}
+      	  	<center>
+                <div class="row" id="div_cities" style="display: none; margin-bottom: 1.5rem;">
+                    <div class="col-6 col-md" style="text-align: left;">
+                      	
+                        {% for i in 0..(nbLine1-1) %}
+                        	{% set city = cities[i] %}
+                    		<div class="form-check">
+                    			<input class="form-check-input" type="checkbox" value="" id="city_{{ city.id }}">
+                    			<label class="form-check-label" for="city_{{ city.id }}">{{ city.name }}</label>
+                    		</div>
+                        {% endfor %}
+                    </div>
+                    <div class="col-6 col-md" style="text-align: left;">
+                      	
+                        {% for i in nbLine1..(nbLine1+nbLine2-1) %}
+                        	{% set city = cities[i] %}
+                    		<div class="form-check">
+                    			<input class="form-check-input" type="checkbox" value="" id="city_{{ city.id }}">
+                    			<label class="form-check-label" for="city_{{ city.id }}">{{ city.name }}</label>
+                    		</div>
+                        {% endfor %}
+                    </div>
+                    <div class="col-6 col-md" style="text-align: left;">
+                      	
+                        {% for i in (nbLine1+nbLine2)..(cities|length-1) %}
+                        	{% set city = cities[i] %}
+                    		<div class="form-check">
+                    			<input class="form-check-input" type="checkbox" value="" id="city_{{ city.id }}">
+                    			<label class="form-check-label" for="city_{{ city.id }}">{{ city.name }}</label>
+                    		</div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </center>
+                    
+        	<div class="form-group">
+            	<label for="body">{{ "ask_question_beginning"|trans }}</label>
+            	<textarea class="form-control" name="text" id="text" rows="5" placeholder="{{ "ask_question_beginning_hint"|trans }}" required></textarea>
+    		</div>
+            
+            
+            <p>
+                <center>
+                    <button type="button" class="btn btn-outline-secondary" onclick="checkForm();">{{ "send"|trans }}</button>
+                </center>
+            </p>
+        </form>
+    </div>
+{% endblock %}
+
+{% block js %}
+    <script type="application/javascript">
+    	var duration = 500;
+
+    	$("input[name=radio_cities]").on("change", function()
+        {
+			if($('#radio_all_cities').is(':checked')) {
+				$("#div_cities").fadeOut(duration, function() {
+					{% for city in cities %}
+    					$("#city_{{ city.id }}").prop('checked', false);
+    				{% endfor %}
+                });
+			}
+			else if($('#radio_few_cities').is(':checked')) {
+				$("#div_cities").fadeIn(duration, function() {
+                });
+			}
+        });
+
+        function checkForm()
+        {
+            var canSubmit = false;
+        	if($('#radio_few_cities').is(':checked')) {
+            	{% for city in cities %}
+            		if($("#city_{{ city.id }}").is(':checked')) {
+                		canSubmit = true;
+            		}
+            	{% endfor %}
+        	}
+        	else {
+        		canSubmit = true;
+        	}
+
+        	if($("#text").val().trim() == "") {
+            	canSubmit = false;
+        	}
+
+        	if(canSubmit) {
+            	$("#form").submit();
+        	}
+        	else {
+            	alert("{{ "field_empty"|trans }}")
+        	}
+        }
+    </script>
+{% endblock %}

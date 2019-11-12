@@ -285,6 +285,21 @@ class DefaultController extends Controller
     }
     
     /**
+     * @Route("/poser-une-question", name="ask_question")
+     */
+    public function askQuestionAction(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $repoCity = $em->getRepository("AppBundle:City");
+        
+        
+        
+        return $this->render('default/ask_question.html.twig', [
+            "cities"    => $repoCity->findBy(array(), array("name" => "ASC"))
+        ]);
+    }
+    
+    /**
      * @Route("/contact", name="contact")
      */
     public function contactAction(Request $request, \Swift_Mailer $mailer)

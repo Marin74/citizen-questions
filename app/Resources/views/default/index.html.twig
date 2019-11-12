@@ -9,11 +9,9 @@
       <div class="col-md-5 p-lg-4 mx-auto my-3">
         <h1 class="display-4" style="font-family: Holiday; {% if is_mobile() %}font-size: 2.5rem;{% else %}font-size: 5rem;{% endif %}">{{ app_name }}</h1>
         <p class="lead font-weight-normal" style="margin-top: 2rem;">{{ "subtitle"|trans|nl2br }}</p>
-        {% if send_question_url is not empty %}
-            <p class="lead">
-            	<a href="{{ send_question_url }}">{{ "ask_questions"|trans }}</a>
-            </p>
-        {% endif %}
+        <p class="lead">
+        	<a href="{{ url("ask_question") }}">{{ "ask_questions"|trans }}</a>
+        </p>
         <a class="btn btn-outline-secondary" href="#map">{{ "show_answers"|trans }}</a>
         {% if form_end is empty or "now"|date("Y-m-d H:i:s") < form_end|date("Y-m-d H:i:s") %}
             <p></p>
