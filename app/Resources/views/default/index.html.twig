@@ -14,9 +14,6 @@
             	<a href="{{ send_question_url }}">{{ "ask_questions"|trans }}</a>
             </p>
         {% endif %}
-        <p class="lead">
-      	  {% include 'template/share_buttons.html.twig' %}
-        </p>
         <a class="btn btn-outline-secondary" href="#map">{{ "show_answers"|trans }}</a>
         {% if form_end is empty or "now"|date("Y-m-d H:i:s") < form_end|date("Y-m-d H:i:s") %}
             <p></p>
@@ -24,6 +21,9 @@
         		<a class="btn btn-outline-secondary" href="{{ url("answer_form") }}">{{ "answer_as_a_list"|trans }}</a>
             </p>
         {% endif %}
+        <p class="lead">
+      	  {% include 'template/share_buttons.html.twig' %}
+        </p>
       </div>
       <!--<div class="product-device shadow-sm d-none d-md-block"></div>-->
       <!--<div class="product-device product-device-2 shadow-sm d-none d-md-block"></div>-->

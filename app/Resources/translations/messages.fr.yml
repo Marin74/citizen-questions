@@ -3,7 +3,7 @@ legal_terms: Mentions légales
 contact: Contact
 zero_one_answer: "%nb% réponse"
 nb_answers: "%nb% réponses"
-show_answers: Découvrir les réponses
+show_answers: Découvrez les réponses
 subtitle: "L'objectif de ce site est d'offrir la possibilité aux citoyen(ne)s du Chablais d'exprimer leurs souhaits et préoccupations auprès des candidat(e)s aux municipales de 2020."
 explanations: "Les Questions Citoyennes ont été recueillies entre le 12 novembre 2019 et le 5 février 2020.\nElles ont été synthétisées lors de deux séances publiques les 10 décembre et 10 février.\nLes questions originales sont disponibles pour consultation"
 here: ici
@@ -80,6 +80,11 @@ form_too_late: "Il n'est plus possible de remplir le formulaire."
 questions_soon_date: "Les questions originales posées par les citoyen(ne)s seront consultables dès l'ouverture du site le %date%."
 questions_soon: "Les questions originales posées par les citoyen(ne)s seront consultables dès l'ouverture du site."
 original_questions: Questions originales
+name: Nom
+your_message: Votre message
+send: Envoyer
+contact_form: "[%app%] Formulaire de contact"
+email_sent: "Votre message a bien été envoyé."
 
 
 

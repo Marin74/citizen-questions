@@ -1,0 +1,63 @@
+{% extends "base.html.twig" %}
+
+{% block title %}{{ "contact"|trans }} - {{ parent() }}{% endblock %}
+
+{% block body %}
+
+	<nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="{{ url("homepage") }}">{{ "homepage"|trans }}</a></li>
+        <li class="breadcrumb-item active" aria-current="page">{{ "contact"|trans }}</li>
+      </ol>
+    </nav>
+
+    <div class="container x-3 py-3 pt-md-5 pb-md-4 mx-auto">
+      	
+      	<center>
+      		<h1 class="display-4">{{ "contact"|trans }}</h1>
+      	</center>
+      	
+      	{% for label, messages in app.flashes %}
+          	{% for message in messages %}
+          		<div class="alert alert-{{ label }}" role="alert">{{ message }}</div>
+          	{% endfor %}
+      	{% endfor %}
+      	
+      	<form method="POST">
+    		
+        	<div class="form-group">
+        		<label>{{ "name"|trans }}</label>
+        		<div class="row">
+                    <div class="col">
+        				<input name="firstname" type="text" class="form-control" placeholder="{{ "firstname"|trans }}" required>
+                    </div>
+                    <div class="col">
+        				<input name="lastname" type="text" class="form-control" placeholder="{{ "lastname"|trans }}" required>
+                    </div>
+                </div>
+            </div>
+        
+        	<div class="form-group">
+            	<label for="email">{{ "email"|trans }}</label>
+            	<input type="email" class="form-control" name="email" placeholder="{{ "email"|trans }}" required>
+    		</div>
+                    
+        	<div class="form-group">
+            	<label for="body">{{ "your_message"|trans }}</label>
+            	<textarea class="form-control" name="body" rows="5" placeholder="{{ "your_message"|trans }}" required></textarea>
+    		</div>
+            
+            
+            <p>
+                <center>
+                    <button type="submit" class="btn btn-outline-primary">{{ "send"|trans }}</button>
+                </center>
+            </p>
+        </form>
+    </div>
+{% endblock %}
+
+{% block js %}
+    <script type="application/javascript">
+    </script>
+{% endblock %}

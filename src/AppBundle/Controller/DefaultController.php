@@ -189,21 +189,20 @@ class DefaultController extends Controller
                 ->setTo($electoralList->getContactEmail())
                 ->setBody(
                     $this->renderView(
-                        // app/Resources/views/Emails/registration.html.twig
                         'email/confirmation.html.twig',
                         ['url' => $this->generateUrl('confirmation', array('list' => $electoralList->getId(), 'code' => $electoralList->getConfirmationCode()), UrlGeneratorInterface::ABSOLUTE_URL)]
                     ),
                     'text/html'
                 )
                 ;
+                $mailer->send($message);
+                
             } catch(\Exception $e) {
                 $params = array(
                     "success"   => true,
                     "message"   => $translator->trans("confirmation_email_not_sent")
                 );
             }
-            
-            $mailer->send($message);
             
             $params = array(
                 "success"   => true,
@@ -288,9 +287,34 @@ class DefaultController extends Controller
     /**
      * @Route("/contact", name="contact")
      */
-    public function contactAction(Request $request)
+    public function contactAction(Request $request, \Swift_Mailer $mailer)
     {
-        // replace this example code with whatever you need
+        $translator = $this->get("translator");
+        
+        if($request->getMethod() == "POST") {
+            
+            $message = (new \Swift_Message($translator->trans("contact_form", ["%app%" => $this->getParameter("name")])))
+            ->setFrom($this->getParameter("mailer_user"))
+            ->setTo($this->getParameter("mailer_user"))
+            ->setBody(
+                $this->renderView(
+                    'email/contact.html.twig',
+                    [
+                        "body" => $request->get("body"), 
+                        "firstname" => $request->get("firstname"),
+                        "lastname" => $request->get("lastname"),
+                        "email" => $request->get("email")
+                    ]
+                    ),
+                'text/html'
+            )
+            ;
+            
+            $mailer->send($message);
+            
+            $this->addFlash("success", $translator->trans("email_sent"));
+        }
+        
         return $this->render('default/contact.html.twig', [
         ]);
     }
@@ -300,7 +324,6 @@ class DefaultController extends Controller
      */
     public function termsAction(Request $request)
     {
-        // replace this example code with whatever you need
         return $this->render('default/terms.html.twig', [
         ]);
     }
