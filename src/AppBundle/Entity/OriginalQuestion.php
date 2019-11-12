@@ -27,6 +27,12 @@ class OriginalQuestion
      * @ORM\Column(name="text", type="text")
      */
     private $text;
+    
+    /**
+     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\City",inversedBy="originalQuestions")
+     * @ORM\JoinColumn(nullable=true, onDelete="CASCADE")
+     */
+    private $cities;
 
     /**
      * @var \DateTime
@@ -34,6 +40,14 @@ class OriginalQuestion
      * @ORM\Column(name="creationDate", type="datetime")
      */
     private $creationDate;
+    
+    
+    public function __construct()
+    {
+        // Default values
+        $this->setCreationDate(new \DateTime());
+        $this->setCities(array());
+    }
 
 
     /**
@@ -92,6 +106,18 @@ class OriginalQuestion
     public function getCreationDate()
     {
         return $this->creationDate;
+    }
+    
+    public function setCities($cities)
+    {
+        $this->cities = $cities;
+        
+        return $this;
+    }
+    
+    public function getCities()
+    {
+        return $this->cities;
     }
 }
 

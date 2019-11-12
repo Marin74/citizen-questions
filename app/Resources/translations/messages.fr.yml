@@ -91,3 +91,4 @@ ask_question_beginning: "Si votre liste a des représentant(e)s élu(e)s au cons
 ask_question_beginning_hint: "...s'engagent à ... ? / ...soutiendront ... ? / ...s'opposeront à ... ? / ...feront appliquer ... ? / ...modifieront à ... ? / "
 all_cities: tout le Chablais
 few_cities: une ou plusieurs communes
+ask_question_succeeded: "Merci pour votre participation, votre question a bien été envoyée.\n\nPartagez ce site auprès de vos amis, votre famille, vos connaissances !"

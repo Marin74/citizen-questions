@@ -7,8 +7,9 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
-use AppBundle\Entity\ElectoralList;
 use AppBundle\Entity\Answer;
+use AppBundle\Entity\ElectoralList;
+use AppBundle\Entity\OriginalQuestion;
 
 class DefaultController extends Controller
 {
@@ -290,12 +291,36 @@ class DefaultController extends Controller
     public function askQuestionAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
+        $translator = $this->get("translator");
         $repoCity = $em->getRepository("AppBundle:City");
         
+        $cities = $repoCity->findBy(array(), array("name" => "ASC"));
         
+        if($request->getMethod() == "POST") {
+            $originalQuestion = new OriginalQuestion();
+            $originalQuestion->setText(trim($request->get("text")));
+            
+            $tempCities = array();
+            
+            foreach($cities as $city) {
+                if($request->get("city_".$city->getId()) == "".$city->getId()) {
+                    $tempCities[] = $city;
+                }
+            }
+            
+            $originalQuestion->setCities($tempCities);
+            
+            $em->persist($originalQuestion);
+            $em->flush();
+            
+            $this->addFlash(
+                'success',
+                $translator->trans("ask_question_succeeded")
+            );
+        }
         
         return $this->render('default/ask_question.html.twig', [
-            "cities"    => $repoCity->findBy(array(), array("name" => "ASC"))
+            "cities"    => $cities
         ]);
     }
     

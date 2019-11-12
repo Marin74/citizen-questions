@@ -19,7 +19,7 @@
       	
       	{% for label, messages in app.flashes %}
           	{% for message in messages %}
-          		<div class="alert alert-{{ label }}" role="alert">{{ message }}</div>
+          		<div class="alert alert-{{ label }}" role="alert">{{ message|nl2br }}</div>
           	{% endfor %}
       	{% endfor %}
       	
@@ -67,7 +67,7 @@
                         {% for i in 0..(nbLine1-1) %}
                         	{% set city = cities[i] %}
                     		<div class="form-check">
-                    			<input class="form-check-input" type="checkbox" value="" id="city_{{ city.id }}">
+                    			<input class="form-check-input" type="checkbox" value="{{ city.id }}" name="city_{{ city.id }}" id="city_{{ city.id }}">
                     			<label class="form-check-label" for="city_{{ city.id }}">{{ city.name }}</label>
                     		</div>
                         {% endfor %}
@@ -77,7 +77,7 @@
                         {% for i in nbLine1..(nbLine1+nbLine2-1) %}
                         	{% set city = cities[i] %}
                     		<div class="form-check">
-                    			<input class="form-check-input" type="checkbox" value="" id="city_{{ city.id }}">
+                    			<input class="form-check-input" type="checkbox" value="{{ city.id }}" name="city_{{ city.id }}" id="city_{{ city.id }}">
                     			<label class="form-check-label" for="city_{{ city.id }}">{{ city.name }}</label>
                     		</div>
                         {% endfor %}
@@ -87,7 +87,7 @@
                         {% for i in (nbLine1+nbLine2)..(cities|length-1) %}
                         	{% set city = cities[i] %}
                     		<div class="form-check">
-                    			<input class="form-check-input" type="checkbox" value="" id="city_{{ city.id }}">
+                    			<input class="form-check-input" type="checkbox" value="{{ city.id }}" name="city_{{ city.id }}" id="city_{{ city.id }}">
                     			<label class="form-check-label" for="city_{{ city.id }}">{{ city.name }}</label>
                     		</div>
                         {% endfor %}

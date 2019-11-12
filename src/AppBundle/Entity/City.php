@@ -53,6 +53,11 @@ class City
      * @ORM\OrderBy({"id" = "ASC"})
      */
     private $questions;
+    
+    /**
+     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\OriginalQuestion",mappedBy="cities")
+     */
+    private $originalQuestions;
 
 
     /**
@@ -220,6 +225,11 @@ class City
     public function getQuestions()
     {
         return $this->questions;
+    }
+    
+    public function getOriginalQuestions()
+    {
+        return $this->originalQuestions;
     }
 }
 
