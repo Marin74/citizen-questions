@@ -93,7 +93,8 @@ all_cities: tout le Chablais
 few_cities: une ou plusieurs communes
 ask_question_succeeded: "Merci pour votre participation, votre question a bien été envoyée.\n\nPartagez ce site auprès de vos amis, votre famille, vos connaissances !"
 ask_question_hint: "Dans ce formulaire, vous pouvez poser une question aux listes électorales d'une commune, de plusieurs communes ou de toutes les communes du Chablais entre le 12 novembre 2019 et le 5 février 2020.\n\nLes questions seront synthétisées lors de deux séances publiques puis saisies sur le site. Les représentant(e)s des listes pourront y répondre à partir du 15 février 2020. Le site sera alors en consultation libre pour découvrir toutes les réponses apportées."
-
+env_dev: Développement
+env_test: Test
 
 
 

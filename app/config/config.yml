@@ -36,6 +36,7 @@ twig:
     debug: '%kernel.debug%'
     strict_variables: '%kernel.debug%'
     globals:
+        env: "%env%"
         app_name: "%name%"
         app_owner: "%app_owner%"
         app_address: "%app_address%"
