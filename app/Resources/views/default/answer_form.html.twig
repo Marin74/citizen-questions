@@ -23,7 +23,7 @@
 		<div style="min-height: 300px;"><!-- The min height is used to avoid the footer to go up each time the user go to the next step -->
         
         	<div id="step1" class="px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
-              <h1 class="display-5">{{ "answer_form"|trans }}</h1>
+              <h1 class="display-5" style="font-family: Holiday;">{{ "answer_form"|trans }}</h1>
               <p class="lead">{{ "form_too_early"|trans({"%date%": form_start|date("Y-m-d H:i:s")|localizeddate("full", "short", locale, time_zone)}) }}</p>
             </div>
         </div>
@@ -41,7 +41,7 @@
     		<div style="min-height: 300px;"><!-- The min height is used to avoid the footer to go up each time the user go to the next step -->
         
             	<div id="step1" class="px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
-                  <h1 class="display-5">{{ "answer_form"|trans }}</h1>
+                  <h1 class="display-5" style="font-family: Holiday;">{{ "answer_form"|trans }}</h1>
                   <p class="lead">{{ "answer_form_hint"|trans }}</p>
                   <span class="btn btn-outline-secondary" style="cursor: pointer;" onclick="nextStep(1);">{{ "i_agree"|trans }}</span>
                 </div>

@@ -14,7 +14,7 @@
     <div class="container x-3 py-3 pt-md-5 pb-md-4 mx-auto">
       	
       	<center>
-      		<h1 class="display-4">{{ "ask_question"|trans }}</h1>
+      		<h1 class="display-4" style="font-family: Holiday;">{{ "ask_question"|trans }}</h1>
       	</center>
       	
       	{% for label, messages in app.flashes %}
@@ -98,7 +98,7 @@
             </center>
                     
         	<div class="form-group">
-            	<label for="body"><em>{{ "ask_question_beginning"|trans }}</em></label>
+            	<label for="body"><h5><em>{{ "ask_question_beginning"|trans }}</em></h5></label>
             	<textarea class="form-control" name="text" id="text" rows="5" placeholder="{{ "ask_question_beginning_hint"|trans }}" required></textarea>
     		</div>
             
