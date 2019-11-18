@@ -88,7 +88,8 @@ email_sent: "Votre message a bien été envoyé."
 ask_question: Posez une question citoyenne
 ask_question_to: "Votre question est destinée aux listes de..."
 ask_question_beginning: "Si votre liste a des représentant(e)s élu(e)s au conseil municipal, dans la majorité ou dans l’opposition, est-ce que vos élu(e)s..."
-ask_question_beginning_hint: "...s'engagent à ... ? / ...soutiendront ... ? / ...s'opposeront à ... ? / ...feront appliquer ... ? / ...modifieront à ... ? / ou autre formulation..."
+ask_question_beginning_hint: "...s'engagent à ... ? / ...soutiendront ... ? / ...s'opposeront à ... ? / ...feront appliquer ... ? / ...modifieront ... ? / ou autre formulation..."
+ask_question_list_hint: "Les représentant(e)s des listes répondront par oui, non ou ne se prononce pas. Un espace de rédaction libre leur permettra de préciser leur position sur la question au besoin."
 all_cities: tout le Chablais
 few_cities: une ou plusieurs communes
 ask_question_succeeded: "Merci pour votre participation, votre question a bien été envoyée.\n\nPartagez ce site auprès de vos amis, votre famille, vos connaissances !"
