@@ -31,19 +31,22 @@
     <div id="map" style="min-height: 80vh"></div>
     
 	<div class="px-3 py-3 pb-md-4 mx-auto">
-	
-    	<h2>{{ "last_lists"|trans }}</h2>
-        {% if lists|length == 0 %}
-        	<h5>/</h5>
-    	{% else %}
-        
+		<center>
+    		<h4 class="font-weight-normal">{{ "explanations_1"|trans|nl2br }} <a href="{{ url("contact") }}">{{ "here"|trans }}</a>.<br/>{{ "explanations_2"|trans }} <a href="{{ url("questions") }}">{{ "here"|trans }}</a> {{ "explanations_3"|trans }}</h4>
+    	</center>
+	</div>
+    
+    {% if lists|length > 0 %}
+    	<div class="px-3 py-3 pb-md-4 mx-auto">
+    	
+        	<h2>{{ "last_lists"|trans }}</h2>
         	<center>
         		{% for list in lists %}
         			<h5><a href="{{ url("city", {"insee": list.city.insee, "name": list.city.nameForUrl}) }}">{{ list.city.name }}</a> - <a href="{{ url("list", {"id": list.id, "name": list.nameForUrl}) }}">{{ list.name }}</a></h5>
         		{% endfor %}
     		</center>
-        {% endif %}
-	</div>
+    	</div>
+    {% endif %}
     
     {% if cities|length > 0 %}
     	<div class="px-3 py-3 mx-auto">
@@ -123,12 +126,6 @@
           </div>
         </div>
     {% endif %}
-    
-	<div class="px-3 py-3 pt-md-5 pb-md-4 mx-auto">
-		<center>
-    		<h4 class="font-weight-normal">{{ "explanations_1"|trans|nl2br }} <a href="{{ url("contact") }}">{{ "here"|trans }}</a>.<br/>{{ "explanations_2"|trans }} <a href="{{ url("questions") }}">{{ "here"|trans }}</a> {{ "explanations_3"|trans }}</h4>
-    	</center>
-	</div>
         
 	
 {% endblock %}
