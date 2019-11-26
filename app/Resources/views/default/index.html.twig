@@ -3,12 +3,28 @@
 {% block title %}{{ parent() }}{% endblock %}
 
 {% block body %}
+    
+    {% for label, messages in app.flashes %}
+    	{% if loop.index0 == 0 %}
+    		<div class="position-relative overflow-hidden text-center bg-light" style="padding-left: 3rem !important; padding-top: 1rem !important; padding-right: 3rem !important; margin-left: 1rem !important; margin-top: 1rem !important; margin-right: 1rem !important;">
+		{% endif %}
+      	{% for message in messages %}
+      		<div class="alert alert-{{ label }}" role="alert">{{ message|nl2br }}</div>
+      	{% endfor %}
+    	{% if loop.index0 == 0 %}
+    		</div>
+        {% endif %}
+  	{% endfor %}
 
     <!-- The style attribute replaces p-3, p-md-5 and m-md-3 classes -->
     <div class="position-relative overflow-hidden text-center bg-light" style="padding-left: 3rem !important; padding-top: 3rem !important; padding-right: 3rem !important; margin-left: 1rem !important; margin-top: 1rem !important; margin-right: 1rem !important;">
       <div class="col-md-5 p-lg-4 mx-auto my-3">
+      
+      	
+      	
         <h1 class="display-4" style="font-family: Holiday; {% if is_mobile() %}font-size: 2.5rem;{% else %}font-size: 5rem;{% endif %}">{{ app_name }}</h1>
         <p class="lead font-weight-normal" style="margin-top: 2rem;">{{ "subtitle"|trans|nl2br }}</p>
+        <!--
         <p class="lead">
         	<a href="{{ url("ask_question") }}">{{ "ask_questions"|trans }}</a>
         </p>
@@ -19,6 +35,7 @@
         		<a class="btn btn-outline-secondary" href="{{ url("answer_form") }}">{{ "answer_as_a_list"|trans }}</a>
             </p>
         {% endif %}
+        -->
         <p class="lead">
       	  {% include 'template/share_buttons.html.twig' %}
         </p>
@@ -28,13 +45,112 @@
 	  	<img class="d-none d-md-block" style="position: absolute; top: 0%; right: auto; bottom: 0; width: 30%;" src="{{ absolute_url(asset("bundles/app/picture_1.png")) }}">
     </div>
     
-    <div id="map" style="min-height: 80vh"></div>
+
+    <div class="container x-3 py-3 pt-md-5 pb-md-4 mx-auto">
+      	
+      	<center>
+      		<h1 class="display-4" style="font-family: Holiday;">{{ "ask_question"|trans }}</h1>
+      	</center>
+      	
+      	<p class="lead" style="margin-bottom: 1.5rem;">{{ "ask_question_hint"|trans|nl2br }}</p>
+      	
+      	<form method="POST" id="form">
+      	
+      		
+            <fieldset class="form-group">
+                <div class="row">
+                	<div class="col-sm-10">
+            		<label for="body"><h5><em>{{ "ask_question_to"|trans }}</em></h5></label>
+            		</div>
+                    <div class="col-sm-10">
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="radio_cities" id="radio_all_cities" value="true" checked>
+                            <label class="form-check-label" for="radio_all_cities">
+                            	{{ "all_cities"|trans }}
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="radio_cities" id="radio_few_cities" value="true">
+                            <label class="form-check-label" for="radio_few_cities">
+                            	{{ "few_cities"|trans }}
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+      	
+      		{% set nbOnEachLine = (cities|length/3)|round(0, 'floor') %}
+    	
+        	{% set nbLine1 = nbOnEachLine %}
+        	{% set nbLine2 = nbOnEachLine %}
+        	{% set nbLine3 = nbOnEachLine %}
+        	
+        	{% set rest = cities|length%3 %}
+        	
+        	{% if rest == 1 %}
+        	    {% set nbLine1 = nbLine1 + 1 %}
+    	    {% elseif rest == 2 %}
+        	    {% set nbLine1 = nbLine1 + 1 %}
+        	    {% set nbLine2 = nbLine2 + 1 %}
+    	    {% endif %}
+      	  	<center>
+                <div class="row" id="div_cities" style="display: none; margin-bottom: 1.5rem;">
+                    <div class="col-6 col-md" style="text-align: left;">
+                      	
+                        {% for i in 0..(nbLine1-1) %}
+                        	{% set city = cities[i] %}
+                    		<div class="form-check">
+                    			<input class="form-check-input" type="checkbox" value="{{ city.id }}" name="city_{{ city.id }}" id="city_{{ city.id }}">
+                    			<label class="form-check-label" for="city_{{ city.id }}">{{ city.name }}</label>
+                    		</div>
+                        {% endfor %}
+                    </div>
+                    <div class="col-6 col-md" style="text-align: left;">
+                      	
+                        {% for i in nbLine1..(nbLine1+nbLine2-1) %}
+                        	{% set city = cities[i] %}
+                    		<div class="form-check">
+                    			<input class="form-check-input" type="checkbox" value="{{ city.id }}" name="city_{{ city.id }}" id="city_{{ city.id }}">
+                    			<label class="form-check-label" for="city_{{ city.id }}">{{ city.name }}</label>
+                    		</div>
+                        {% endfor %}
+                    </div>
+                    <div class="col-6 col-md" style="text-align: left;">
+                      	
+                        {% for i in (nbLine1+nbLine2)..(cities|length-1) %}
+                        	{% set city = cities[i] %}
+                    		<div class="form-check">
+                    			<input class="form-check-input" type="checkbox" value="{{ city.id }}" name="city_{{ city.id }}" id="city_{{ city.id }}">
+                    			<label class="form-check-label" for="city_{{ city.id }}">{{ city.name }}</label>
+                    		</div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </center>
+                    
+        	<div class="form-group">
+            	<label for="body"><h5><em>{{ "ask_question_beginning"|trans }}</em></h5></label>
+            	<textarea class="form-control" name="text" id="text" rows="5" placeholder="{{ "ask_question_beginning_hint"|trans }}" required></textarea>
+    		</div>
+    		
+    		<p class="lead">{{ "ask_question_list_hint"|trans }}</p>
+            
+            
+            <p>
+                <center>
+                    <button type="button" class="btn btn-outline-secondary" onclick="checkForm();">{{ "send"|trans }}</button>
+                </center>
+            </p>
+        </form>
+    </div>
     
 	<div class="px-3 py-3 pb-md-4 mx-auto">
 		<center>
-    		<h4 class="font-weight-normal">{{ "explanations_1"|trans|nl2br }} <a href="{{ url("contact") }}">{{ "here"|trans }}</a>.<br/>{{ "explanations_2"|trans }} <a href="{{ url("questions") }}">{{ "here"|trans }}</a> {{ "explanations_3"|trans }}</h4>
+    		<h4 class="font-weight-normal">{{ "explanations_1"|trans|nl2br }} <a href="{{ url("contact") }}">{{ "here"|trans }}</a>.<br/>{{ "explanations_2"|trans|nl2br }} <a href="{{ url("questions") }}">{{ "here"|trans }}</a> {{ "explanations_3"|trans }}</h4>
     	</center>
 	</div>
+    
+    <div id="map" style="min-height: 80vh"></div>
     
     {% if lists|length > 0 %}
     	<div class="px-3 py-3 pb-md-4 mx-auto">
@@ -319,5 +435,50 @@
 
 
     });
+    </script>
+    
+    <script type="application/javascript">
+    	var duration = 500;
+
+    	$("input[name=radio_cities]").on("change", function()
+        {
+			if($('#radio_all_cities').is(':checked')) {
+				$("#div_cities").fadeOut(duration, function() {
+					{% for city in cities %}
+    					$("#city_{{ city.id }}").prop('checked', false);
+    				{% endfor %}
+                });
+			}
+			else if($('#radio_few_cities').is(':checked')) {
+				$("#div_cities").fadeIn(duration, function() {
+                });
+			}
+        });
+
+        function checkForm()
+        {
+            var canSubmit = false;
+        	if($('#radio_few_cities').is(':checked')) {
+            	{% for city in cities %}
+            		if($("#city_{{ city.id }}").is(':checked')) {
+                		canSubmit = true;
+            		}
+            	{% endfor %}
+        	}
+        	else {
+        		canSubmit = true;
+        	}
+
+        	if($("#text").val().trim() == "") {
+            	canSubmit = false;
+        	}
+
+        	if(canSubmit) {
+            	$("#form").submit();
+        	}
+        	else {
+            	alert("{{ "field_empty"|trans }}")
+        	}
+        }
     </script>
 {% endblock %}

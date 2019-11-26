@@ -5,8 +5,8 @@ zero_one_answer: "%nb% réponse"
 nb_answers: "%nb% réponses"
 show_answers: Découvrez les réponses
 subtitle: "L'objectif de ce site est d'offrir la possibilité aux citoyen(ne)s du Chablais d'exprimer leurs souhaits et préoccupations auprès des candidat(e)s aux municipales de 2020."
-explanations_1: "Les Questions Citoyennes sont recueillies entre le 12 novembre 2019 et le 5 février 2020.\nElles seront synthétisées lors de deux séances publiques les 10 décembre et 10 février, de 18h30 à 21h30.\nLe lieu sera communiqué aux inscrits. Pour s'inscrire, cliquer "
-explanations_2: "Les questions originales seront disponibles pour consultation"
+explanations_1: "Pour s'inscrire aux deux séances publiques de synthèse des questions, cliquez "
+explanations_2: "Le lieu sera communiqué aux inscrits.\n\nLes questions originales seront disponibles pour consultation"
 explanations_3: "à partir du 15 février."
 here: ici
 ask_questions: "Posez vos questions ici !"
@@ -58,9 +58,9 @@ form_supported_by: "Déclarer les soutiens qui ont été officiellement apporté
 form_supported_by_hint: "Soutiens"
 answer: Précisions
 answer_text: "Précisions (facultatif)"
-question_beginning: "Si votre liste a des représentant(e)s élu(e)s au conseil municipal, dans la majorité ou dans l’opposition,..."
 program: Programme électoral
 priority: Priorité
+question_beginning: "Si votre liste obtient des sièges au conseil municipal, dans la majorité ou dans l’opposition,..."
 overview: Récapitulatif de vos réponses
 overview_hint: "Vérifiez que les informations sont correctes, modifiez-les au besoin, puis validez le formulaire.\nLes réponses seront visibles publiquement après validation par l'équipe d'administration."
 btn_overview: Récapitulatif

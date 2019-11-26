@@ -19,11 +19,37 @@ class DefaultController extends Controller
     public function indexAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
+        $translator = $this->get("translator");
         $repoCity = $em->getRepository("AppBundle:City");
         $repoElectoralList = $em->getRepository("AppBundle:ElectoralList");
         
         $cities = $repoCity->findBy(array(), array("name" => "ASC"));
         $lists = $repoElectoralList->findBy(array("status" => ElectoralList::STATUS_VALIDATED), array("validationDate" => "DESC"), 10);
+        
+        if($request->getMethod() == "POST") {
+            $originalQuestion = new OriginalQuestion();
+            $originalQuestion->setText(trim($request->get("text")));
+            
+            $tempCities = array();
+            
+            foreach($cities as $city) {
+                if($request->get("city_".$city->getId()) == "".$city->getId()) {
+                    $tempCities[] = $city;
+                }
+            }
+            
+            if(count($tempCities) < count($cities)) {
+                $originalQuestion->setCities($tempCities);
+            }
+            
+            $em->persist($originalQuestion);
+            $em->flush();
+            
+            $this->addFlash(
+                'success',
+                $translator->trans("ask_question_succeeded")
+                );
+        }
         
         return $this->render('default/index.html.twig', [
             "cities"    => $cities,
