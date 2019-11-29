@@ -79,9 +79,9 @@ error_occurs: "Une erreur est survenue durant l'envoi. Veuillez réessayer à no
 confirmation_email_not_sent: "L'email de confirmation n'a pu être envoyé. Vérifiez que votre email de contact est correct."
 form_too_early: "Le formulaire sera ouvert le %date%."
 form_too_late: "Il n'est plus possible de remplir le formulaire."
-questions_soon_date: "Les questions originales posées par les citoyen(ne)s seront consultables dès l'ouverture du site le %date%."
-questions_soon: "Les questions originales posées par les citoyen(ne)s seront consultables dès l'ouverture du site."
-original_questions: Questions originales
+questions_soon_date: "La liste complète des questions sera disponible pour consultation ici à partir du %date%."
+questions_soon: "La liste complète des questions sera disponible pour consultation ici dès l'ouverture du site."
+original_questions: Les Questions
 name: Nom
 your_message: Votre message
 send: Envoyer
