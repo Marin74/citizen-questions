@@ -12,12 +12,16 @@ here: ici
 ask_questions: "Posez vos questions ici !"
 encourage_lists: "Encouragez les listes de votre commune à répondre aux questions des citoyens !"
 list_led_by: "Conduite par %name1% et %name2%"
+id: "#"
+electoral_list: Liste
 no_list: Aucune liste pour le moment
 unknown_city: Commune inconnue
 lists_that_answered: "Listes qui ont répondu"
 unknown_list: Liste inconnue
 supported_by: "Liste soutenue par %text%"
 homepage: Accueil
+last_original_questions: "Dernières questions posées"
+lists_to_validate: "Listes à valider"
 last_lists: "Dernières listes qui ont répondu :"
 answer_as_a_list: Répondez au nom d'une liste
 are_you_candidate: "Vous êtes candidat(e) ?"
@@ -98,6 +102,9 @@ ask_question_succeeded: "Merci pour votre participation, votre question a bien �
 ask_question_hint: "Dans ce formulaire, vous pouvez poser une question aux listes électorales d'une commune, de plusieurs communes ou de toutes les communes du Chablais entre le 12 novembre 2019 et le 5 février 2020.\n\nLes questions posées seront consultables à partir du 15 février (après des séances publiques où elles seront synthétisées). Les représentant(e)s des listes pourront alors y répondre et les citoyen(ne)s pourront consulter les réponses apportées."
 env_dev: Développement
 env_test: Test
+dashboard: Tableau de bord
+date: Date
+question: Question
 
 
 
