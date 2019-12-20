@@ -67,6 +67,12 @@
                           			<li>{{ city.name }}</li>
                           		{% endfor %}
                       		</ul>
+                      	{% elseif question.groupsOfCities|length >= 1 %}
+                      		<ul>
+                          		{% for groupOfCities in question.groupsOfCities %}
+                          			<li>{{ groupOfCities.name }}</li>
+                          		{% endfor %}
+                      		</ul>
                   		{% endif %}
 					  </td>
 					  <td>{{ question.creationDate|date("Y-m-d H:i:s")|localizeddate("long", "short", locale, time_zone) }}
