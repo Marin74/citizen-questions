@@ -31,12 +31,14 @@ class OriginalQuestion
     /**
      * @ORM\ManyToMany(targetEntity="AppBundle\Entity\City",inversedBy="originalQuestions")
      * @ORM\JoinColumn(nullable=true, onDelete="CASCADE")
+     * @ORM\OrderBy({"name" = "ASC"})
      */
     private $cities;
     
     /**
      * @ORM\ManyToMany(targetEntity="AppBundle\Entity\GroupOfCities",inversedBy="originalQuestions")
      * @ORM\JoinColumn(nullable=true, onDelete="CASCADE")
+     * @ORM\OrderBy({"name" = "ASC"})
      */
     private $groupsOfCities;
 
