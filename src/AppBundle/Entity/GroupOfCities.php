@@ -5,12 +5,12 @@ namespace AppBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * OriginalQuestion
+ * GroupOfCity
  *
- * @ORM\Table(name="original_question")
- * @ORM\Entity(repositoryClass="AppBundle\Repository\OriginalQuestionRepository")
+ * @ORM\Table(name="group_of_cities")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\GroupOfCitiesRepository")
  */
-class OriginalQuestion
+class GroupOfCities
 {
     /**
      * @var int
@@ -20,25 +20,24 @@ class OriginalQuestion
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
-
+    
     /**
      * @var string
      *
-     * @ORM\Column(name="text", type="text")
+     * @ORM\Column(name="name", type="string", length=255, unique=true)
      */
-    private $text;
+    private $name;
     
     /**
-     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\City",inversedBy="originalQuestions")
+     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\City",inversedBy="groupsOfCities")
      * @ORM\JoinColumn(nullable=true, onDelete="CASCADE")
      */
     private $cities;
     
     /**
-     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\GroupOfCities",inversedBy="originalQuestions")
-     * @ORM\JoinColumn(nullable=true, onDelete="CASCADE")
+     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\OriginalQuestion",mappedBy="groupsOfCities")
      */
-    private $groupsOfCities;
+    private $originalQuestions;
 
     /**
      * @var \DateTime
@@ -53,7 +52,6 @@ class OriginalQuestion
         // Default values
         $this->setCreationDate(new \DateTime());
         $this->setCities(array());
-        $this->setGroupsOfCities(array());
     }
 
 
@@ -66,29 +64,46 @@ class OriginalQuestion
     {
         return $this->id;
     }
-
+    
     /**
-     * Set text
+     * Set name
      *
-     * @param string $text
+     * @param string $name
      *
-     * @return OriginalQuestion
+     * @return GroupOfCities
      */
-    public function setText($text)
+    public function setName($name)
     {
-        $this->text = $text;
-
+        $this->name = $name;
+        
         return $this;
     }
-
+    
     /**
-     * Get text
+     * Get name
      *
      * @return string
      */
-    public function getText()
+    public function getName()
     {
-        return $this->text;
+        return $this->name;
+    }
+    
+    public function setCities($cities)
+    {
+        $this->cities = $cities;
+        
+        return $this;
+    }
+    
+    public function getCities()
+    {
+        return $this->cities;
+    }
+    
+    public function getOriginalQuestions()
+    {
+        return $this->originalQuestions;
     }
 
     /**
@@ -96,7 +111,7 @@ class OriginalQuestion
      *
      * @param \DateTime $creationDate
      *
-     * @return OriginalQuestion
+     * @return GroupOfCities
      */
     public function setCreationDate($creationDate)
     {
@@ -113,30 +128,6 @@ class OriginalQuestion
     public function getCreationDate()
     {
         return $this->creationDate;
-    }
-    
-    public function setCities($cities)
-    {
-        $this->cities = $cities;
-        
-        return $this;
-    }
-    
-    public function getCities()
-    {
-        return $this->cities;
-    }
-    
-    public function setGroupsOfCities($groupsOfCities)
-    {
-        $this->groupsOfCities = $groupsOfCities;
-        
-        return $this;
-    }
-    
-    public function getGroupsOfCities()
-    {
-        return $this->groupsOfCities;
     }
 }
 

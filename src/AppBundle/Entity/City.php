@@ -58,6 +58,11 @@ class City
      * @ORM\ManyToMany(targetEntity="AppBundle\Entity\OriginalQuestion",mappedBy="cities")
      */
     private $originalQuestions;
+    
+    /**
+     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\GroupOfCities",mappedBy="cities")
+     */
+    private $groupsOfCities;
 
 
     /**
@@ -230,6 +235,11 @@ class City
     public function getOriginalQuestions()
     {
         return $this->originalQuestions;
+    }
+    
+    public function getGroupsOfCities()
+    {
+        return $this->groupsOfCities;
     }
 }
 

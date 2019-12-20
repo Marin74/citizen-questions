@@ -70,6 +70,12 @@
                             </label>
                         </div>
                         <div class="form-check">
+                            <input class="form-check-input" type="radio" name="radio_cities" id="radio_groups_of_cities" value="true">
+                            <label class="form-check-label" for="radio_groups_of_cities">
+                            	{{ "few_groups_of_cities"|trans }}
+                            </label>
+                        </div>
+                        <div class="form-check">
                             <input class="form-check-input" type="radio" name="radio_cities" id="radio_few_cities" value="true">
                             <label class="form-check-label" for="radio_few_cities">
                             	{{ "few_cities"|trans }}
@@ -78,6 +84,20 @@
                     </div>
                 </div>
             </fieldset>
+            
+            <center>
+                <div class="row" id="div_groups_of_cities" style="display: none; margin-bottom: 1.5rem;">
+                    <div class="col-6 col-md" style="text-align: left;">
+                      	
+                        {% for groupOfCities in groupsOfCities %}
+                    		<div class="form-check">
+                    			<input class="form-check-input" type="checkbox" value="{{ groupOfCities.id }}" name="groupOfCities_{{ groupOfCities.id }}" id="groupOfCities_{{ groupOfCities.id }}">
+                    			<label class="form-check-label" for="groupOfCities_{{ groupOfCities.id }}">{{ groupOfCities.name }}</label>
+                    		</div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </center>
       	
       		{% set nbOnEachLine = (cities|length/3)|round(0, 'floor') %}
     	
@@ -448,9 +468,33 @@
     					$("#city_{{ city.id }}").prop('checked', false);
     				{% endfor %}
                 });
+                
+				$("#div_groups_of_cities").fadeOut(duration, function() {
+					{% for groupOfCities in groupsOfCities %}
+    					$("#groupOfCities_{{ groupOfCities.id }}").prop('checked', false);
+    				{% endfor %}
+                });
 			}
+			else if($('#radio_groups_of_cities').is(':checked')) {
+
+				$("#div_cities").fadeOut(duration, function() {
+					{% for city in cities %}
+    					$("#city_{{ city.id }}").prop('checked', false);
+    				{% endfor %}
+
+    				$("#div_groups_of_cities").fadeIn(duration, function() {
+                    });
+                });
+    		}
 			else if($('#radio_few_cities').is(':checked')) {
-				$("#div_cities").fadeIn(duration, function() {
+                
+				$("#div_groups_of_cities").fadeOut(duration, function() {
+					{% for groupOfCities in groupsOfCities %}
+    					$("#groupOfCities_{{ groupOfCities.id }}").prop('checked', false);
+    				{% endfor %}
+
+    				$("#div_cities").fadeIn(duration, function() {
+                    });
                 });
 			}
         });
@@ -461,6 +505,13 @@
         	if($('#radio_few_cities').is(':checked')) {
             	{% for city in cities %}
             		if($("#city_{{ city.id }}").is(':checked')) {
+                		canSubmit = true;
+            		}
+            	{% endfor %}
+        	}
+        	else if($('#radio_groups_of_cities').is(':checked')) {
+                {% for groupOfCities in groupsOfCities %}
+            		if($("#groupOfCities_{{ groupOfCities.id }}").is(':checked')) {
                 		canSubmit = true;
             		}
             	{% endfor %}

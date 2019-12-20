@@ -97,6 +97,7 @@ ask_question_beginning: "« Madame, Monsieur, si votre liste obtient des sièges
 ask_question_beginning_hint: "...s'engagent à ... ? / ...soutiendront ... ? / ...s'opposeront à ... ? / ...feront appliquer ... ? / ...modifieront ... ? / ou autre formulation..."
 ask_question_list_hint: "Les représentant(e)s des listes répondront par oui, non ou ne se prononce pas. Un espace de rédaction libre leur permettra de préciser leur position sur la question au besoin."
 all_cities: tout le Chablais
+few_groups_of_cities: une ou plusieurs communautés de communes
 few_cities: une ou plusieurs communes
 ask_question_succeeded: "Merci pour votre participation, votre question a bien été envoyée.\n\nPartagez ce site auprès de vos amis, votre famille, vos connaissances !"
 ask_question_hint: "Dans ce formulaire, vous pouvez poser une question aux listes électorales d'une commune, de plusieurs communes ou de toutes les communes du Chablais entre le 12 novembre 2019 et le 5 février 2020.\n\nLes questions posées seront consultables à partir du 15 février (après des séances publiques où elles seront synthétisées). Les représentant(e)s des listes pourront alors y répondre et les citoyen(ne)s pourront consulter les réponses apportées."
