@@ -549,6 +549,7 @@ class ElectoralList
         if(!empty($name)) {
             $name = strtolower($this->getName());
             
+            $name = str_replace("’", "-", $name);
             $name = str_replace("'", "-", $name);
             $name = str_replace('"', "", $name);
             $name = str_replace("/", "", $name);
