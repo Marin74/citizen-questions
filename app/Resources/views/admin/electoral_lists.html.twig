@@ -16,6 +16,7 @@
                   <th>{{ "id"|trans }}</th>
                   <th>{{ "city"|trans }}</th>
                   <th>{{ "electoral_list"|trans }}</th>
+                  <th>{{ "status"|trans }}
                   <th>{{ "date"|trans }}</th>
                 </tr>
               </thead>
@@ -25,6 +26,17 @@
                       <td><a href="{{ url("admin_list", {"list": list.id}) }}">{{ list.id }}</a></td>
                       <td>{{ list.city.name }}</td>
                       <td>{{ list.name }}</td>
+                      <td>
+                			{% if list.status == "D" %}
+                				<span class="badge badge-pill badge-light">{{ "status_draft"|trans }}</span>
+                			{% elseif list.status == "P" %}
+                				<span class="badge badge-pill badge-primary">{{ "status_pending"|trans }}</span>
+                			{% elseif list.status == "R" %}
+                				<span class="badge badge-pill badge-danger">{{ "status_refused"|trans }}</span>
+                			{% elseif list.status == "V" %}
+                				<span class="badge badge-pill badge-success">{{ "status_validated"|trans }}</span>
+                			{% endif %}
+                      </td>
                       <td>{{ list.creationDate|date("Y-m-d H:i:s")|localizeddate("long", "short", locale, time_zone) }}</td>
                     </tr>
                 {% endfor %}
