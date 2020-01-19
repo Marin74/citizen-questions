@@ -49,10 +49,13 @@ your_name: Votre nom
 your_details: Vos coordonnées
 your_role: Votre rôle
 your_role_hint: "Tête de liste, membre de la liste..."
+role: "Rôle"
+contacts: "Contacts"
 phone: Téléphone
 email: Email
 head_of_list1: Nom de la tête de liste
 head_of_list2: Nom de la seconde personne de la liste
+heads_of_list: "Têtes de liste"
 question_step2: "Dans quelle commune se présente votre liste ?"
 question_step3: "Informations sur la liste"
 question_step4: "Informations sur le déclarant"
@@ -117,6 +120,16 @@ copy_with_command: "Copier avec Ctrl-C"
 save: "Sauvegarder"
 answer_questions_error: "Une ou plusieurs de vos réponses sont incorrectes, veuillez vérifier avant de continuer."
 log_in: "Se connecter"
+status_draft: "Brouillon"
+status_pending: "En attente de validation"
+status_refused: "Refusée"
+status_validated: "Validée"
+admin_original_questions: "Questions originales"
+electoral_lists: "Listes"
+empty_list: "Liste vide"
+general_informations: "Informations générales"
+contact_user: "Déclarant(e)"
+admin_answers: "Réponses"
 
 
 

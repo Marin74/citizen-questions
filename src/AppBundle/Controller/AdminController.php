@@ -31,7 +31,35 @@ class AdminController extends Controller
     }
     
     /**
-     * @Route("/admin/list/{list}", name="admin_list")
+     * @Route("/admin/questions-originales", name="admin_original_questions")
+     */
+    public function originalQuestionsAction(Request $request)
+    {
+        $this->denyAccessUnlessGranted(User::ROLE_USER);
+        $em = $this->getDoctrine()->getManager();
+        $repoOriginalQuestion = $em->getRepository("AppBundle:OriginalQuestion");
+        
+        return $this->render('admin/original_questions.html.twig', [
+            "originalQuestions" => $repoOriginalQuestion->findBy(array(), array("id" => "DESC"))
+        ]);
+    }
+    
+    /**
+     * @Route("/admin/listes", name="admin_electoral_lists")
+     */
+    public function electoralListsAction(Request $request)
+    {
+        $this->denyAccessUnlessGranted(User::ROLE_USER);
+        $em = $this->getDoctrine()->getManager();
+        $repoElectoralList = $em->getRepository("AppBundle:ElectoralList");
+        
+        return $this->render('admin/electoral_lists.html.twig', [
+            "lists" => $repoElectoralList->findBy(array(), array("id" => "DESC"))
+        ]);
+    }
+    
+    /**
+     * @Route("/admin/liste/{list}", name="admin_list")
      */
     public function listAction(Request $request)
     {
