@@ -32,10 +32,9 @@ colored_city_legend: les communes ayant au moins une réponse
 created_by: "Créé par %name%"
 map_hint: Cliquez sur la commune pour voir les réponses
 map_hint_mobile: Cliquez ici pour voir les réponses
-in_program: "Figure dans le programme"
-not_in_program: "Ne figure pas dans le programme"
-is_priority: "Est prioritaire"
-is_not_priority: "N'est pas prioritaire"
+answer_value_Y: Oui
+answer_value_N: Non
+answer_value_D: Ne se prononce pas
 answers: "Consultez leurs réponses ci-dessous"
 answer_form: Répondez aux questions citoyennes
 answer_form_hint: "En répondant pour une liste électorale, vous certifiez être un(e) des candidat(e)s de cette liste et avoir l’aval de votre liste pour répondre aux questions citoyennes de ce site."
@@ -61,9 +60,7 @@ question_step4_hint: "Ces informations ne seront pas publiques. Elles sont desti
 form_supported_by: "Déclarer les soutiens qui ont été officiellement apportés à votre liste (mouvements, partis politiques) - sinon laisser ce champ vide"
 form_supported_by_hint: "Soutiens"
 answer: Précisions
-answer_text: "Précisions (facultatif)"
-program: Programme électoral
-priority: Priorité
+answer_text: "Donner des précisions"
 question_beginning: "Si votre liste obtient des sièges au conseil municipal, dans la majorité ou dans l’opposition,..."
 overview: Récapitulatif de vos réponses
 overview_hint: "Vérifiez que les informations sont correctes, modifiez-les au besoin, puis validez le formulaire.\nLes réponses seront visibles publiquement après validation par l'équipe d'administration."
@@ -71,16 +68,19 @@ btn_overview: Récapitulatif
 modify: Modifier
 submit: Valider
 field_empty: 'Un des champs obligatoires est vide.'
-mail_form_title: Confirmez les réponses aux Questions Citoyennes
-mail_body_title: "Merci pour votre participation !"
-mail_body_text: "Nous avons bien enregistré vos réponses aux Questions Citoyennes. Merci de bien vouloir valider votre adresse email en cliquant sur le lien ci-dessous :"
+mail_confirmation_title: "[Les Questions Citoyennes] Confirmez les réponses aux Questions Citoyennes"
+mail_confirmation_body_title: "Merci pour votre participation !"
+mail_confirmation_body_text: "Nous avons bien enregistré vos réponses aux Questions Citoyennes. Merci de bien vouloir valider votre adresse email en cliquant sur le lien ci-dessous :"
+mail_draft_title: "[Les Questions Citoyennes] Brouillon sauvegardé"
+mail_draft_body_title: "Brouillon sauvegardé"
+mail_draft_body_text: "Votre brouillon est enregistré, vous pouvez revenir à tout moment au formulaire de réponse en cliquant sur le lien ci-dessous :"
 confirmation: Confirmation
 form_confirmed: "Adresse email confirmée !\nMerci pour votre participation ! Vos réponses apparaîtront lorsqu'elles seront validées par l'équipe d'administration."
 confirmation_code_does_not_match: "Le code de confirmation ne correspond pas."
 form_final_title: Réponses envoyées avec succès
 form_final_hint: "Merci beaucoup pour votre participation !\nVous allez recevoir un email avec un lien pour confirmer votre adresse email de contact.\n\nVos réponses apparaîtront lorsqu'elles seront validées par l'équipe d'administration."
 error_occurs: "Une erreur est survenue durant l'envoi. Veuillez réessayer à nouveau. Si le problème persiste, contactez l'équipe d'administration à partir du formulaire de contact."
-confirmation_email_not_sent: "L'email de confirmation n'a pu être envoyé. Vérifiez que votre email de contact est correct."
+confirmation_email_not_sent: "L'email n'a pu être envoyé. Vérifiez que votre email de contact est correct."
 form_too_early: "Le formulaire sera ouvert le %date%."
 form_too_late: "Il n'est plus possible de remplir le formulaire."
 questions_soon_date: "La liste complète des questions sera disponible pour consultation ici à partir du %date%."
@@ -106,7 +106,17 @@ env_test: Test
 dashboard: Tableau de bord
 date: Date
 question: Question
-
+unknown_draft: Brouillon inconnu
+draft_completed: Le brouillon est complété, il ne peut plus être modifié.
+unknown_page: "La page n'existe pas."
+draft_give_url: "Dorénavant à chaque fois que vous validerez une série de questions, elles seront sauvegardées. Vous pouvez arrêter de remplir le formulaire et revenir à tout moment dessus en utilisant le lien ci-dessous. Pensez à bien le sauvegarder."
+copy: Copier
+copy_to_clipboard: "Copier dans le presse-papier"
+copied: "Copié !"
+copy_with_command: "Copier avec Ctrl-C"
+save: "Sauvegarder"
+answer_questions_error: "Une ou plusieurs de vos réponses sont incorrectes, veuillez vérifier avant de continuer."
+log_in: "Se connecter"
 
 
 

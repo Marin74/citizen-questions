@@ -38,6 +38,12 @@ class Question
      * @ORM\JoinColumn(nullable=true, onDelete="CASCADE")
      */
     private $city;
+    
+    /**
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\QuestionCategory",inversedBy="questions")
+     * @ORM\JoinColumn(nullable=false, onDelete="CASCADE")
+     */
+    private $category;
 
     /**
      * @var \DateTime
@@ -120,6 +126,18 @@ class Question
     public function getCity()
     {
         return $this->city;
+    }
+    
+    public function setCategory($category)
+    {
+        $this->category = $category;
+        
+        return $this;
+    }
+    
+    public function getCategory()
+    {
+        return $this->category;
     }
 }
 

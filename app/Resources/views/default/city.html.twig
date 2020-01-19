@@ -61,13 +61,7 @@
                                 
                                 <ul style="margin-bottom: 0;">
                     				<li>
-                    					<strong><em>
-                        					{% if answer.inProgram %}
-                        					    {{ "in_program"|trans }}
-                        					{% else %}
-                        					    {{ "not_in_program"|trans }}
-                        					{% endif %}
-                    					</em></strong>
+                    					<strong><em>{{ ("answer_value_"~answer.value)|trans }}</em></strong>
                     				</li>
                     			</ul>
                     			{% if answer.text is not empty %}

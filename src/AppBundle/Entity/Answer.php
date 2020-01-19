@@ -12,6 +12,10 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Answer
 {
+    const VALUE_YES = "Y";
+    const VALUE_NO = "N";
+    const VALUE_DO_NOT_KNOW = "D";
+    
     /**
      * @var int
      *
@@ -31,16 +35,9 @@ class Answer
     /**
      * @var bool
      *
-     * @ORM\Column(name="inProgram", type="boolean")
+     * @ORM\Column(name="value", type="string", length=1)
      */
-    private $inProgram;
-
-    /**
-     * @var bool
-     *
-     * @ORM\Column(name="isPriority", type="boolean")
-     */
-    private $isPriority;
+    private $value;
 
     /**
      * @var \DateTime
@@ -108,51 +105,27 @@ class Answer
     }
 
     /**
-     * Set inProgram
+     * Set value
      *
-     * @param boolean $inProgram
+     * @param boolean $value
      *
      * @return Answer
      */
-    public function setInProgram($inProgram)
+    public function setValue($value)
     {
-        $this->inProgram = $inProgram;
+        $this->value = $value;
 
         return $this;
     }
 
     /**
-     * Get inProgram
+     * Get value
      *
-     * @return bool
+     * @return bostringol
      */
-    public function getInProgram()
+    public function getValue()
     {
-        return $this->inProgram;
-    }
-
-    /**
-     * Set isPriority
-     *
-     * @param boolean $isPriority
-     *
-     * @return Answer
-     */
-    public function setIsPriority($isPriority)
-    {
-        $this->isPriority = $isPriority;
-
-        return $this;
-    }
-
-    /**
-     * Get isPriority
-     *
-     * @return bool
-     */
-    public function getIsPriority()
-    {
-        return $this->isPriority;
+        return $this->value;
     }
 
     /**

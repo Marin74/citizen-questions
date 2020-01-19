@@ -239,38 +239,24 @@
                     	
                         <fieldset class="form-group">
                             <div class="row">
-                                <legend class="col-form-label col-sm-2 pt-0">{{ "program"|trans }}</legend>
+                                <legend class="col-form-label col-sm-2 pt-0"></legend>
                                 <div class="col-sm-10">
                                     <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="radio_inProgram_{{ question.id }}" id="inProgram_{{ question.id }}" value="true">
-                                        <label class="form-check-label" for="inProgram_{{ question.id }}">
-                                        	{{ "in_program"|trans }}
+                                        <input class="form-check-input" type="radio" name="radio_answerValue_{{ question.id }}" id="answerValueY_{{ question.id }}" value="true">
+                                        <label class="form-check-label" for="answerValueY_{{ question.id }}">
+                                        	{{ "answer_value_Y"|trans }}
                                         </label>
                                     </div>
                                     <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="radio_inProgram_{{ question.id }}" id="notInProgram_{{ question.id }}" value="true">
-                                        <label class="form-check-label" for="notInProgram_{{ question.id }}">
-                                        	{{ "not_in_program"|trans }}
-                                        </label>
-                                    </div>
-                                </div>
-                            </div>
-                        </fieldset>
-                    	
-                        <fieldset class="form-group">
-                            <div class="row">
-                                <legend class="col-form-label col-sm-2 pt-0">{{ "priority"|trans }}</legend>
-                                <div class="col-sm-10">
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="radio_isPriority_{{ question.id }}" id="isPriority_{{ question.id }}" value="true" disabled>
-                                        <label class="form-check-label" for="isPriority_{{ question.id }}">
-                                        	{{ "is_priority"|trans }}
+                                        <input class="form-check-input" type="radio" name="radio_answerValue_{{ question.id }}" id="answerValueN_{{ question.id }}" value="true">
+                                        <label class="form-check-label" for="answerValueN_{{ question.id }}">
+                                        	{{ "answer_value_N"|trans }}
                                         </label>
                                     </div>
                                     <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="radio_isPriority_{{ question.id }}" id="isNotPriority_{{ question.id }}" value="true" disabled>
-                                        <label class="form-check-label" for="isNotPriority_{{ question.id }}">
-                                        	{{ "is_not_priority"|trans }}
+                                        <input class="form-check-input" type="radio" name="radio_answerValue_{{ question.id }}" id="answerValueD_{{ question.id }}" value="true">
+                                        <label class="form-check-label" for="answerValueD_{{ question.id }}">
+                                        	{{ "answer_value_D"|trans }}
                                         </label>
                                     </div>
                                 </div>
@@ -363,9 +349,6 @@
                   		
                       	<p>
                 			<span id="overview_inProgram_{{ question.id }}"></span>
-                			<div id="div_priority_{{ question.id }}" style="display: none;">
-                				<span id="overview_isPriority_{{ question.id }}"></span>
-                			</div>
                       	</p>
                       	<p>
                       		<strong>{{ "answer"|trans }}</strong><br/>
@@ -475,7 +458,7 @@
                     		showErrors(actualStep);
                     	}
                     	else if($('#inProgram_{{ question.id }}').is(':checked')
-                            	&& !$('#isPriority_{{ question.id }}').is(':checked')
+                            	&& !$('#answerValue_{{ question.id }}').is(':checked')
                                 && !$('#isNotPriority_{{ question.id }}').is(':checked')
                     	) {
                     		canGoFurther = false;
@@ -495,7 +478,7 @@
                     		showErrors(actualStep);
                     	}
                     	else if($('#inProgram_'+value).is(':checked')
-                            	&& !$('#isPriority_'+value).is(':checked')
+                            	&& !$('#answerValue_'+value).is(':checked')
                                 && !$('#isNotPriority_'+value).is(':checked')
                     	) {
                     		canGoFurther = false;
@@ -657,26 +640,6 @@
     
             		$("#div_questions_of_city").html(content);
             		$("#div_overview_city").html(contentOverview);
-    
-            		for(i = 0; i < result.questions.length; i++) {
-    
-                		var tempId = result.questions[i].id.toString();
-                		
-                		$("input[name=radio_inProgram_"+tempId+"]").on("change", function()
-        	            {
-        	    			if($('#inProgram_'+tempId).is(':checked')) {
-        	    				$("#isPriority_"+tempId).removeAttr("disabled");
-        	    				$("#isNotPriority_"+tempId).removeAttr("disabled");
-        	    			}
-        	    			else if($('#notInProgram_'+tempId).is(':checked')) {
-        	    				$("#isPriority_"+tempId).attr("disabled", true);
-        	    				$("#isNotPriority_"+tempId).attr("disabled", true);
-        
-        	    				$("#isPriority_"+tempId).prop('checked', false);
-        	    				$("#isNotPriority_"+tempId).prop('checked', false);
-        	    			}
-        	            });
-            		}
             		
     				// Display the next step
                 	previousCity = $("#city").val();
@@ -750,22 +713,6 @@
                 	$("#overview_inProgram_"+id).html("{{ "not_in_program"|trans }}");
         		}
     
-        		if($('#inProgram_'+id).is(':checked')) {
-            		
-        			$("#div_priority_"+id).show();
-            		
-            		if($('#isPriority_'+id).is(':checked')) {
-    
-                    	$("#overview_isPriority_"+id).html("{{ "is_priority"|trans }}");
-    				}
-            		else {
-                    	$("#overview_isPriority_"+id).html("{{ "is_not_priority"|trans }}");
-            		}
-        		}
-        		else {
-        			$("#div_priority_"+id).hide();
-        		}
-    
         		if($("#text_"+id).val().trim() == "") {
                 	$("#overview_text_"+id).text("/");
         		}
@@ -778,14 +725,14 @@
         		$("input[name=radio_inProgram_{{ question.id }}]").on("change", function()
                 {
         			if($('#inProgram_{{ question.id }}').is(':checked')) {
-        				$("#isPriority_{{ question.id }}").removeAttr("disabled");
+        				$("#answerValue_{{ question.id }}").removeAttr("disabled");
         				$("#isNotPriority_{{ question.id }}").removeAttr("disabled");
         			}
         			else if($('#notInProgram_{{ question.id }}').is(':checked')) {
-        				$("#isPriority_{{ question.id }}").attr("disabled", true);
+        				$("#answerValue_{{ question.id }}").attr("disabled", true);
         				$("#isNotPriority_{{ question.id }}").attr("disabled", true);
     
-        				$("#isPriority_{{ question.id }}").prop('checked', false);
+        				$("#answerValue_{{ question.id }}").prop('checked', false);
         				$("#isNotPriority_{{ question.id }}").prop('checked', false);
         			}
                 });

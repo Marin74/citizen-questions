@@ -12,6 +12,7 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class ElectoralList
 {
+    const STATUS_DRAFT = "D";
     const STATUS_PENDING = "P";
     const STATUS_REFUSED = "R";
     const STATUS_VALIDATED = "V";
@@ -138,6 +139,13 @@ class ElectoralList
     private $validationDate;
     
     /**
+     * @var string
+     *
+     * @ORM\Column(name="draftId", type="string", length=255, unique=true)
+     */
+    private $draftId;
+    
+    /**
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\City",inversedBy="lists")
      * @ORM\JoinColumn(nullable=false, onDelete="CASCADE")
      */
@@ -160,7 +168,7 @@ class ElectoralList
     public function __construct()
     {
         $this->setConfirmedByEmail(false);
-        $this->setStatus(ElectoralList::STATUS_PENDING);
+        $this->setStatus(ElectoralList::STATUS_DRAFT);
         $this->setCreationDate(new \Datetime());
     }
 
@@ -525,6 +533,30 @@ class ElectoralList
     public function getValidationDate()
     {
         return $this->validationDate;
+    }
+    
+    /**
+     * Set draftId
+     *
+     * @param string $draftId
+     *
+     * @return ElectoralList
+     */
+    public function setDraftId($draftId)
+    {
+        $this->draftId = $draftId;
+        
+        return $this;
+    }
+    
+    /**
+     * Get draftId
+     *
+     * @return string
+     */
+    public function getDraftId()
+    {
+        return $this->draftId;
     }
     
     public function setCity($city)
