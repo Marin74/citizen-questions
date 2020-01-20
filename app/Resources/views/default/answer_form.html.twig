@@ -43,7 +43,7 @@
             	<div id="step1" class="px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
                   <h1 class="display-5" style="font-family: Holiday;">{{ "answer_form"|trans }}</h1>
                   <p class="lead">{{ "answer_form_hint"|trans }}</p>
-                  <span class="btn btn-outline-secondary" style="cursor: pointer;" onclick="nextStep(1);">{{ "i_agree"|trans }}</span>
+                  <span class="btn btn-standard btn-outline-secondary" style="cursor: pointer;" onclick="nextStep(1);">{{ "i_agree"|trans }}</span>
                 </div>
             
             	<div id="step2" class="container x-3 py-3 pt-md-5 pb-md-4 mx-auto" style="display: none;">
@@ -52,78 +52,21 @@
                   		<h1 class="display-5">{{ "question_step2"|trans }}</h1>
                   	</center>
                   	
-                  	<center id="city_loader" style="display: none;">
-                  		<div class="lds-css ng-scope"><div style="width:100%;height:100%" class="lds-eclipse"><div></div></div><style type="text/css">@keyframes lds-eclipse {
-                          0% {
-                            -webkit-transform: rotate(0deg);
-                            transform: rotate(0deg);
-                          }
-                          50% {
-                            -webkit-transform: rotate(180deg);
-                            transform: rotate(180deg);
-                          }
-                          100% {
-                            -webkit-transform: rotate(360deg);
-                            transform: rotate(360deg);
-                          }
-                        }
-                        @-webkit-keyframes lds-eclipse {
-                          0% {
-                            -webkit-transform: rotate(0deg);
-                            transform: rotate(0deg);
-                          }
-                          50% {
-                            -webkit-transform: rotate(180deg);
-                            transform: rotate(180deg);
-                          }
-                          100% {
-                            -webkit-transform: rotate(360deg);
-                            transform: rotate(360deg);
-                          }
-                        }
-                        .lds-eclipse {
-                          position: relative;
-                        }
-                        .lds-eclipse div {
-                          position: absolute;
-                          -webkit-animation: lds-eclipse 1s linear infinite;
-                          animation: lds-eclipse 1s linear infinite;
-                          width: 160px;
-                          height: 160px;
-                          top: 20px;
-                          left: 20px;
-                          border-radius: 50%;
-                          box-shadow: 0 4px 0 0 #41ab5d;
-                          -webkit-transform-origin: 80px 82px;
-                          transform-origin: 80px 82px;
-                        }
-                        .lds-eclipse {
-                          width: 70px !important;
-                          height: 70px !important;
-                          -webkit-transform: translate(-35px, -35px) scale(0.35) translate(35px, 35px);
-                          transform: translate(-35px, -35px) scale(0.35) translate(35px, 35px);
-                        }
-                        </style></div>
-                  	</center>
-                
-                	<div id="city_form">
-                    	<div class="form-group">
-                            <label for="city">{{ "city"|trans }}</label>
-                            <select class="form-control" id="city" name="city">
-                    			{% for city in cities %}
-                    				<option value="{{ city.insee }}">{{ city.name }}</option>
-                    			{% endfor %}
-                            </select>
-                      	</div>
-                        
-                        <p>
-                            <center>
-                                <span class="btn btn-outline-secondary" style="cursor: pointer;" onclick="previousStep(2);">{{ "previous"|trans }}</span>
-                                <span class="btn btn-outline-secondary" style="cursor: pointer;" onclick="nextStep(2);">{{ "next"|trans }}</span>
-                  				<span class="btn btn-outline-primary" style="cursor: pointer; display: none;" onclick="nextStep(2, getOverviewStepId());" id="btn_overview_2">{{ "btn_overview"|trans }}</span>
-                            </center>
-                        </p>
-                    </div>
+                	<div class="form-group">
+                        <label for="city">{{ "city"|trans }}</label>
+                        <select class="form-control" id="city" name="city" {% if electoralList is not null %}disabled{% endif %}>
+                			{% for city in cities %}
+                				<option value="{{ city.insee }}" {% if electoralList is not null and electoralList.city.insee == city.insee %}selected{% endif %}>{{ city.name }}</option>
+                			{% endfor %}
+                        </select>
+                  	</div>
+                    
+                    <p>
+                        <center>
+                            <span class="btn btn-standard btn-outline-secondary" style="cursor: pointer;" onclick="previousStep(2);">{{ "previous"|trans }}</span>
+                            <span class="btn btn-standard btn-outline-secondary" style="cursor: pointer;" onclick="nextStep(2);">{{ "next"|trans }}</span>
+                        </center>
+                    </p>
                 </div>
             
             	<div id="step3" class="container x-3 py-3 pt-md-5 pb-md-4 mx-auto" style="display: none;">
@@ -136,17 +79,17 @@
                 
                 	<div class="form-group">
                     	<label for="name">{{ "form_list_name"|trans }}</label>
-                    	<input type="text" class="form-control" id="name" name="name" placeholder="{{ "form_list_name"|trans }}">
+                    	<input type="text" class="form-control" id="name" name="name" placeholder="{{ "form_list_name"|trans }}" value="{% if electoralList is not empty %}{{ electoralList.name }}{% endif %}">
             		</div>
             		
                 	<div class="form-group">
                 		<label>{{ "head_of_list1"|trans }}</label>
                 		<div class="row">
                             <div class="col">
-                				<input id="firstnameHeadOfList1" name="firstnameHeadOfList1" type="text" class="form-control" placeholder="{{ "firstname"|trans }}">
+                				<input id="firstnameHeadOfList1" name="firstnameHeadOfList1" type="text" class="form-control" placeholder="{{ "firstname"|trans }}" value="{% if electoralList is not empty %}{{ electoralList.firstnameHeadOfList1 }}{% endif %}">
                             </div>
                             <div class="col">
-                				<input id="lastnameHeadOfList1" name="lastnameHeadOfList1" type="text" class="form-control" placeholder="{{ "lastname"|trans }}">
+                				<input id="lastnameHeadOfList1" name="lastnameHeadOfList1" type="text" class="form-control" placeholder="{{ "lastname"|trans }}" value="{% if electoralList is not empty %}{{ electoralList.lastnameHeadOfList2 }}{% endif %}">
                             </div>
                         </div>
                     </div>
@@ -155,25 +98,24 @@
                     	<label>{{ "head_of_list2"|trans }}</label>
                 		<div class="row">
                             <div class="col">
-                				<input id="firstnameHeadOfList2" name="firstnameHeadOfList2" type="text" class="form-control" placeholder="{{ "firstname"|trans }}">
+                				<input id="firstnameHeadOfList2" name="firstnameHeadOfList2" type="text" class="form-control" placeholder="{{ "firstname"|trans }}" value="{% if electoralList is not empty %}{{ electoralList.firstnameHeadOfList2 }}{% endif %}">
                             </div>
                             <div class="col">
-                				<input id="lastnameHeadOfList2" name="lastnameHeadOfList2" type="text" class="form-control" placeholder="{{ "lastname"|trans }}">
+                				<input id="lastnameHeadOfList2" name="lastnameHeadOfList2" type="text" class="form-control" placeholder="{{ "lastname"|trans }}" value="{% if electoralList is not empty %}{{ electoralList.lastnameHeadOfList2 }}{% endif %}">
                             </div>
                         </div>
                     </div>
                 
                 	<div class="form-group">
                     	<label for="supportedBy">{{ "form_supported_by"|trans }}</label>
-                    	<input type="text" class="form-control" id="supportedBy" name="supportedBy" placeholder="{{ "form_supported_by_hint"|trans }}">
+                    	<input type="text" class="form-control" id="supportedBy" name="supportedBy" placeholder="{{ "form_supported_by_hint"|trans }}" value="{% if electoralList is not empty %}{{ electoralList.supportedBy }}{% endif %}">
             		</div>
                     
                     
                     <p>
                         <center>
-                            <span class="btn btn-outline-secondary" style="cursor: pointer;" onclick="previousStep(3);">{{ "previous"|trans }}</span>
-                            <span class="btn btn-outline-secondary" style="cursor: pointer;" onclick="nextStep(3);">{{ "next"|trans }}</span>
-              				<span class="btn btn-outline-primary" style="cursor: pointer; display: none;" onclick="nextStep(3, getOverviewStepId());" id="btn_overview_3">{{ "btn_overview"|trans }}</span>
+                            <span class="btn btn-standard btn-outline-secondary" style="cursor: pointer;" onclick="previousStep(3);">{{ "previous"|trans }}</span>
+                            <span class="btn btn-standard btn-outline-secondary" style="cursor: pointer;" onclick="nextStep(3);">{{ "next"|trans }}</span>
                         </center>
                     </p>
                 </div>
@@ -191,27 +133,27 @@
                 		<label>{{ "your_name"|trans }}</label>
                 		<div class="row">
                             <div class="col">
-                				<input id="contactFirstname" name="contactFirstname" type="text" class="form-control" placeholder="{{ "firstname"|trans }}">
+                				<input id="contactFirstname" name="contactFirstname" type="text" class="form-control" placeholder="{{ "firstname"|trans }}" value="{% if electoralList is not empty %}{{ electoralList.contactFirstname }}{% endif %}">
                             </div>
                             <div class="col">
-                				<input id="contactLastname" name="contactLastname" type="text" class="form-control" placeholder="{{ "lastname"|trans }}">
+                				<input id="contactLastname" name="contactLastname" type="text" class="form-control" placeholder="{{ "lastname"|trans }}" value="{% if electoralList is not empty %}{{ electoralList.contactLastname }}{% endif %}">
                             </div>
                         </div>
                     </div>
                 
                 	<div class="form-group">
                     	<label for="contactRole">{{ "your_role"|trans }}</label>
-                    	<input type="text" class="form-control" id="contactRole" name="contactRole" placeholder="{{ "your_role_hint"|trans }}">
+                    	<input type="text" class="form-control" id="contactRole" name="contactRole" placeholder="{{ "your_role_hint"|trans }}" value="{% if electoralList is not empty %}{{ electoralList.contactRole }}{% endif %}">
             		</div>
                     
                 	<div class="form-group">
                     	<label>{{ "your_details"|trans }}</label>
                 		<div class="row">
                             <div class="col">
-                				<input id="contactPhone" name="contactPhone" type="text" class="form-control" placeholder="{{ "phone"|trans }}">
+                				<input id="contactPhone" name="contactPhone" type="text" class="form-control" placeholder="{{ "phone"|trans }}" value="{% if electoralList is not empty %}{{ electoralList.contactPhone }}{% endif %}">
                             </div>
                             <div class="col">
-                				<input id="contactEmail" name="contactEmail" type="text" class="form-control" placeholder="{{ "email"|trans }}">
+                				<input id="contactEmail" name="contactEmail" type="text" class="form-control" placeholder="{{ "email"|trans }}" value="{% if electoralList is not empty %}{{ electoralList.contactEmail }}{% endif %}">
                             </div>
                         </div>
                     </div>
@@ -219,160 +161,10 @@
                     
                     <p>
                         <center>
-                            <span class="btn btn-outline-secondary" style="cursor: pointer;" onclick="previousStep(4);">{{ "previous"|trans }}</span>
-                            <span class="btn btn-outline-secondary" style="cursor: pointer;" onclick="nextStep(4);">{{ "next"|trans }}</span>
-              				<span class="btn btn-outline-primary" style="cursor: pointer; display: none;" onclick="nextStep(4, getOverviewStepId());" id="btn_overview_4">{{ "btn_overview"|trans }}</span>
+                            <span class="btn btn-standard btn-outline-secondary" style="cursor: pointer;" onclick="previousStep(4);">{{ "previous"|trans }}</span>
+                            <span class="btn btn-standard btn-outline-secondary" style="cursor: pointer;" onclick="nextStep(4);">{{ "next"|trans }}</span>
                         </center>
                     </p>
-                </div>
-            
-            	{% for question in questions %}
-                	<div id="step{{ 4+loop.index }}" class="container x-3 py-3 pt-md-5 pb-md-4 mx-auto" style="display: none;">
-                      	
-                      	<center>
-                      		<h2 class="display-5">{{ "question_beginning"|trans }}</h2>
-                      	</center>
-                      	<h3 style="margin-top: 2em;">{{ question.text }}</h3>
-                  	
-                  		<div class="alert alert-warning" role="alert" id="warning_step{{ 4+loop.index }}" style="display: none;"></div>
-                		
-                    	
-                        <fieldset class="form-group">
-                            <div class="row">
-                                <legend class="col-form-label col-sm-2 pt-0"></legend>
-                                <div class="col-sm-10">
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="radio_answerValue_{{ question.id }}" id="answerValueY_{{ question.id }}" value="true">
-                                        <label class="form-check-label" for="answerValueY_{{ question.id }}">
-                                        	{{ "answer_value_Y"|trans }}
-                                        </label>
-                                    </div>
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="radio_answerValue_{{ question.id }}" id="answerValueN_{{ question.id }}" value="true">
-                                        <label class="form-check-label" for="answerValueN_{{ question.id }}">
-                                        	{{ "answer_value_N"|trans }}
-                                        </label>
-                                    </div>
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="radio_answerValue_{{ question.id }}" id="answerValueD_{{ question.id }}" value="true">
-                                        <label class="form-check-label" for="answerValueD_{{ question.id }}">
-                                        	{{ "answer_value_D"|trans }}
-                                        </label>
-                                    </div>
-                                </div>
-                            </div>
-                        </fieldset>
-                    
-                    	<div class="form-group">
-                        	<label for="text_{{ question.id }}">{{ "answer_text"|trans }}</label>
-                        	<textarea class="form-control" id="text_{{ question.id }}" name="text_{{ question.id }}" rows="4" placeholder="{{ "answer"|trans }}"></textarea>
-                		</div>
-                        
-                        
-                        <p>
-                            <center>
-                                <span class="btn btn-outline-secondary" style="cursor: pointer;" onclick="previousStep({{ 4+loop.index }});">{{ "previous"|trans }}</span>
-                                <span class="btn btn-outline-secondary" style="cursor: pointer;" onclick="nextStep({{ 4+loop.index }});">{{ "next"|trans }}</span>
-                  				<span class="btn btn-outline-primary" style="cursor: pointer; display: none;" onclick="nextStep({{ 4+loop.index }}, getOverviewStepId());" id="btn_overview_{{ 4+loop.index }}">{{ "btn_overview"|trans }}</span>
-                            </center>
-                        </p>
-                    </div>
-                {% endfor %}
-                
-                <div id="div_questions_of_city"></div>
-                
-                
-            
-            	<div id="step{{ 5+questions|length }}" class="container x-3 py-3 pt-md-5 pb-md-4 mx-auto" style="display: none;">
-                  	
-                  	<center>
-                  		<h1 class="display-5">{{ "overview"|trans }}</h1>
-                  		<p class="lead">{{ "overview_hint"|trans|nl2br }}</p>
-                  	</center>
-                  	
-              		<div class="alert alert-warning" role="alert" id="warning_overview" style="display: none;"></div>
-                  	
-                  	<p class="lead"><em>{{ "question_step2"|trans }}</em> <a href="#" onclick="previousStep(getOverviewStepId(), 2);">{{ "modify"|trans }}</a></p>
-                  	
-                  	<p>
-                  		<strong>{{ "city"|trans }}</strong><br/>
-            			<span id="overview_city"></span>
-                  	</p>
-                  	
-                  	<p class="lead"><em>{{ "question_step3"|trans }}</em> <a href="#" onclick="previousStep(getOverviewStepId(), 3);">{{ "modify"|trans }}</a></p>
-                  	
-                  	<p>
-                  		<strong>{{ "form_list_name"|trans }}</strong><br/>
-            			<span id="overview_name"></span>
-                  	</p>
-                  	
-                  	<p>
-                  		<strong>{{ "head_of_list1"|trans }}</strong><br/>
-            			<span id="overview_headOfList1"></span>
-                  	</p>
-                  	
-                  	<p>
-                  		<strong>{{ "head_of_list2"|trans }}</strong><br/>
-            			<span id="overview_headOfList2"></span>
-                  	</p>
-                  	
-                  	<p>
-                  		<strong>{{ "form_supported_by"|trans }}</strong><br/>
-            			<span id="overview_supportedBy"></span>
-                  	</p>
-                  	
-                  	<p class="lead"><em>{{ "question_step4"|trans }}</em> <a href="#" onclick="previousStep(getOverviewStepId(), 4);">{{ "modify"|trans }}</a></p>
-                  	
-                  	<p>
-                  		<strong>{{ "your_name"|trans }}</strong><br/>
-            			<span id="overview_contactName"></span>
-                  	</p>
-                  	
-                  	<p>
-                  		<strong>{{ "your_role"|trans }}</strong><br/>
-            			<span id="overview_contactRole"></span>
-                  	</p>
-                  	
-                  	<p>
-                  		<strong>{{ "phone"|trans }}</strong><br/>
-            			<span id="overview_contactPhone"></span>
-                  	</p>
-                  	
-                  	<p>
-                  		<strong>{{ "email"|trans }}</strong><br/>
-            			<span id="overview_contactEmail"></span>
-                  	</p>
-                  	
-                	{% for question in questions %}
-                  	
-                  		<p class="lead"><em>{{ question.text }}</em> <a href="#" onclick="previousStep(getOverviewStepId(), {{ 4+loop.index }});">{{ "modify"|trans }}</a></p>
-                  		
-                      	<p>
-                			<span id="overview_inProgram_{{ question.id }}"></span>
-                      	</p>
-                      	<p>
-                      		<strong>{{ "answer"|trans }}</strong><br/>
-                			<span id="overview_text_{{ question.id }}"></span>
-                      	</p>
-                	{% endfor %}
-                	
-                	<div id="div_overview_city"></div>
-                    
-                    
-                    <p>
-                        <center>
-                            <span id="overviewPreviousStep" class="btn btn-outline-secondary" style="cursor: pointer;" onclick="previousStep({{ 5+questions|length }});">{{ "previous"|trans }}</span>
-                            <span                           class="btn btn-outline-primary" style="cursor: pointer;" onclick="submitForm();">{{ "submit"|trans }}</span>
-                        </center>
-                    </p>
-                </div>
-                
-                <div id="stepFinal" class="container x-3 py-3 pt-md-5 pb-md-4 mx-auto" style="display: none;">
-                  	
-                  	<center>
-                  		<h1 class="display-5">{{ "form_final_title"|trans }}</h1>
-                  		<p class="lead">{{ "form_final_hint"|trans|nl2br }}</p>
-                  	</center>
                 </div>
             </div>
         </form>
@@ -384,10 +176,6 @@
         {% if form_end is empty or "now"|date("Y-m-d H:i:s") < form_end|date("Y-m-d H:i:s") %}
         	var duration = 500;
         	var durationDelay = 200;
-        	var nbQuestionsOfCity = 0;
-        	var questionsOfCityIds = [];
-        	var previousCity = "";
-        	var overviewDisplayed = false;
     
             $(function() {
             	$("#progress").addClass("w-"+Math.floor(getStepSize()));
@@ -395,34 +183,14 @@
     
             function getStepSize()
             {
-                return 100/({{ 6+questions|length }}+nbQuestionsOfCity);
-            }
-    
-            function getOverviewStepId()
-            {
-                return {{ 5+questions|length }}+nbQuestionsOfCity;
+                return 100/5;
             }
             
-        	function nextStep(actualStep, stepWhereToGo)
+        	function nextStep(actualStep)
         	{
-            	if(stepWhereToGo == null) {
-            		stepWhereToGo = actualStep + 1;
-            	}
+        		stepWhereToGo = actualStep + 1;
     
             	var canGoFurther = true;
-            	
-            	if(actualStep == 2 && $("#city").val() != previousCity) {
-            		canGoFurther = false;
-                	
-            		$("#city_form").fadeOut(duration, function() {
-                    	$("#city_loader").delay(durationDelay).fadeIn(duration, function() {
-                    		getQuestionsOfCity(actualStep, stepWhereToGo);
-                    	});
-                    });
-            	}
-            	else if(stepWhereToGo == getOverviewStepId()) {
-                	fillOverview(actualStep, stepWhereToGo);
-            	}
     
             	if(actualStep == 3) {
                 	// Step list
@@ -448,96 +216,28 @@
                 		showErrors(actualStep);
                 	}
             	}
-            	{% for question in questions %}
-                	if(actualStep == {{ 4+loop.index }}) {
-                    	// Step question
-                    	if(!$('#inProgram_{{ question.id }}').is(':checked')
-                            && !$('#notInProgram_{{ question.id }}').is(':checked')
-                    	) {
-                    		canGoFurther = false;
-                    		showErrors(actualStep);
-                    	}
-                    	else if($('#inProgram_{{ question.id }}').is(':checked')
-                            	&& !$('#answerValue_{{ question.id }}').is(':checked')
-                                && !$('#isNotPriority_{{ question.id }}').is(':checked')
-                    	) {
-                    		canGoFurther = false;
-                    		showErrors(actualStep);
-                    	}
-                	}
-            	{% endfor %}
-    
-            	var tempStep = {{ 5+questions|length }};
-            	$.each(questionsOfCityIds, function(index, value) {
-            		if(actualStep == tempStep) {
-                    	// Step question
-                    	if(!$('#inProgram_'+value).is(':checked')
-                            && !$('#notInProgram_'+value).is(':checked')
-                    	) {
-                    		canGoFurther = false;
-                    		showErrors(actualStep);
-                    	}
-                    	else if($('#inProgram_'+value).is(':checked')
-                            	&& !$('#answerValue_'+value).is(':checked')
-                                && !$('#isNotPriority_'+value).is(':checked')
-                    	) {
-                    		canGoFurther = false;
-                    		showErrors(actualStep);
-                    	}
-                	}
-                	
-            		tempStep++;
-    			});
     
             	// Display screen
             	if(canGoFurther) {
             		hideErrors(actualStep);
-            		
-            		$("#step"+actualStep.toString()).fadeOut(duration, function() {
-                    	$("#city_loader").hide();
-                    	$("#city_form").show();
 
-
-
-                		if(stepWhereToGo == getOverviewStepId()) {
-
-                    		overviewDisplayed = true;
-                    		
-                    		$("#btn_overview_2").show();
-                    		$("#btn_overview_3").show();
-                    		$("#btn_overview_4").show();
-                    		{% for question in questions %}
-                    			$("#btn_overview_{{ 4+loop.index }}").show();
-                    		{% endfor %}
-                    		$.each(questionsOfCityIds, function(index, value) {
-                    			$("#btn_overview_"+({{ 4+questions|length }}+index+1)).show();
-                			});
-                		}
-                    	
-                    	if(stepWhereToGo == getOverviewStepId()+1) {
-                    		// Last step
-                        	$("#stepFinal").delay(durationDelay).fadeIn(duration);
-                		}
-                    	else {
-                        	$("#step"+stepWhereToGo.toString()).delay(durationDelay).fadeIn(duration);
-                    	}
-                    });
-        
-            		if(stepWhereToGo == getOverviewStepId()+1) {
-                		value = 100;// Last step
+            		if(actualStep == 4) {
+            			$("#formList").submit();
             		}
             		else {
-                    	value = Math.floor(stepWhereToGo * getStepSize());
-            		}
-                	
-                	$("#progress").addClass("w-"+value.toString());
-                	//value = Math.floor(step * getStepSize());
-                	//$("#progress").removeClass("w-"+value.toString());
-                	for(i = 0; i <= 100; i++) {
-                    	if(i != value) {
-                    		$("#progress").removeClass("w-"+i.toString());
+                		$("#step"+actualStep.toString()).fadeOut(duration, function() {
+                			$("#step"+stepWhereToGo.toString()).delay(durationDelay).fadeIn(duration);
+                        });
+            
+                		value = Math.floor(stepWhereToGo * getStepSize());
+                    	
+                    	$("#progress").addClass("w-"+value.toString());
+                    	for(i = 0; i <= 100; i++) {
+                        	if(i != value) {
+                        		$("#progress").removeClass("w-"+i.toString());
+                        	}
                     	}
-                	}
+            		}
             	}
         	}
     
@@ -553,227 +253,22 @@
         		$("#warning_step"+step).delay(durationDelay).fadeOut(duration);
         	}
         	
-        	function previousStep(actualStep, previousStep)
+        	function previousStep(actualStep)
         	{
-            	if(previousStep == null) {
-            		previousStep = actualStep - 1;
-            	}
+            	previousStepToGo = actualStep - 1;
             	
         		$("#step"+actualStep.toString()).fadeOut(duration, function() {
-                	$("#step"+previousStep.toString()).delay(durationDelay).fadeIn(duration);
+                	$("#step"+previousStepToGo.toString()).delay(durationDelay).fadeIn(duration);
                 });
                 
-            	value = Math.floor(previousStep * getStepSize());
+            	value = Math.floor(previousStepToGo * getStepSize());
             	
             	$("#progress").addClass("w-"+value.toString());
-            	//value = Math.floor(step * getStepSize());
-            	//$("#progress").removeClass("w-"+value.toString());
-            	
             	for(i = 0; i <= 100; i++) {
                 	if(i != value) {
                 		$("#progress").removeClass("w-"+i.toString());
                 	}
             	}
-        	}
-    
-        	function getQuestionsOfCity(actualStep, stepWhereToGo)
-        	{
-            	var stepToGoIsOverview = stepWhereToGo == getOverviewStepId();
-            	
-            	url = "{{ url("answer_form_questions_of_city", {"insee": "XXX"}) }}";
-            	url = url.replace("XXX", $("#city").val());
-            	
-        		$.ajax({url: url, success: function(result){
-    
-        			questionsOfCityIds = [];
-    
-            		
-            		var newStepId = {{ 5+questions|length }}+result.questions.length;
-    
-        			$("#overviewPreviousStep").attr("onclick", "previousStep("+newStepId.toString()+");");
-        			$("#overviewNextStep").attr("onclick", "nextStep("+newStepId.toString()+");");
-            		$("#step"+getOverviewStepId().toString()).attr("id", "step"+newStepId.toString());
-            		
-            		// TODO Supprimer les anciens div des questionsOfCity (s'il y en avait plus) => Peut-être pas besoin car on clean le div_questions_of_city 
-    
-            		nbQuestionsOfCity = result.questions.length;
-    
-            		var content = "";
-            		var contentOverview = "";
-    
-            		for(i = 0; i < result.questions.length; i++) {
-                		
-                		var stepId = {{ 4+questions|length }}+i+1;
-    
-                		// Form
-                		var templatequestionForm = "{% include "template/question_form.html.twig" %}";
-                		while(templatequestionForm.indexOf("STEP_INDEX") >= 0) {
-                    		templatequestionForm = templatequestionForm.replace("STEP_INDEX", stepId.toString());
-                		}
-                		while(templatequestionForm.indexOf("QUESTION_ID") >= 0) {
-                    		templatequestionForm = templatequestionForm.replace("QUESTION_ID", result.questions[i].id);
-                		}
-                		while(templatequestionForm.indexOf("QUESTION_TEXT") >= 0) {
-                    		templatequestionForm = templatequestionForm.replace("QUESTION_TEXT", result.questions[i].text);
-                		}
-    
-                		content += templatequestionForm;
-    
-    
-    					// Overview
-                		var templateOverview = "{% include "template/question_overview.html.twig" %}";
-                		while(templateOverview.indexOf("STEP_INDEX") >= 0) {
-                			templateOverview = templateOverview.replace("STEP_INDEX", stepId.toString());
-                		}
-                		while(templateOverview.indexOf("QUESTION_ID") >= 0) {
-                			templateOverview = templateOverview.replace("QUESTION_ID", result.questions[i].id);
-                		}
-                		while(templateOverview.indexOf("QUESTION_TEXT") >= 0) {
-                			templateOverview = templateOverview.replace("QUESTION_TEXT", result.questions[i].text);
-                		}
-    
-                		contentOverview += templateOverview;
-    
-    					
-                		questionsOfCityIds.push(result.questions[i].id);
-            		}
-    
-            		$("#div_questions_of_city").html(content);
-            		$("#div_overview_city").html(contentOverview);
-            		
-    				// Display the next step
-                	previousCity = $("#city").val();
-
-            		if(nbQuestionsOfCity > 0) {
-
-            			$("#btn_overview_2").hide();
-                		$("#btn_overview_3").hide();
-                		$("#btn_overview_4").hide();
-                		{% for question in questions %}
-                			$("#btn_overview_{{ 4+loop.index }}").hide();
-                		{% endfor %}
-                		$.each(questionsOfCityIds, function(index, value) {
-                			$("#btn_overview_"+({{ 4+questions|length }}+index+1)).hide();
-            			});
-
-            			stepWhereToGo = {{ 4+questions|length }}+1;// TODO Tester
-            		}
-            		else if(overviewDisplayed == true && stepToGoIsOverview) {
-                		stepWhereToGo = getOverviewStepId();
-            		}
-            		// TODO Dans ce cas (nbQuestionsOfCity > 0) bloquer le saut direct à l'overview (cacher tous les boutons)
-            		// TODO + Rediriger vers les questions à remplir
-            		
-                	nextStep(actualStep, stepWhereToGo);
-    		    }, error: function(result) {
-                	$("#city_loader").hide();
-                	$("#city_form").show();
-    		    }
-    		    });
-        	}
-    
-        	function fillOverview()
-        	{
-            	{% for city in cities %}
-    				if($("#city").val() == {{ city.insee }}) {
-    		        	$("#overview_city").text("{{ city.name }}");
-    				}
-            	{% endfor %}
-    
-            	$("#overview_name").text($("#name").val());
-            	$("#overview_headOfList1").text($("#firstnameHeadOfList1").val() + " " + $("#lastnameHeadOfList1").val());
-            	$("#overview_headOfList2").text($("#firstnameHeadOfList2").val() + " " + $("#lastnameHeadOfList2").val());
-            	if($("#supportedBy").val().trim() == "") {
-                	$("#overview_supportedBy").text("/");
-            	}
-            	else {
-                	$("#overview_supportedBy").text($("#supportedBy").val());
-            	}
-            	$("#overview_contactName").text($("#contactFirstname").val() + " " + $("#contactLastname").val());
-            	$("#overview_contactRole").text($("#contactRole").val());
-            	$("#overview_contactPhone").text($("#contactPhone").val());
-            	$("#overview_contactEmail").text($("#contactEmail").val());
-    
-            	{% for question in questions %}
-            		displayAnswersOverview({{ question.id }});
-            	{% endfor %}
-    
-            	// Ajouter les réponses aux questions de la ville
-            	$.each(questionsOfCityIds, function(index, value) {
-            		displayAnswersOverview(value);
-    			});
-        	}
-    
-        	function displayAnswersOverview(id) {
-        		if($('#inProgram_'+id).is(':checked')) {
-    
-                	$("#overview_inProgram_"+id).html("{{ "in_program"|trans }}");
-    			}
-        		else {
-                	$("#overview_inProgram_"+id).html("{{ "not_in_program"|trans }}");
-        		}
-    
-        		if($("#text_"+id).val().trim() == "") {
-                	$("#overview_text_"+id).text("/");
-        		}
-        		else {
-                	$("#overview_text_"+id).text($("#text_"+id).val());
-        		}
-        	}
-    
-        	{% for question in questions %}
-        		$("input[name=radio_inProgram_{{ question.id }}]").on("change", function()
-                {
-        			if($('#inProgram_{{ question.id }}').is(':checked')) {
-        				$("#answerValue_{{ question.id }}").removeAttr("disabled");
-        				$("#isNotPriority_{{ question.id }}").removeAttr("disabled");
-        			}
-        			else if($('#notInProgram_{{ question.id }}').is(':checked')) {
-        				$("#answerValue_{{ question.id }}").attr("disabled", true);
-        				$("#isNotPriority_{{ question.id }}").attr("disabled", true);
-    
-        				$("#answerValue_{{ question.id }}").prop('checked', false);
-        				$("#isNotPriority_{{ question.id }}").prop('checked', false);
-        			}
-                });
-        	{% endfor %}
-    
-        	function submitForm()
-        	{
-            	var frm = $('#formList');
-    
-            	$.ajax({
-                    type: frm.attr('method'),
-                    url: '{{ url("post_answer_form") }}',
-                    data: frm.serialize(),
-                    success: function (result) {
-                        console.log('Submission was successful.');
-                        console.log(result);
-                        if(result.success) {
-        					nextStep(getOverviewStepId());
-        				}
-        				else {
-        		    		$("#warning_overview").html(result.message);
-        		        	
-        		    		$("#warning_overview").delay(durationDelay).fadeIn(duration);
-        		        	
-        		    		$("#warning_overview").delay(durationDelay).fadeIn(duration);
-        		    		$("#warning_overview").animate({
-        		    	        scrollTop: $("#warning_overview").offset().top
-        		    	    }, 2000);
-        				}
-                    },
-                    error: function (result) {
-                        console.log('An error occurred.');
-                        console.log(result);
-    		    		$("#warning_overview").html("{{ "error_occurs"|trans }}");
-    		        	
-    		    		$("#warning_overview").delay(durationDelay).fadeIn(duration);
-    		    		$("#warning_overview").animate({
-    		    	        scrollTop: $("#warning_overview").offset().top
-    		    	    }, 2000);
-                    },
-                });
         	}
     	{% endif %}
     </script>

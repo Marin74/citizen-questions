@@ -32,9 +32,9 @@
               <tbody>
               	{% for list in listsToValidate %}
                     <tr>
-                      <td><a href="{{ url("admin_list", {"list": list.id}) }}">{{ list.id }}</a></td>
+                      <td>{{ list.id }}</td>
                       <td>{{ list.city.name }}</td>
-                      <td>{{ list.name }}</td>
+                      <td><a href="{{ url("admin_list", {"list": list.id}) }}">{{ list.name }}</a></td>
                       <td>{{ list.creationDate|date("Y-m-d H:i:s")|localizeddate("long", "short", locale, time_zone) }}</td>
                     </tr>
                 {% endfor %}

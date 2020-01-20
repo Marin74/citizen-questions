@@ -23,9 +23,9 @@
               <tbody>
               	{% for list in lists %}
                     <tr>
-                      <td><a href="{{ url("admin_list", {"list": list.id}) }}">{{ list.id }}</a></td>
+                      <td>{{ list.id }}</td>
                       <td>{{ list.city.name }}</td>
-                      <td>{{ list.name }}</td>
+                      <td><a href="{{ url("admin_list", {"list": list.id}) }}">{{ list.name }}</a></td>
                       <td>
                 			{% if list.status == "D" %}
                 				<span class="badge badge-pill badge-light">{{ "status_draft"|trans }}</span>

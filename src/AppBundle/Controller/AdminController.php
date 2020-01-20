@@ -66,9 +66,29 @@ class AdminController extends Controller
         $this->denyAccessUnlessGranted(User::ROLE_USER);
         $em = $this->getDoctrine()->getManager();
         $repoElectoralList = $em->getRepository("AppBundle:ElectoralList");
+        $action = $request->get("action");
+        
+        $list = $repoElectoralList->find($request->get("list"));
+        
+        if($list != null && $request->getMethod() == "POST" && !empty($action)) {
+            
+            if($action == "P") {
+                $list->setStatus(ElectoralList::STATUS_PENDING);
+                $list->setValidationDate(null);
+            }
+            elseif($action == "V") {
+                $list->setStatus(ElectoralList::STATUS_VALIDATED);
+                $list->setValidationDate(new \Datetime);
+            }
+            if($action == "R") {
+                $list->setStatus(ElectoralList::STATUS_REFUSED);
+                $list->setValidationDate(null);
+            }
+            $em->flush();
+        }
         
         return $this->render('admin/electoral_list.html.twig', [
-            "list"  => $repoElectoralList->find($request->get("list"))
+            "list"  => $list
         ]);
     }
 }

@@ -25,6 +25,26 @@
         			{% endif %}
         		</p>
         		
+    			<form method="post" id="formAction">
+    				<input type="hidden" id="action" name="action">
+    			</form>
+        		{% if list.status == "P" %}
+            		<p>
+            			<button type="button" class="btn btn-sm btn-outline-success" onclick="formButton('V');">{{ "validate"|trans }}</button>
+            			<button type="button" class="btn btn-sm btn-outline-danger" onclick="formButton('R');">{{ "refuse"|trans }}</button>
+            		</p>
+        		{% elseif list.status == "V" %}
+            		<p>
+            			<button type="button" class="btn btn-sm btn-outline-primary" onclick="formButton('P');">{{ "set_to_pending"|trans }}</button>
+            			<button type="button" class="btn btn-sm btn-outline-danger" onclick="formButton('R');">{{ "refuse"|trans }}</button>
+            		</p>
+        		{% elseif list.status == "R" %}
+            		<p>
+            			<button type="button" class="btn btn-sm btn-outline-primary" onclick="formButton('P');">{{ "set_to_pending"|trans }}</button>
+            			<button type="button" class="btn btn-sm btn-outline-success" onclick="formButton('V');">{{ "validate"|trans }}</button>
+            		</p>
+        		{% endif %}
+        		
         		
 				<div class="accordion" id="accordionExample">
 					<div class="card">
@@ -60,7 +80,7 @@
                     					<td>{{ list.supportedBy }}</td>
                     				</tr>
                     			</table>
-                    			
+                    		  </div>
                     			
 							</div>
 						</div>
@@ -93,11 +113,16 @@
                     				<tr>
                     					<td><strong>{{ "contacts"|trans }}</strong></td>
                     					<td>{{ list.contactPhone }}<br>
-                    					{{ list.contactEmail }}
+                        					{{ list.contactEmail }} 
+                        					{% if list.confirmedByEmail %}
+                        						<span class="badge badge-pill badge-success">{{ "email_validated"|trans({"%date%": list.confirmationDate|date("Y-m-d H:i:s")|localizeddate("long", "short", locale, time_zone)}) }}</span>
+                        					{% else %}
+        										<span class="badge badge-pill badge-light">{{ "unconfirmed"|trans }}</span>
+                        					{% endif %}
                     					</td>
                     				</tr>
                     			</table>								
-
+							  </div>
 
 							</div>
 						</div>
@@ -139,3 +164,19 @@
 		{% endif %}
     </main>
 {% endblock %}
+
+
+
+{% block js %}
+    <script type="application/javascript">
+        $(function() {
+        	
+        });
+
+        function formButton(action) {
+            $("#action").val(action);
+            $("#formAction").submit();
+        }
+    </script>
+{% endblock %}
+

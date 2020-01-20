@@ -460,7 +460,7 @@ class ElectoralList
     
     public function isConfirmedByEmail()
     {
-        return $this->confirmedByEmaill;
+        return $this->confirmedByEmail;
     }
     
     public function setConfirmationCode($confirmationCode)

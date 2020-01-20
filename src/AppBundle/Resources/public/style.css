@@ -139,11 +139,11 @@
 	background-color: #3495eb;
 }
 
-.btn:hover {
+.btn-standard:hover {
 	color: #ff6c00;
 }
 
-.btn {
+.btn-standard {
 	color: #ff6c00;
 	border-color: #ff6c00;
 }

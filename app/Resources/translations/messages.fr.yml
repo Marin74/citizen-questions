@@ -3,13 +3,11 @@ legal_terms: Mentions légales
 contact: Contact
 zero_one_answer: "%nb% réponse"
 nb_answers: "%nb% réponses"
-show_answers: Découvrez les réponses
 subtitle: "L'objectif de ce site est d'offrir la possibilité aux citoyen(ne)s du Chablais d'exprimer leurs souhaits et préoccupations auprès des candidat(e)s aux municipales de 2020."
 explanations_1: "Pour s'inscrire à une des séances publiques de synthèse des questions (les 10 décembre et 10 février), cliquez "
 explanations_2: "Le lieu sera communiqué aux inscrits.\n\nLa liste complète des questions sera disponible pour consultation"
 explanations_3: "à partir du 15 février."
 here: ici
-ask_questions: "Posez vos questions ici !"
 encourage_lists: "Encouragez les listes de votre commune à répondre aux questions des citoyens !"
 list_led_by: "Conduite par %name1% et %name2%"
 id: "#"
@@ -22,6 +20,9 @@ supported_by: "Liste soutenue par %text%"
 homepage: Accueil
 last_original_questions: "Dernières questions posées"
 lists_to_validate: "Listes à valider"
+validate: "Valider"
+refuse: "Refuser"
+set_to_pending: "Remettre en attente de validation"
 last_lists: "Dernières listes qui ont répondu :"
 answer_as_a_list: Répondez au nom d'une liste
 are_you_candidate: "Vous êtes candidat(e) ?"
@@ -131,6 +132,8 @@ empty_list: "Liste vide"
 general_informations: "Informations générales"
 contact_user: "Déclarant(e)"
 admin_answers: "Réponses"
+email_validated: "Confirmée le %date%"
+unconfirmed: "Non confirmée"
 
 
 

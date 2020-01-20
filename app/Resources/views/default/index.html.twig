@@ -24,18 +24,13 @@
       	
         <h1 class="display-4" style="font-family: Holiday; {% if is_mobile() %}font-size: 2.5rem;{% else %}font-size: 5rem;{% endif %}">{{ app_name }}</h1>
         <p class="lead font-weight-normal" style="margin-top: 2rem;">{{ "subtitle"|trans|nl2br }}</p>
-        <!--
-        <p class="lead">
-        	<a href="{{ url("ask_question") }}">{{ "ask_questions"|trans }}</a>
-        </p>
-        <a class="btn btn-outline-secondary" href="#map">{{ "show_answers"|trans }}</a>
-        {% if form_end is empty or "now"|date("Y-m-d H:i:s") < form_end|date("Y-m-d H:i:s") %}
+
+        {% if (form_start and form_end is empty) or ("now"|date("Y-m-d H:i:s") < form_end|date("Y-m-d H:i:s") and "now"|date("Y-m-d H:i:s") >= form_start|date("Y-m-d H:i:s")) %}
             <p></p>
             <p class="lead font-weight-normal">{{ "are_you_candidate"|trans }}<br/>
-        		<a class="btn btn-outline-secondary" href="{{ url("answer_form") }}">{{ "answer_as_a_list"|trans }}</a>
+        		<a class="btn btn-outline-secondary btn-standard" href="{{ url("answer_form") }}">{{ "answer_as_a_list"|trans }}</a>
             </p>
         {% endif %}
-        -->
         <p class="lead">
       	  {% include 'template/share_buttons.html.twig' %}
         </p>
@@ -160,7 +155,7 @@
             
             <p>
                 <center>
-                    <button type="button" class="btn btn-outline-secondary" onclick="checkForm();">{{ "send"|trans }}</button>
+                    <button type="button" class="btn btn-standard btn-outline-secondary" onclick="checkForm();">{{ "send"|trans }}</button>
                 </center>
             </p>
         </form>
