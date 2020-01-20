@@ -11,6 +11,18 @@
       </ol>
     </nav>
     
+    {% for label, messages in app.flashes %}
+    	{% if loop.index0 == 0 %}
+    		<div class="position-relative overflow-hidden text-center bg-light" style="padding-left: 3rem !important; padding-top: 1rem !important; padding-right: 3rem !important; margin-left: 1rem !important; margin-top: 1rem !important; margin-right: 1rem !important;">
+		{% endif %}
+      	{% for message in messages %}
+      		<div class="alert alert-{{ label }}" role="alert">{{ message|nl2br }}</div>
+      	{% endfor %}
+    	{% if loop.index0 == 0 %}
+    		</div>
+        {% endif %}
+  	{% endfor %}
+    
     <div class="container">
         <div class="progress">
     		<div id="progress" class="progress-bar bg-success" role="progressbar" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100"></div>
