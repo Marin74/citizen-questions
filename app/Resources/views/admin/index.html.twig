@@ -41,9 +41,7 @@
               </tbody>
             </table>
           </div>
-      {% endif %}
-      
-      {% if lastOriginalQuestions|length > 0 %}
+      {% elseif lastOriginalQuestions|length > 0 %}
           <h2>{{ "last_original_questions"|trans }}</h2>
   	  	  <h5>{{ "question_beginning"|trans }}</h5>
           <div class="table-responsive">
