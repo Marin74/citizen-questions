@@ -77,7 +77,7 @@ mail_confirmation_body_title: "Merci pour votre participation !"
 mail_confirmation_body_text: "Nous avons bien enregistré vos réponses aux Questions Citoyennes. Merci de bien vouloir valider votre adresse email en cliquant sur le lien ci-dessous :"
 mail_draft_title: "[Les Questions Citoyennes] Brouillon sauvegardé"
 mail_draft_body_title: "Brouillon sauvegardé"
-mail_draft_body_text: "Votre brouillon est enregistré, vous pouvez revenir à tout moment au formulaire de réponse en cliquant sur le lien ci-dessous :"
+mail_draft_body_text: "Votre liste peut maintenant répondre aux questions qui lui ont été posées par les citoyen(ne)s. Vous pouvez accéder au formulaire pour commencer à répondre en cliquant sur le lien ci-dessous.\nConservez-le précieusement, il vous servira à revenir à tout moment pour éventuellement modifier vos réponses sauvegardées tant que vous n’aurez pas cliqué sur le bouton final de validation en toute fin de formulaire."
 confirmation: Confirmation
 form_confirmed: "Adresse email confirmée !\nMerci pour votre participation ! Vos réponses apparaîtront lorsqu'elles seront validées par l'équipe d'administration."
 confirmation_code_does_not_match: "Le code de confirmation ne correspond pas."
