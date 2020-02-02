@@ -48,10 +48,15 @@
         	
         	<div class="px-3 py-3 pb-md-4 mx-auto">
             	
-            	<h3><em>{{ "ask_question_beginning"|trans }}</em></h3>
+            	<h6><em>{{ "ask_question_beginning"|trans }}</em></h6>
             	
             	{% for question in questions %}
-            		<h3><em>...{{ question.text }}</em></h3>
+            		
+            		{% if loop.index > 1 %}
+            			<hr>
+            		{% endif %}
+            	
+            		<h6><em>...{{ question.text }}</em></h6>
             
             		{% for list in city.validatedLists %}
             			{% for answer in list.answers %}
@@ -66,7 +71,7 @@
                     			</ul>
                     			{% if answer.text is not empty %}
                         			<p>
-                        				<em>{{ answer.text|nl2br }}</em>
+                        				<em style="font-size: 0.8em;">{{ answer.text|nl2br }}</em>
                         			</p>
                     			{% endif %}
             				{% endif %}
