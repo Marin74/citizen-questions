@@ -35,6 +35,11 @@ class GroupOfCities
     private $cities;
     
     /**
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Question",mappedBy="groupOfCities")
+     */
+    private $questions;
+    
+    /**
      * @ORM\ManyToMany(targetEntity="AppBundle\Entity\OriginalQuestion",mappedBy="groupsOfCities")
      */
     private $originalQuestions;
@@ -99,6 +104,11 @@ class GroupOfCities
     public function getCities()
     {
         return $this->cities;
+    }
+    
+    public function getGroupOfCities()
+    {
+        return $this->groupOfCities;
     }
     
     public function getOriginalQuestions()

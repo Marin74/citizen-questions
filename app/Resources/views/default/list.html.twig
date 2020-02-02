@@ -39,11 +39,11 @@
 		
         	<div class="px-3 py-3 pb-md-4 mx-auto">
             	
-            	<h2>{{ "question_beginning"|trans }}</h2>
+            	<h3><em>{{ "ask_question_beginning"|trans }}</em></h3>
             	
     			{% for answer in list.answers %}
     			
-        			<h3>{{ answer.question.text }}</h3>
+        			<h3><em>...{{ answer.question.text }}</em></h3>
     					
         			<a href="{{ url("list", {"id": list.id, "name": list.nameForUrl}) }}"><strong>{{ list.name }}</strong></a>
                     

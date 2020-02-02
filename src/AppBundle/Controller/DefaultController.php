@@ -86,12 +86,20 @@ class DefaultController extends Controller
         $city = $repoCity->findOneByInsee($request->get("insee"));
         $generalQuestions = $repoQuestion->findBy(array("city" => null));
         $cityQuestions = array();
+        $groupOfCitiesQuestions = array();
         
         if($city != null) {
             $cityQuestions = $repoQuestion->findBy(array("city" => $city));
+            
+            foreach($city->getGroupsOfCities() as $groupOfCities) {
+                
+                $temp = $repoQuestion->findBy(array("groupOfCities" => $groupOfCities));
+                $groupOfCitiesQuestions = array_merge($groupOfCitiesQuestions, $temp);
+            }
         }
         
         $questions = array_merge($generalQuestions, $cityQuestions);
+        $questions = array_merge($questions, $groupOfCitiesQuestions);
         
         return $this->render('default/city.html.twig', [
             "city"      => $city,
@@ -313,7 +321,7 @@ class DefaultController extends Controller
                 
                 foreach($tempCategory->getQuestions() as $question) {
                     
-                    if($question->getCity() == null || $question->getCity()->getId() == $electoralList->getCity()->getId()) {
+                    if($question->concernsThisCity($electoralList->getCity())) {
                         $willBeUsed = true;
                         
                         // Check if the category is fully completed
@@ -342,10 +350,13 @@ class DefaultController extends Controller
             
             
             // Get questions
-            $questions = $repoQuestion->findBy(array("city" => null, "category" => $category->getPosition()));
-            foreach($electoralList->getCity()->getQuestions() as $question) {
+            $questions = array();
+            $tempQuestions = $repoQuestion->findAll();
+            foreach($tempQuestions as $question) {
                 
-                if($question->getCategory()->getId() == $category->getId()) {
+                if($question->concernsThisCity($electoralList->getCity()) 
+                    && $question->getCategory()->getId() == $category->getId()
+                ) {
                     $questions[] = $question;
                 }
             }
@@ -447,7 +458,7 @@ class DefaultController extends Controller
                 
                 foreach($tempCategory->getQuestions() as $question) {
                     
-                    if($question->getCity() == null || $question->getCity()->getId() == $electoralList->getCity()->getId()) {
+                    if($question->concernsThisCity($electoralList->getCity())) {
                         $willBeUsed = true;
                         
                         // Check if the category is fully completed

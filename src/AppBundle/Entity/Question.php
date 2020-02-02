@@ -40,6 +40,12 @@ class Question
     private $city;
     
     /**
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\GroupOfCities",inversedBy="questions")
+     * @ORM\JoinColumn(nullable=true, onDelete="CASCADE")
+     */
+    private $groupOfCities;
+    
+    /**
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\QuestionCategory",inversedBy="questions")
      * @ORM\JoinColumn(nullable=false, onDelete="CASCADE")
      */
@@ -128,6 +134,18 @@ class Question
         return $this->city;
     }
     
+    public function setGroupOfCities($groupOfCities)
+    {
+        $this->groupOfCities = $groupOfCities;
+        
+        return $this;
+    }
+    
+    public function getGroupOfCities()
+    {
+        return $this->groupOfCities;
+    }
+    
     public function setCategory($category)
     {
         $this->category = $category;
@@ -138,6 +156,29 @@ class Question
     public function getCategory()
     {
         return $this->category;
+    }
+    
+    public function concernsThisCity(City $city)
+    {
+        if($this->getCity() == null && $this->getGroupOfCities() == null) {
+            return true;
+        }
+        
+        if($this->getCity() != null && $this->getCity()->getId() == $city->getId()) {
+            return true;
+        }
+        
+        if($this->getGroupOfCities() != null) {
+            
+            foreach($this->getGroupOfCities()->getCities() as $tempCity) {
+                
+                if($city->getId() == $tempCity->getId()) {
+                    return true;
+                }
+            }
+        }
+        
+        return false;
     }
 }
 

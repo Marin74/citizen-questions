@@ -48,10 +48,10 @@
         	
         	<div class="px-3 py-3 pb-md-4 mx-auto">
             	
-            	<h2>{{ "question_beginning"|trans }}</h2>
+            	<h3><em>{{ "ask_question_beginning"|trans }}</em></h3>
             	
             	{% for question in questions %}
-            		<h3>{{ question.text }}</h3>
+            		<h3><em>...{{ question.text }}</em></h3>
             
             		{% for list in city.validatedLists %}
             			{% for answer in list.answers %}
