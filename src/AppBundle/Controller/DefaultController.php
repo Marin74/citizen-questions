@@ -147,6 +147,8 @@ class DefaultController extends Controller
                     'warning',
                     $translator->trans("draft_completed")
                 );
+                
+                $electoralList = null;
             }
         }
         
@@ -253,6 +255,8 @@ class DefaultController extends Controller
         $nbSteps = 0;
         $previousStep = null;
         $nextStep = null;
+        $usedCategories = array();
+        $usedCategoriesFull = array();
         
         // Get the draft in DB
         $electoralList = null;
@@ -295,19 +299,34 @@ class DefaultController extends Controller
             // Get steps
             $categories = $repoQuestionCategory->findBy(array(), array("position" => "ASC"));
             $previousCategory = null;
+            
+            $questionsAnsweredIds = array();
+            foreach($electoralList->getAnswers() as $answer) {
+                
+                $questionsAnsweredIds[] = $answer->getQuestion()->getId();
+            }
+            
             foreach($categories as $tempCategory) {
                 
                 $willBeUsed = false;
+                $isFullyCompleted = true;
                 
                 foreach($tempCategory->getQuestions() as $question) {
                     
                     if($question->getCity() == null || $question->getCity()->getId() == $electoralList->getCity()->getId()) {
                         $willBeUsed = true;
+                        
+                        // Check if the category is fully completed
+                        if(!in_array($question->getId(), $questionsAnsweredIds)) {
+                            $isFullyCompleted = false;
+                        }
                     }
                 }
                 
                 if($willBeUsed) {
                     $nbSteps++;
+                    $usedCategories[] = $tempCategory;
+                    $usedCategoriesFull[] = $isFullyCompleted;
                     
                     if($previousCategory != null && $previousCategory->getPosition() < $category->getPosition()) {
                         $previousStep = $previousCategory->getPosition();
@@ -363,12 +382,14 @@ class DefaultController extends Controller
         }
         
         return $this->render('default/answer_questions.html.twig', [
-            "questions"     => $questions,
-            "electoralList" => $electoralList,
-            "category"      => $category,
-            "nbSteps"       => $nbSteps,
-            "previousStep"  => $previousStep,
-            "nextStep"      => $nextStep
+            "questions"             => $questions,
+            "electoralList"         => $electoralList,
+            "category"              => $category,
+            "nbSteps"               => $nbSteps,
+            "previousStep"          => $previousStep,
+            "nextStep"              => $nextStep,
+            "usedCategories"        => $usedCategories,
+            "usedCategoriesFull"    => $usedCategoriesFull
         ]);
     }
     
@@ -384,6 +405,9 @@ class DefaultController extends Controller
         $repoQuestionCategory = $em->getRepository("AppBundle:QuestionCategory");
         $translator = $this->get("translator");
         $draftId = $request->get("draft");
+        $nbSteps = 0;
+        $usedCategories = array();
+        $usedCategoriesFull = array();
         
         // Get the draft in DB
         $electoralList = $repoElectoralList->findOneByDraftId($draftId);
@@ -405,6 +429,41 @@ class DefaultController extends Controller
             $electoralList = null;
         }
         else {
+            
+            // Get steps
+            $categories = $repoQuestionCategory->findBy(array(), array("position" => "ASC"));
+            $previousCategory = null;
+            
+            $questionsAnsweredIds = array();
+            foreach($electoralList->getAnswers() as $answer) {
+                
+                $questionsAnsweredIds[] = $answer->getQuestion()->getId();
+            }
+            
+            foreach($categories as $tempCategory) {
+                
+                $willBeUsed = false;
+                $isFullyCompleted = true;
+                
+                foreach($tempCategory->getQuestions() as $question) {
+                    
+                    if($question->getCity() == null || $question->getCity()->getId() == $electoralList->getCity()->getId()) {
+                        $willBeUsed = true;
+                        
+                        // Check if the category is fully completed
+                        if(!in_array($question->getId(), $questionsAnsweredIds)) {
+                            $isFullyCompleted = false;
+                        }
+                    }
+                }
+                
+                if($willBeUsed) {
+                    $nbSteps++;
+                    $usedCategories[] = $tempCategory;
+                    $usedCategoriesFull[] = $isFullyCompleted;
+                }
+            }
+            
             if($request->getMethod() == "POST") {
                 
                 $electoralList->setStatus(ElectoralList::STATUS_PENDING);
@@ -419,7 +478,7 @@ class DefaultController extends Controller
                     ->setBody(
                         $this->renderView(
                             'email/confirmation.html.twig',
-                            ['url' => $this->generateUrl('confirmation', array('list' => $electoralList->getId(), 'code' => $electoralList->getConfirmationCode()), UrlGeneratorInterface::ABSOLUTE_URL)]
+                            []
                             ),
                         'text/html'
                     )
@@ -438,7 +497,10 @@ class DefaultController extends Controller
         }
         
         return $this->render('default/answer_overview.html.twig', [
-            "electoralList" => $electoralList
+            "electoralList"         => $electoralList,
+            "nbSteps"               => $nbSteps,
+            "usedCategories"        => $usedCategories,
+            "usedCategoriesFull"    => $usedCategoriesFull
         ]);
     }
     

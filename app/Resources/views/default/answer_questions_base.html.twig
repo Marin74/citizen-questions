@@ -1,0 +1,53 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+    <div class="container-fluid">
+		<div class="row">
+			<nav class="col-md-2 d-none d-md-block bg-light sidebar">
+				<div class="sidebar-sticky">
+					<h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+                    	<span>{{ "draft"|trans }}</span>
+                    </h6>
+					<ul class="nav flex-column">
+					
+						{% set currentPosition = 0 %}{# Used to display the chapter number near each question #}
+					
+	                    {% if form_end is not empty and "now"|date("Y-m-d H:i:s") >= form_end|date("Y-m-d H:i:s") %}
+	                    {% elseif form_start is not empty and "now"|date("Y-m-d H:i:s") < form_start|date("Y-m-d H:i:s") %}
+	                    {% elseif electoralList is not null %}
+	                    
+                            {% for usedCategory in usedCategories %}
+                            
+                            	{# Check also the category is fully completed #}
+                                <li class="nav-item">
+                                    <a class="nav-link" style="{% if usedCategoriesFull[loop.index0] %}color: var(--green);{% endif %}" href="{{ url("answer_form_questions", {"step": usedCategory.position, "draft": electoralList.draftId}) }}">
+                                        {% if url(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')) == url("answer_form_questions", {"step": usedCategory.position, "draft": electoralList.draftId}) %}
+                                        
+						                    {% set currentPosition = loop.index %}
+						                    
+                                            <strong>{{ loop.index }}. {{ usedCategory.name }}</strong>
+                                        {% else %}
+                                            {{ loop.index }}. {{ usedCategory.name }}
+                                        {% endif %}
+                                    </a>
+                                </li>
+                            {% endfor %}
+                            
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ url("answer_form_overview", {"draft": electoralList.draftId}) }}">
+                                    {% if app.request.attributes.get('_route') == "answer_form_overview" %}
+                                        <strong>{{ "overview"|trans }}</strong>
+                                    {% else %}
+                                        {{ nbSteps+1 }}. {{ "overview"|trans }}
+                                    {% endif %}
+                                </a>
+                            </li>
+                        {% endif %}
+                    </ul>
+                </div>
+            </nav>
+            
+            {% block content %}{% endblock %}
+        </div>
+    </div>
+{% endblock %}

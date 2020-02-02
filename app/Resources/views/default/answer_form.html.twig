@@ -10,6 +10,18 @@
         <li class="breadcrumb-item active" aria-current="page">{{ "answer_form"|trans }}</li>
       </ol>
     </nav>
+        
+    {% for label, messages in app.flashes %}
+    	{% if loop.index0 == 0 %}
+    		<div class="position-relative overflow-hidden text-center bg-light" style="padding-left: 3rem !important; padding-top: 1rem !important; padding-right: 3rem !important; margin-left: 1rem !important; margin-top: 1rem !important; margin-right: 1rem !important;">
+		{% endif %}
+      	{% for message in messages %}
+      		<div class="alert alert-{{ label }}" role="alert">{{ message|nl2br }}</div>
+      	{% endfor %}
+    	{% if loop.index0 == 0 %}
+    		</div>
+        {% endif %}
+  	{% endfor %}
 	
 	{% if form_end is not empty and "now"|date("Y-m-d H:i:s") >= form_end|date("Y-m-d H:i:s") %}
 		<div style="min-height: 300px;"><!-- The min height is used to avoid the footer to go up each time the user go to the next step -->
