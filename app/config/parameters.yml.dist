@@ -32,6 +32,8 @@ parameters:
     piwik_url: ~
     creator: ~
     creator_website: ~
+    form_question_start: ~
+    form_question_end: ~
     form_start: ~
     form_end: ~
     locale: ~

@@ -52,6 +52,8 @@ twig:
         piwik_url: "%piwik_url%"
         creator: "%creator%"
         creator_website: "%creator_website%"
+        form_question_start: "%form_question_start%"
+        form_question_end: "%form_question_end%"
         form_start: "%form_start%"
         form_end: "%form_end%"
         locale: "%locale%"
