@@ -102,27 +102,6 @@ class ElectoralList
      * @ORM\Column(name="contactRole", type="string", length=255)
      */
     private $contactRole;
-    
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="confirmedByEmail", type="boolean")
-     */
-    private $confirmedByEmail;
-    
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="confirmationCode", type="string", length=255)
-     */
-    private $confirmationCode;
-    
-    /**
-     * @var \DateTime
-     *
-     * @ORM\Column(name="confirmationDate", type="datetime", nullable=true)
-     */
-    private $confirmationDate;
 
     /**
      * @var string
@@ -449,42 +428,6 @@ class ElectoralList
     public function getContactRole()
     {
         return $this->contactRole;
-    }
-    
-    public function setConfirmedByEmail($confirmedByEmail)
-    {
-        $this->confirmedByEmail = $confirmedByEmail;
-        
-        return $this;
-    }
-    
-    public function isConfirmedByEmail()
-    {
-        return $this->confirmedByEmail;
-    }
-    
-    public function setConfirmationCode($confirmationCode)
-    {
-        $this->confirmationCode = $confirmationCode;
-        
-        return $this;
-    }
-    
-    public function getConfirmationCode()
-    {
-        return $this->confirmationCode;
-    }
-    
-    public function setConfirmationDate($confirmationDate)
-    {
-        $this->confirmationDate = $confirmationDate;
-        
-        return $this;
-    }
-    
-    public function getConfirmationDate()
-    {
-        return $this->confirmationDate;
     }
 
     /**

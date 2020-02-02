@@ -113,12 +113,7 @@
                     				<tr>
                     					<td><strong>{{ "contacts"|trans }}</strong></td>
                     					<td>{{ list.contactPhone }}<br>
-                        					{{ list.contactEmail }} 
-                        					{% if list.confirmedByEmail %}
-                        						<span class="badge badge-pill badge-success">{{ "email_validated"|trans({"%date%": list.confirmationDate|date("Y-m-d H:i:s")|localizeddate("long", "short", locale, time_zone)}) }}</span>
-                        					{% else %}
-        										<span class="badge badge-pill badge-light">{{ "unconfirmed"|trans }}</span>
-                        					{% endif %}
+                        					{{ list.contactEmail }}
                     					</td>
                     				</tr>
                     			</table>								
@@ -141,12 +136,12 @@
 						<div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
 							<div class="card-body">
 							
-								<h5>{{ "question_beginning"|trans }}</h5>
+								<p><strong><em>{{ "ask_question_beginning"|trans }}</em></strong></p>
 								
 
 								{% for answer in list.answers %}
 									<p>
-										<strong>{{ answer.question.text }}</strong> {{ ("answer_value_"~answer.value)|trans }}
+										<strong><em>...{{ answer.question.text }}</em></strong> {{ ("answer_value_"~answer.value)|trans }}
 								        {% if answer.text is not empty %}
 								        	<br>
 								        	<em>{{ answer.text }}</em>

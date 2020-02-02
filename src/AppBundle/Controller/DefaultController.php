@@ -169,15 +169,8 @@ class DefaultController extends Controller
                 $city = $repoCity->findOneByInsee($request->get("city"));
                 $electoralList->setCity($city);
                 
-                // Set email confirmation code
-                $characters = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
-                $confirmationCode = "";
-                for ($i = 0; $i < 32; $i++) {
-                    $confirmationCode .= $characters[rand(0, strlen($characters) - 1)];
-                }
-                $electoralList->setConfirmationCode($confirmationCode);
-                
                 // Set draft id
+                $characters = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
                 $tempDraftId = "";
                 do {
                     $tempDraftId = "";
@@ -480,7 +473,7 @@ class DefaultController extends Controller
                 $electoralList->setStatus(ElectoralList::STATUS_PENDING);
                 $em->flush();
                 
-                // Send email with confirmation code
+                // Send email
                 $emailError = false;
                 try {
                     $message = (new \Swift_Message($translator->trans("mail_confirmation_title")))
@@ -521,38 +514,6 @@ class DefaultController extends Controller
     public function answerFormEndAction(Request $request)
     {
         return $this->render('default/answer_form_end.html.twig', [
-        ]);
-    }
-    
-    /**
-     * @Route("/confirmation/{list}/{code}", name="confirmation")
-     */
-    public function confirmationFormAction(Request $request)
-    {
-        $em = $this->getDoctrine()->getManager();
-        $repoElectoralList = $em->getRepository("AppBundle:ElectoralList");
-        $translator = $this->get("translator");
-        
-        $electoralList = $repoElectoralList->find($request->get("list"));
-        
-        if($electoralList == null || $electoralList->getConfirmationCode() != $request->get("code")) {
-            $this->addFlash(
-                'warning',
-                $translator->trans("confirmation_code_does_not_match")
-            );
-        }
-        else {
-            $electoralList->setConfirmedByEmail(true);
-            $electoralList->setConfirmationDate(new \Datetime());
-            $em->flush();
-            
-            $this->addFlash(
-                'success',
-                $translator->trans("form_confirmed")
-            );
-        }
-        
-        return $this->render('default/confirmation_form.html.twig', [
         ]);
     }
     

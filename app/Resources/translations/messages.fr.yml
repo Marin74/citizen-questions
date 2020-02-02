@@ -83,7 +83,7 @@ confirmation_code_does_not_match: "Le code de confirmation ne correspond pas."
 form_final_title: "Réponses envoyées avec succès"
 form_final_hint: "Merci beaucoup pour votre participation !\nVos réponses seront visibles sur le site dans les plus brefs délais."
 error_occurs: "Une erreur est survenue durant l'envoi. Veuillez réessayer à nouveau. Si le problème persiste, contactez l'équipe d'administration à partir du formulaire de contact."
-confirmation_email_not_sent: "L'email n'a pu être envoyé. Vérifiez que votre email de contact est correct."
+confirmation_email_not_sent: "L'email n'a pu être envoyé. L'adresse email de contact est incorrecte."
 form_too_early: "Le formulaire sera ouvert le %date%."
 form_too_late: "Il n'est plus possible de remplir le formulaire."
 questions_soon_date: "La liste complète des questions sera disponible pour consultation ici à partir du %date%."
@@ -134,8 +134,6 @@ empty_list: "Liste vide"
 general_informations: "Informations générales"
 contact_user: "Déclarant(e)"
 admin_answers: "Réponses"
-email_validated: "Confirmée le %date%"
-unconfirmed: "Non confirmée"
 
 
 
