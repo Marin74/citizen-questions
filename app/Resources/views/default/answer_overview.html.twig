@@ -112,14 +112,15 @@
               	
               	
               	
+				<p><strong><em>{{ "ask_question_beginning"|trans }}</em></strong></p>
+				
               	<center>
-					<p><strong><em>{{ "question_beginning"|trans }}</em></strong></p>
 					
             	    {% for answer in electoralList.answers %}
                         <div class="table-responsive">
                             <table class="table table-striped table-sm">
                             	<tr>
-                            		<td style="max-width: 50%;"><em><strong>{{ answer.question.text }}</strong></em></td>
+                            		<td style="max-width: 50%;"><em><strong>...{{ answer.question.text }}</strong></em></td>
                             		<td style="max-width: 50%;">{{ ("answer_value_"~answer.value)|trans }}</td>
                             	</tr>
                             	{% if answer.text is not empty %}
@@ -139,7 +140,7 @@
                 <p>
                     <center>
                     	<form method="post" action="{{ url("answer_form_overview", {"draft": electoralList.draftId}) }}">
-                        	<button type="submit" class="btn btn-standard btn-outline-secondary">{{ "submit"|trans }}</span>
+                        	<button type="submit" class="btn btn-ok-final">{{ "submit"|trans }}</span>
                     	</form>
                     </center>
                 </p>

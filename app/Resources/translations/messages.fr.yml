@@ -64,14 +64,13 @@ question_step4_hint: "Ces informations ne seront pas publiques. Elles sont desti
 form_supported_by: "Déclarer les soutiens qui ont été officiellement apportés à votre liste (mouvements, partis politiques) - sinon laisser ce champ vide"
 form_supported_by_hint: "Soutiens"
 answer: Précisions
-answer_text: "Donner des précisions"
-question_beginning: "Si votre liste obtient des sièges au conseil municipal, dans la majorité ou dans l’opposition,..."
-overview: Récapitulatif de vos réponses
+answer_text: "Souhaitez-vous commenter ?"
+overview: "Finalisation avant validation"
 overview_hint: "Vérifiez que les informations sont correctes, modifiez-les au besoin, puis validez le formulaire.\nLes réponses seront visibles publiquement après validation par l'équipe d'administration."
 btn_overview: Récapitulatif
 modify: Modifier
 submit: Valider
-field_empty: 'Un des champs obligatoires est vide.'
+field_empty: "Cette question n'a pas reçu de réponse."
 mail_confirmation_title: "[Les Questions Citoyennes] Confirmez les réponses aux Questions Citoyennes"
 mail_confirmation_body_title: "Merci pour votre participation !"
 mail_confirmation_body_text: "Nous avons bien enregistré vos réponses aux Questions Citoyennes. Merci de bien vouloir valider votre adresse email en cliquant sur le lien ci-dessous :"
@@ -113,13 +112,14 @@ question: Question
 unknown_draft: Brouillon inconnu
 draft_completed: Le brouillon est complété, il ne peut plus être modifié.
 unknown_page: "La page n'existe pas."
-draft_give_url: "Dorénavant à chaque fois que vous validerez une série de questions, elles seront sauvegardées. Vous pouvez arrêter de remplir le formulaire et revenir à tout moment dessus en utilisant le lien ci-dessous. Pensez à bien le sauvegarder."
+draft_give_url: "Pensez bien à cliquer sur le bouton « Sauvegarder » en fin de chaque partie une fois que vous aurez répondu à chacune des questions.\nVous pourrez revenir ultérieurement pour modifier votre brouillon en utilisant le lien ci-dessous. Pensez à bien le conserver."
+draft_alert: "Ce n’est qu’en toute fin de formulaire que vous validerez définitivement vos réponses."
 copy: Copier
 copy_to_clipboard: "Copier dans le presse-papier"
 copied: "Copié !"
 copy_with_command: "Copier avec Ctrl-C"
-save: "Sauvegarder"
-answer_questions_error: "Une ou plusieurs de vos réponses sont incorrectes, veuillez vérifier avant de continuer."
+save: "Sauvegarder et/ou continuer"
+answer_questions_error: "Une ou plusieurs questions n’ont pas reçu de réponse, veuillez les remplir avant de poursuivre."
 log_in: "Se connecter"
 status: "Statut"
 status_draft: "Brouillon"

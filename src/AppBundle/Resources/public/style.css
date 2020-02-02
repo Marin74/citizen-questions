@@ -154,6 +154,28 @@
 	border-color: #ff6c00;
 }
 
+.btn-ok {
+	color: var(--green);
+	border-color: var(--green);
+}
+
+.btn-ok:hover {
+	color: #fff;
+	background-color: var(--green);
+	border-color: var(--green);
+}
+
+.btn-ok-final {
+	color: var(--red);
+	border-color: var(--red);
+}
+
+.btn-ok-final:hover {
+	color: #fff;
+	background-color: var(--red);
+	border-color: var(--red);
+}
+
 a {
 	color: #3495eb;
 }

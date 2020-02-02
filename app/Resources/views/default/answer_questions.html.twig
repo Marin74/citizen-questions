@@ -55,7 +55,7 @@
                     
                     {% if category.position == 1 %}
                         <div class="alert alert-success" role="alert">
-                            {{ "draft_give_url"|trans }}
+                            {{ "draft_give_url"|trans|nl2br }}
                             
                             <center>
                                 <div class="input-group" style="max-width: 800px; width: 100%;">
@@ -68,14 +68,15 @@
                                 		</button>
                                 	</span>-->
                                 </div>
+                                
+                                <br><strong>{{ "draft_alert"|trans }}</strong>
                             </center>
                         </div>
                     {% endif %}
                     
                     
-                  	<center>
-                  		<h2 class="display-5">{{ "question_beginning"|trans }}</h2>
-                  	</center>
+              		<h3><em>{{ "ask_question_beginning"|trans }}</em></h3>
+
                     {% for question in questions %}
                     
                     	{% set answer = null %}
@@ -85,28 +86,27 @@
                     		{% endif %}
                     	{% endfor %}
                     	
-                      	<h3 style="margin-top: 2em;">{{ question.text }}</h3>
+                      	<h3 style="margin-top: 2em;"><em>...{{ question.text }}</em></h3>
                   	
                   		<div class="alert alert-warning" role="alert" id="warning_{{ question.id }}" style="display: none;">{{ "field_empty"|trans }}</div>
                 		
                     	
                         <fieldset class="form-group">
                             <div class="row">
-                                <legend class="col-form-label col-sm-2 pt-0"></legend>
                                 <div class="col-sm-10">
-                                    <div class="form-check">
+                                    <div class="form-check form-check-inline">
                                         <input class="form-check-input" type="radio" name="radio_answerValue_{{ question.id }}" id="answerValueY_{{ question.id }}" value="Y" {% if answer is not null and answer.value == "Y" %}checked{% endif %}>
                                         <label class="form-check-label" for="answerValueY_{{ question.id }}">
                                         	{{ "answer_value_Y"|trans }}
                                         </label>
                                     </div>
-                                    <div class="form-check">
+                                    <div class="form-check form-check-inline">
                                         <input class="form-check-input" type="radio" name="radio_answerValue_{{ question.id }}" id="answerValueN_{{ question.id }}" value="N" {% if answer is not null and answer.value == "N" %}checked{% endif %}>
                                         <label class="form-check-label" for="answerValueN_{{ question.id }}">
                                         	{{ "answer_value_N"|trans }}
                                         </label>
                                     </div>
-                                    <div class="form-check">
+                                    <div class="form-check form-check-inline">
                                         <input class="form-check-input" type="radio" name="radio_answerValue_{{ question.id }}" id="answerValueD_{{ question.id }}" value="D" {% if answer is not null and answer.value == "D" %}checked{% endif %}>
                                         <label class="form-check-label" for="answerValueD_{{ question.id }}">
                                         	{{ "answer_value_D"|trans }}
@@ -118,7 +118,7 @@
                     
                     	<div class="form-group">
                 			<p>
-                    			<a class="btn btn-standard btn-sm" data-toggle="collapse" href="#collapseText_{{ question.id }}" role="button" aria-expanded="false" aria-controls="collapseText_{{ question.id }}">{{ "answer_text"|trans }}</a>
+                    			<a class="btn btn-standard btn-outline-secondary btn-sm" data-toggle="collapse" href="#collapseText_{{ question.id }}" role="button" aria-expanded="false" aria-controls="collapseText_{{ question.id }}">{{ "answer_text"|trans }}</a>
                         	</p>
                         	<div class="collapse {% if answer is not null and answer.text is not empty %}show{% endif %}" id="collapseText_{{ question.id }}">
                         		<div class="card card-body">
@@ -137,7 +137,7 @@
                         	{% if previousStep is not null %}
                             	<a class="btn btn-standard btn-outline-secondary" style="cursor: pointer;" href="{{ url("answer_form_questions", {"step": previousStep, "draft": electoralList.draftId}) }}">{{ "previous"|trans }}</a>
                             {% endif %}
-                            <span class="btn btn-standard btn-outline-secondary" style="cursor: pointer;" onclick="formSubmit();">{{ "save"|trans }}</span>
+                            <span class="btn btn-ok" style="cursor: pointer;" onclick="formSubmit();">{{ "save"|trans }}</span>
                         </center>
                     </p>
                 </div>
