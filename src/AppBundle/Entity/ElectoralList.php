@@ -146,7 +146,6 @@ class ElectoralList
     
     public function __construct()
     {
-        $this->setConfirmedByEmail(false);
         $this->setStatus(ElectoralList::STATUS_DRAFT);
         $this->setCreationDate(new \Datetime());
     }

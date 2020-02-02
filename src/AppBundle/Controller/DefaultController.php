@@ -84,7 +84,7 @@ class DefaultController extends Controller
         $repoQuestion = $em->getRepository("AppBundle:Question");
         
         $city = $repoCity->findOneByInsee($request->get("insee"));
-        $generalQuestions = $repoQuestion->findBy(array("city" => null));
+        $generalQuestions = $repoQuestion->findBy(array("city" => null, "groupOfCities" => null));
         $cityQuestions = array();
         $groupOfCitiesQuestions = array();
         
