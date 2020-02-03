@@ -74,9 +74,14 @@ class AdminController extends Controller
         
         if($list != null && $request->getMethod() == "POST" && !empty($action)) {
             
+            $sendEmails = true;
+            
+            if($list->getValidationDate() != null) {
+                $sendEmails = false;
+            }
+            
             if($action == ElectoralList::STATUS_PENDING) {
                 $list->setStatus(ElectoralList::STATUS_PENDING);
-                $list->setValidationDate(null);
             }
             elseif($action == ElectoralList::STATUS_VALIDATED) {
                 $list->setStatus(ElectoralList::STATUS_VALIDATED);
@@ -84,11 +89,10 @@ class AdminController extends Controller
             }
             if($action == ElectoralList::STATUS_REFUSED) {
                 $list->setStatus(ElectoralList::STATUS_REFUSED);
-                $list->setValidationDate(null);
             }
             $em->flush();
             
-            if($action == ElectoralList::STATUS_VALIDATED) {
+            if($action == ElectoralList::STATUS_VALIDATED && $sendEmails) {
                 
                 $notificationEmails = $repoNotificationEmail->findByCity($list->getCity());
                 
