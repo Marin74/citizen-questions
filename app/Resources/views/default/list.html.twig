@@ -49,9 +49,7 @@
     			
         			<h6><em>...{{ answer.question.text }}</em></h6>
     					
-        			<a href="{{ url("list", {"id": list.id, "name": list.nameForUrl}) }}"><strong>{{ list.name }}</strong></a>
-                    
-                    <ul style="margin-bottom: 0;">
+        			<ul style="margin-bottom: 0;">
         				<li>
         					<strong><em>{{ ("answer_value_"~answer.value)|trans }}</em></strong>
         				</li>
