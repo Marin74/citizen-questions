@@ -82,8 +82,11 @@ class DefaultController extends Controller
         $em = $this->getDoctrine()->getManager();
         $repoCity = $em->getRepository("AppBundle:City");
         $repoQuestion = $em->getRepository("AppBundle:Question");
+        $repoNotificationEmail = $em->getRepository("AppBundle:NotificationEmail");
+        $translator = $this->get("translator");
         
         $city = $repoCity->findOneByInsee($request->get("insee"));
+        $email = trim($request->get("email"));
         $generalQuestions = $repoQuestion->findBy(array("city" => null, "groupOfCities" => null));
         $cityQuestions = array();
         $groupOfCitiesQuestions = array();
@@ -100,6 +103,27 @@ class DefaultController extends Controller
         
         $questions = array_merge($generalQuestions, $cityQuestions);
         $questions = array_merge($questions, $groupOfCitiesQuestions);
+        
+        
+        if($request->getMethod() == "POST" && $city != null && !empty($email)) {
+            
+            // Check if the email already exists
+            $notificationEmail = $repoNotificationEmail->findOneBy(array("email" => $email, "city" => $city));
+            
+            if($notificationEmail == null) {
+                
+                $notificationEmail = new NotificationEmail();
+                $notificationEmail->setEmail($email);
+                $notificationEmail->setCity($city);
+                $em->persist($notificationEmail);
+                $em->flush();
+            }
+            
+            $this->addFlash(
+                'success',
+                $translator->trans("notification_email_added", ["%city%" => $city->getName()])
+            );
+        }
         
         return $this->render('default/city.html.twig', [
             "city"      => $city,

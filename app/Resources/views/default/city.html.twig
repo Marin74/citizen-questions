@@ -10,6 +10,18 @@
         <li class="breadcrumb-item active" aria-current="page">{% if city is null %}{{ "unknown_city"|trans }}{% else %}{{ city.name }}{% endif %}</li>
       </ol>
     </nav>
+        
+    {% for label, messages in app.flashes %}
+    	{% if loop.index0 == 0 %}
+    		<div class="position-relative overflow-hidden text-center bg-light" style="padding-left: 3rem !important; padding-top: 1rem !important; padding-right: 3rem !important; margin-left: 1rem !important; margin-top: 1rem !important; margin-right: 1rem !important;">
+		{% endif %}
+      	{% for message in messages %}
+      		<div class="alert alert-{{ label }}" role="alert">{{ message|nl2br }}</div>
+      	{% endfor %}
+    	{% if loop.index0 == 0 %}
+    		</div>
+        {% endif %}
+  	{% endfor %}
 
 	{% if city is null %}
 		<div class="px-3 py-3 pb-md-4 mx-auto text-center">
@@ -22,6 +34,15 @@
           <p class="lead">
           	{{ "encourage_lists"|trans }}
           </p>
+          
+          {% if form_end is not empty and "now"|date("Y-m-d H:i:s") < form_end|date("Y-m-d H:i:s") %}
+              <p class="lead">
+              	<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#beNotifiedModal">
+    				{{ "be_notified"|trans }}
+    		    </button>
+              </p>
+          {% endif %}
+          
           <p class="lead">
           	{% include 'template/share_buttons.html.twig' %}
           </p>
@@ -82,6 +103,40 @@
     	{% endif %}
         
         <div id="map" style="min-height: 50vh"></div>
+        
+        
+          
+        {% if form_end is not empty and "now"|date("Y-m-d H:i:s") < form_end|date("Y-m-d H:i:s") %}
+            <div class="modal fade" id="beNotifiedModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    			<div class="modal-dialog" role="document">
+    				<div class="modal-content">
+    					<div class="modal-header">
+    						<h5 class="modal-title" id="exampleModalLabel">{{ "be_notified"|trans }}</h5>
+    						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+    							<span aria-hidden="true">&times;</span>
+    						</button>
+    					</div>
+    					<form method="POST">
+    						
+        					<div class="modal-body">
+            					
+        						<p>{{ "be_notified_hint"|trans({"%city%": city.name}) }}</p>
+        						
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">{{ "email"|trans }}</label>
+                                    <input type="email" class="form-control" name="email" id="exampleInputEmail1" aria-describedby="emailHelp" placeholde="{{ "email"|trans }}" required>
+                                    <small id="emailHelp" class="form-text text-muted">{{ "be_notified_email_hint"|trans }}</small>
+                                </div>
+        					</div>
+        					<div class="modal-footer">
+        						<button type="button" class="btn btn-secondary" data-dismiss="modal">{{ "cancel"|trans }}</button>
+        						<button type="submit" class="btn btn-primary">{{ "send"|trans }}</button>
+        					</div>
+    					</form>
+    				</div>
+    			</div>
+    		</div>
+		{% endif %}
 	{% endif %}
 {% endblock %}
 

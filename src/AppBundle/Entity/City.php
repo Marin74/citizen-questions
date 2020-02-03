@@ -63,6 +63,12 @@ class City
      * @ORM\ManyToMany(targetEntity="AppBundle\Entity\GroupOfCities",mappedBy="cities")
      */
     private $groupsOfCities;
+    
+    /**
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\NotificationEmail",mappedBy="city")
+     * @ORM\OrderBy({"id" = "ASC"})
+     */
+    private $notificationEmails;
 
 
     /**
@@ -231,6 +237,11 @@ class City
     public function getQuestions()
     {
         return $this->questions;
+    }
+    
+    public function getNotificationEmails()
+    {
+        return $this->notificationEmails;
     }
     
     public function getOriginalQuestions()

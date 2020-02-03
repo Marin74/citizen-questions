@@ -134,6 +134,17 @@ empty_list: "Liste vide"
 general_informations: "Informations générales"
 contact_user: "Déclarant(e)"
 admin_answers: "Réponses"
+be_notified: "Être averti(e) d'une nouvelle réponse"
+be_notified_hint: "Vous recevrez un email à chaque fois qu'une liste de %city% répondra aux Questions Citoyennes."
+be_notified_email_hint: "Votre email ne sera pas utilisé à d'autres fins."
+cancel: "Annuler"
+notification_email_added: "Votre email a été ajouté, vous serez averti dès qu'une liste de %city% répondra aux Questions Citoyennes."
+notification_email_not_sent: "L'email d'avertissement d'une nouvelle réponse n'a pas pu être envoyée à %email%"
+notification_email_title: "[Les Questions Citoyennes] Nouvelle réponse à %city%"
+notification_email_body_title: "\"%list%\" a répondu à %city%"
+notification_email_body_text: "Consultez leurs réponses en cliquant ici :"
+
+
 
 
 

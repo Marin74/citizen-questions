@@ -61,30 +61,65 @@ class AdminController extends Controller
     /**
      * @Route("/admin/liste/{list}", name="admin_list")
      */
-    public function listAction(Request $request)
+    public function listAction(Request $request, \Swift_Mailer $mailer)
     {
         $this->denyAccessUnlessGranted(User::ROLE_USER);
         $em = $this->getDoctrine()->getManager();
         $repoElectoralList = $em->getRepository("AppBundle:ElectoralList");
+        $repoNotificationEmail = $em->getRepository("AppBundle:NotificationEmail");
+        $translator = $this->get("translator");
         $action = $request->get("action");
         
         $list = $repoElectoralList->find($request->get("list"));
         
         if($list != null && $request->getMethod() == "POST" && !empty($action)) {
             
-            if($action == "P") {
+            if($action == ElectoralList::STATUS_PENDING) {
                 $list->setStatus(ElectoralList::STATUS_PENDING);
                 $list->setValidationDate(null);
             }
-            elseif($action == "V") {
+            elseif($action == ElectoralList::STATUS_VALIDATED) {
                 $list->setStatus(ElectoralList::STATUS_VALIDATED);
                 $list->setValidationDate(new \Datetime);
             }
-            if($action == "R") {
+            if($action == ElectoralList::STATUS_REFUSED) {
                 $list->setStatus(ElectoralList::STATUS_REFUSED);
                 $list->setValidationDate(null);
             }
             $em->flush();
+            
+            if($action == ElectoralList::STATUS_VALIDATED) {
+                
+                $notificationEmails = $repoNotificationEmail->findByCity($list->getCity());
+                
+                foreach($notificationEmails as $notificationEmail) {
+                    
+                    try {
+                        $message = (new \Swift_Message($translator->trans("notification_email_title", ["%city%" => $list->getCity()->getName()])))
+                        ->setFrom($this->getParameter("mailer_user"))
+                        ->setTo($notificationEmail->getEmail())
+                        ->setBody(
+                            $this->renderView(
+                                'email/notification.html.twig',
+                                [
+                                    'list' => $list->getName(),
+                                    'city' => $list->getCity()->getName(),
+                                    'url' => $this->generateUrl('list', array('id' => $list->getId(), 'name' => $list->getNameForUrl()), UrlGeneratorInterface::ABSOLUTE_URL)
+                                ]
+                            ),
+                            'text/html'
+                        )
+                        ;
+                        $mailer->send($message);
+                        
+                    } catch(\Exception $e) {
+                        $this->addFlash(
+                            'warning',
+                            $translator->trans("notification_email_not_sent", ["%email%" => $notificationEmail->getEmail()])
+                        );
+                    }
+                }
+            }
         }
         
         return $this->render('admin/electoral_list.html.twig', [
