@@ -68,7 +68,6 @@ answer_text: "Souhaitez-vous commenter ?"
 overview: "Finalisation avant validation"
 overview_hint: "Vérifiez soigneusement toutes vos réponses. Modifiez-les au besoin, puis validez le formulaire.\nAttention, plus aucune modification ne sera possible après validation."
 btn_overview: Récapitulatif
-modify: Modifier
 submit: Valider
 field_empty: "Cette question n'a pas reçu de réponse."
 mail_confirmation_title: "[Les Questions Citoyennes] Merci pour votre participation !"

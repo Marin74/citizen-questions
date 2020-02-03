@@ -81,6 +81,7 @@ class DefaultController extends Controller
     public function cityAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
+        $repoAnswer = $em->getRepository("AppBundle:Answer");
         $repoCity = $em->getRepository("AppBundle:City");
         $repoQuestion = $em->getRepository("AppBundle:Question");
         $repoNotificationEmail = $em->getRepository("AppBundle:NotificationEmail");
@@ -91,19 +92,25 @@ class DefaultController extends Controller
         $generalQuestions = $repoQuestion->findBy(array("city" => null, "groupOfCities" => null));
         $cityQuestions = array();
         $groupOfCitiesQuestions = array();
+        $answers = array();
         
         if($city != null) {
-            $cityQuestions = $repoQuestion->findBy(array("city" => $city));
             
-            foreach($city->getGroupsOfCities() as $groupOfCities) {
-                
-                $temp = $repoQuestion->findBy(array("groupOfCities" => $groupOfCities));
-                $groupOfCitiesQuestions = array_merge($groupOfCitiesQuestions, $temp);
-            }
+            $qb = $repoAnswer->createQueryBuilder("a");
+            $qb->innerJoin("a.question", "q")
+            ->innerJoin("q.category", "c")
+            ->innerJoin("a.list", "l")
+            ->where($qb->expr()->in("a.list", ":lists"))
+            ->andWhere($qb->expr()->eq("l.status", ":status"))
+            ->setParameter("lists", $city->getLists())
+            ->setParameter("status", ElectoralList::STATUS_VALIDATED)
+            ->orderBy("c.position", "ASC")
+            ->addOrderBy("q.id", "ASC")
+            ->addOrderBy("l.id", "ASC")
+            ;
+            
+            $answers = $qb->getQuery()->execute();
         }
-        
-        $questions = array_merge($generalQuestions, $cityQuestions);
-        $questions = array_merge($questions, $groupOfCitiesQuestions);
         
         
         if($request->getMethod() == "POST" && $city != null && !empty($email)) {
@@ -128,7 +135,7 @@ class DefaultController extends Controller
         
         return $this->render('default/city.html.twig', [
             "city"      => $city,
-            "questions" => $questions
+            "answers"   => $answers
         ]);
     }
     
@@ -138,13 +145,30 @@ class DefaultController extends Controller
     public function listAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
+        $repoAnswer = $em->getRepository("AppBundle:Answer");
         $repoElectoralList = $em->getRepository("AppBundle:ElectoralList");
         
         $list = $repoElectoralList->findOneBy(array("id" => $request->get("id"), "status" => ElectoralList::STATUS_VALIDATED));
         
+        $answers = array();
+        
+        if($list != null) {
+            $qb = $repoAnswer->createQueryBuilder("a");
+            $qb->innerJoin("a.question", "q")
+            ->innerJoin("q.category", "c")
+            ->where($qb->expr()->eq("a.list", ":list"))
+            ->setParameter("list", $list)
+            ->orderBy("c.position", "ASC")
+            ->addOrderBy("q.id", "ASC")
+            ;
+            
+            $answers = $qb->getQuery()->execute();
+        }
+        
         // replace this example code with whatever you need
         return $this->render('default/list.html.twig', [
-            "list"  => $list
+            "list"      => $list,
+            "answers"   => $answers
         ]);
     }
     
@@ -428,6 +452,7 @@ class DefaultController extends Controller
     public function answerOverviewAction(Request $request, \Swift_Mailer $mailer)
     {
         $em = $this->getDoctrine()->getManager();
+        $repoAnswer = $em->getRepository("AppBundle:Answer");
         $repoCity = $em->getRepository("AppBundle:City");
         $repoElectoralList = $em->getRepository("AppBundle:ElectoralList");
         $repoQuestion = $em->getRepository("AppBundle:Question");
@@ -437,25 +462,26 @@ class DefaultController extends Controller
         $nbSteps = 0;
         $usedCategories = array();
         $usedCategoriesFull = array();
+        $answers = array();
         
         // Get the draft in DB
-        $electoralList = $repoElectoralList->findOneByDraftId($draftId);
+        $list = $repoElectoralList->findOneByDraftId($draftId);
         
-        if($electoralList == null) {
+        if($list == null) {
             // Error, no draft found
             $this->addFlash(
                 'warning',
                 $translator->trans("unknown_draft")
             );
         }
-        elseif($electoralList->getStatus() != ElectoralList::STATUS_DRAFT) {
+        elseif($list->getStatus() != ElectoralList::STATUS_DRAFT) {
             // Error, no draft found
             $this->addFlash(
                 'warning',
                 $translator->trans("draft_completed")
             );
             
-            $electoralList = null;
+            $list = null;
         }
         else {
             
@@ -464,7 +490,7 @@ class DefaultController extends Controller
             $previousCategory = null;
             
             $questionsAnsweredIds = array();
-            foreach($electoralList->getAnswers() as $answer) {
+            foreach($list->getAnswers() as $answer) {
                 
                 $questionsAnsweredIds[] = $answer->getQuestion()->getId();
             }
@@ -476,7 +502,7 @@ class DefaultController extends Controller
                 
                 foreach($tempCategory->getQuestions() as $question) {
                     
-                    if($question->concernsThisCity($electoralList->getCity())) {
+                    if($question->concernsThisCity($list->getCity())) {
                         $willBeUsed = true;
                         
                         // Check if the category is fully completed
@@ -495,7 +521,7 @@ class DefaultController extends Controller
             
             if($request->getMethod() == "POST") {
                 
-                $electoralList->setStatus(ElectoralList::STATUS_PENDING);
+                $list->setStatus(ElectoralList::STATUS_PENDING);
                 $em->flush();
                 
                 // Send email
@@ -503,7 +529,7 @@ class DefaultController extends Controller
                 try {
                     $message = (new \Swift_Message($translator->trans("mail_confirmation_title")))
                     ->setFrom($this->getParameter("mailer_user"))
-                    ->setTo($electoralList->getContactEmail())
+                    ->setTo($list->getContactEmail())
                     ->setBody(
                         $this->renderView(
                             'email/confirmation.html.twig',
@@ -523,13 +549,25 @@ class DefaultController extends Controller
                 
                 return $this->redirectToRoute('answer_form_end');
             }
+            
+            $qb = $repoAnswer->createQueryBuilder("a");
+            $qb->innerJoin("a.question", "q")
+            ->innerJoin("q.category", "c")
+            ->where($qb->expr()->eq("a.list", ":list"))
+            ->setParameter("list", $list)
+            ->orderBy("c.position", "ASC")
+            ->addOrderBy("q.id", "ASC")
+            ;
+            
+            $answers = $qb->getQuery()->execute();
         }
         
         return $this->render('default/answer_overview.html.twig', [
-            "electoralList"         => $electoralList,
+            "electoralList"         => $list,
             "nbSteps"               => $nbSteps,
             "usedCategories"        => $usedCategories,
-            "usedCategoriesFull"    => $usedCategoriesFull
+            "usedCategoriesFull"    => $usedCategoriesFull,
+            "answers"               => $answers
         ]);
     }
     

@@ -56,7 +56,7 @@
                   	
               		<div class="alert alert-warning" role="alert" id="warning_overview" style="display: none;"></div>
                   	
-                  	<p class="lead"><em>{{ "general_informations"|trans }}</em> <a href="{{ url("answer_form", {"draft": electoralList.draftId}) }}">{{ "modify"|trans }}</a></p>
+                  	<p class="lead"><em>{{ "general_informations"|trans }}</em></p>
     				
     				<center>
     					<p><strong>{{ "question_step3"|trans }}</strong></p>
@@ -112,27 +112,53 @@
                   	
     				<p><strong><em>{{ "ask_question_beginning"|trans }}</em></strong></p>
     				
-                  	<center>
+                	{% set lastCategory = null %}
+                	{% set indexCategory = 0 %}
+                	{% set indexQuestion = 1 %}
+                	
+        			{% for answer in answers %}
+                		
+                		{% if lastCategory == null or answer.question.category.id != lastCategory.id %}
+                		
+                    		{% if loop.index > 1 %}
+                    			</table></div>
+                    		{% endif %}
+                    		
+                	        {% set indexCategory = indexCategory + 1 %}
+                	        {% set indexQuestion = 1 %}
+                	        
+                	        <br>
+                    		
+        					<h5>{{ indexCategory }}. {{ answer.question.category.name }}</h5>
     					
-                	    {% for answer in electoralList.answers %}
                             <div class="table-responsive">
                                 <table class="table table-striped table-sm">
-                                	<tr>
-                                		<td style="max-width: 50%;"><em><strong>...{{ answer.question.text }}</strong></em></td>
-                                		<td style="max-width: 50%;">{{ ("answer_value_"~answer.value)|trans }}</td>
-                                	</tr>
-                                	{% if answer.text is not empty %}
-                                	<tr>
-                                		<td style="max-width: 50%;"><strong>{{ "answer"|trans }}</strong></td>
-                                		<td style="max-width: 50%;">{{ answer.text }}</td>
-                                	</tr>
-                                	{% endif %}
-                                </table>								
-                            </div>
-                            
-                            <hr>
-                        {% endfor %}
-                    </center>
+                		{% endif %}
+        			
+        				<tr><td>
+            			<h6><em>{{ indexCategory }}.{{ indexQuestion }}. ...{{ answer.question.text }}</em></h6>
+        					
+            			<ul style="margin-bottom: 0;">
+            				<li>
+            					<strong><em>{{ ("answer_value_"~answer.value)|trans }}</em></strong>
+            				</li>
+            			</ul>
+            			{% if answer.text is not empty %}
+                			<p>
+                				<em style="font-size: 0.8em;">{{ answer.text|nl2br }}</em>
+                			</p>
+            			{% endif %}
+            			</td></tr>
+            			
+                		{% set lastCategory = answer.question.category %}
+                		{% set indexQuestion = indexQuestion + 1 %}
+        			{% endfor %}
+                		
+            		{% if answers|length > 0 %}
+            			</table></div>
+            		{% endif %}
+            		
+            		
                     
                     {# Check if the form is fully completed #}
 					{% set formFullyCompleted = true %}

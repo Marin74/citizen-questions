@@ -35,16 +35,24 @@
         </div>
 
 	
-		{% if list.answers|length > 0 %}
+		{% if answers|length > 0 %}
 		
         	<div class="px-3 py-3 pb-md-4 mx-auto">
             	
             	<h6><em>{{ "ask_question_beginning"|trans }}</em></h6>
+            	<br>
             	
-    			{% for answer in list.answers %}
+            	{% set lastCategory = null %}
+            	
+    			{% for answer in answers %}
             		
             		{% if loop.index > 1 %}
             			<hr>
+            		{% endif %}
+            		
+            		{% if lastCategory == null or answer.question.category.id != lastCategory.id %}
+            			<br>
+            			<h5>{{ answer.question.category.name }}</h5>
             		{% endif %}
     			
         			<h6><em>...{{ answer.question.text }}</em></h6>
@@ -59,6 +67,8 @@
             				<em style="font-size: 0.8em;">{{ answer.text|nl2br }}</em>
             			</p>
         			{% endif %}
+        			
+            		{% set lastCategory = answer.question.category %}
     			{% endfor %}
         	</div>
         {% endif %}

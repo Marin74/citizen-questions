@@ -70,34 +70,44 @@
         	<div class="px-3 py-3 pb-md-4 mx-auto">
             	
             	<h6><em>{{ "ask_question_beginning"|trans }}</em></h6>
+            	<br>
             	
-            	{% for question in questions %}
-            		
-            		{% if loop.index > 1 %}
-            			<hr>
+            	
+                {% set lastCategory = null %}
+                {% set lastQuestion = null %}
+                
+            	{% for answer in answers %}
+            	
+                    {% if lastCategory == null or answer.question.category.id != lastCategory.id %}
+                    	<br>
+            			<h5>{{ answer.question.category.name }}</h5>
             		{% endif %}
             	
-            		<h6><em>...{{ question.text }}</em></h6>
-            
-            		{% for list in city.validatedLists %}
-            			{% for answer in list.answers %}
-            				{% if answer.question.id == question.id %}
-            					
-                    			<a href="{{ url("list", {"id": list.id, "name": list.nameForUrl}) }}"><strong>{{ list.name }}</strong></a>
+                    {% if lastQuestion == null or answer.question.id != lastQuestion.id %}
+            		
+                		{% if loop.index > 1 %}
+                			<hr>
+                		{% endif %}
+                		
+            			<h6><em>...{{ answer.question.text }}</em></h6>
+            		{% endif %}
+            		
+            		<a href="{{ url("list", {"id": answer.list.id, "name": answer.list.nameForUrl}) }}"><strong>{{ answer.list.name }}</strong></a>
                                 
-                                <ul style="margin-bottom: 0;">
-                    				<li>
-                    					<strong><em>{{ ("answer_value_"~answer.value)|trans }}</em></strong>
-                    				</li>
-                    			</ul>
-                    			{% if answer.text is not empty %}
-                        			<p>
-                        				<em style="font-size: 0.8em;">{{ answer.text|nl2br }}</em>
-                        			</p>
-                    			{% endif %}
-            				{% endif %}
-            			{% endfor %}
-            		{% endfor %}
+                    <ul style="margin-bottom: 0;">
+        				<li>
+        					<strong><em>{{ ("answer_value_"~answer.value)|trans }}</em></strong>
+        				</li>
+        			</ul>
+        			{% if answer.text is not empty %}
+            			<p>
+            				<em style="font-size: 0.8em;">{{ answer.text|nl2br }}</em>
+            			</p>
+        			{% endif %}
+        			
+        			{% set lastCategory = answer.question.category %}
+        			{% set lastQuestion = answer.question %}
+            	
             	{% endfor %}
         	</div>
     	{% endif %}
