@@ -9,6 +9,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use AppBundle\Entity\Answer;
 use AppBundle\Entity\ElectoralList;
+use AppBundle\Entity\NotificationEmail;
 use AppBundle\Entity\OriginalQuestion;
 
 class DefaultController extends Controller
