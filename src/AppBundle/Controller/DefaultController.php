@@ -585,7 +585,11 @@ class DefaultController extends Controller
      */
     public function questionsAction(Request $request)
     {
+        $em = $this->getDoctrine()->getManager();
+        $repoOriginalQuestion = $em->getRepository("AppBundle:OriginalQuestion");
+        
         return $this->render('default/questions.html.twig', [
+            "questions" => $repoOriginalQuestion->findBy(array(), array("id" => "ASC"))
         ]);
     }
     

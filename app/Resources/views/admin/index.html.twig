@@ -76,7 +76,7 @@
                       		</ul>
                   		{% endif %}
 					  </td>
-					  <td>{{ question.creationDate|date("Y-m-d H:i:s")|localizeddate("long", "short", locale, time_zone) }}
+					  <td>{{ question.creationDate|date("Y-m-d H:i:s")|localizeddate("long", "short", locale, time_zone) }}</td>
                     </tr>
                 {% endfor %}
               </tbody>

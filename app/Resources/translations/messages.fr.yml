@@ -87,33 +87,34 @@ form_too_early: "Le formulaire sera ouvert le %date%."
 form_too_late: "Il n'est plus possible de remplir le formulaire."
 questions_soon_date: "La liste complète des questions sera disponible pour consultation ici à partir du %date%."
 questions_soon: "La liste complète des questions sera disponible pour consultation ici dès l'ouverture du site."
-original_questions: Les Questions
-name: Nom
-your_message: Votre message
-send: Envoyer
+original_questions: "Les Questions"
+original_questions_hint: "Voici les questions posées par les citoyens :"
+name: "Nom"
+your_message: "Votre message"
+send: "Envoyer"
 contact_form: "[%app%] Formulaire de contact"
 email_sent: "Votre message a bien été envoyé."
-ask_question: Posez une question citoyenne
+ask_question: "Posez une question citoyenne"
 ask_question_to: "Ma question est destinée aux listes de..."
 ask_question_beginning: "« Madame, Monsieur, si votre liste obtient des sièges au conseil municipal, dans la majorité ou dans l’opposition, est-ce que vos élu(e)s..."
 ask_question_beginning_hint: "...s'engagent à ... ? / ...soutiendront ... ? / ...s'opposeront à ... ? / ...feront appliquer ... ? / ...modifieront ... ? / ou autre formulation..."
 ask_question_list_hint: "Les représentant(e)s des listes répondront par oui, non ou ne se prononce pas. Un espace de rédaction libre leur permettra de préciser leur position sur la question au besoin."
-all_cities: tout le Chablais
-few_groups_of_cities: une ou plusieurs communautés de communes
-few_cities: une ou plusieurs communes
+all_cities: "tout le Chablais"
+few_groups_of_cities: "une ou plusieurs communautés de communes"
+few_cities: "une ou plusieurs communes"
 ask_question_succeeded: "Merci pour votre participation, votre question a bien été envoyée.\n\nPartagez ce site auprès de vos amis, votre famille, vos connaissances !"
 ask_question_hint: "Dans ce formulaire, vous pouvez poser une question aux listes électorales d'une commune, de plusieurs communes ou de toutes les communes du Chablais entre le 12 novembre 2019 et le 5 février 2020.\n\nLes questions posées seront consultables à partir du 15 février (après des séances publiques où elles seront synthétisées). Les représentant(e)s des listes pourront alors y répondre et les citoyen(ne)s pourront consulter les réponses apportées."
-env_dev: Développement
-env_test: Test
-dashboard: Tableau de bord
-date: Date
-question: Question
-unknown_draft: Brouillon inconnu
-draft_completed: Le brouillon est complété, il ne peut plus être modifié.
+env_dev: "Développement"
+env_test: "Test"
+dashboard: "Tableau de bord"
+date: "Date"
+question: "Question"
+unknown_draft: "Brouillon inconnu"
+draft_completed: "Le brouillon est complété, il ne peut plus être modifié."
 unknown_page: "La page n'existe pas."
 draft_give_url: "Pensez bien à cliquer sur le bouton « Sauvegarder » en fin de chaque partie une fois que vous aurez répondu à chacune des questions.\nVous pourrez revenir ultérieurement pour modifier votre brouillon en utilisant le lien ci-dessous. Pensez à bien le conserver."
 draft_alert: "Ce n’est qu’en toute fin de formulaire que vous validerez définitivement vos réponses."
-copy: Copier
+copy: "Copier"
 copy_to_clipboard: "Copier dans le presse-papier"
 copied: "Copié !"
 copy_with_command: "Copier avec Ctrl-C"
