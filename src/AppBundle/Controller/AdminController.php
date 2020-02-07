@@ -123,6 +123,33 @@ class AdminController extends Controller
                         );
                     }
                 }
+                
+                
+                // Send a email to the list
+                try {
+                    $message = (new \Swift_Message($translator->trans("list_notification_email_title", ["%city%" => $list->getCity()->getName()])))
+                    ->setFrom($this->getParameter("mailer_user"))
+                    ->setTo($list->getContactEmail())
+                    ->setBody(
+                        $this->renderView(
+                            'email/list_notification.html.twig',
+                            [
+                                'list' => $list->getName(),
+                                'city' => $list->getCity()->getName(),
+                                'url' => $this->generateUrl('list', array('id' => $list->getId(), 'name' => $list->getNameForUrl()), UrlGeneratorInterface::ABSOLUTE_URL)
+                            ]
+                        ),
+                        'text/html'
+                    )
+                    ;
+                    $mailer->send($message);
+                    
+                } catch(\Exception $e) {
+                    $this->addFlash(
+                        'warning',
+                        $translator->trans("list_notification_email_not_sent", ["%email%" => $notificationEmail->getEmail()])
+                    );
+                }
             }
         }
         

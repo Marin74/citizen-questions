@@ -1,61 +1,61 @@
-about: À propos
-legal_terms: Mentions légales
-contact: Contact
+about: "À propos"
+legal_terms: "Mentions légales"
+contact: "Contact"
 zero_one_answer: "%nb% réponse"
 nb_answers: "%nb% réponses"
 subtitle: "L'objectif de ce site est d'offrir la possibilité aux citoyen(ne)s du Chablais d'exprimer leurs souhaits et préoccupations auprès des candidat(e)s aux municipales de 2020.\n\nLes questions ont été recueillies entre le 10 novembre 2019 et le 5 février 2020. Elles sont en cours de traitement. À partir du 15 février, elles seront librement consultables, commune par commune, ainsi que les réponses que les listes y apporteront, et ce jusqu’à la veille du scrutin."
 explanations_1: "Pour s'inscrire à une des séances publiques de synthèse des questions (les 10 décembre et 10 février), cliquez "
 explanations_2: "Le lieu sera communiqué aux inscrits.\n\nLa liste complète des questions sera disponible pour consultation"
 explanations_3: "à partir du 15 février."
-here: ici
+here: "ici"
 encourage_lists: "Encouragez les listes de votre commune à répondre aux questions des citoyens !"
 list_led_by: "Conduite par %name1% et %name2%"
 id: "#"
-electoral_list: Liste
-no_list: Aucune liste pour le moment
-unknown_city: Commune inconnue
+electoral_list: "Liste"
+no_list: "Aucune liste pour le moment"
+unknown_city: "Commune inconnue"
 lists_that_answered: "Listes qui ont répondu"
-unknown_list: Liste inconnue
+unknown_list: "Liste inconnue"
 supported_by: "Liste soutenue par %text%"
-homepage: Accueil
+homepage: "Accueil"
 last_original_questions: "Dernières questions posées"
 lists_to_validate: "Listes à valider"
 validate: "Valider"
 refuse: "Refuser"
 set_to_pending: "Remettre en attente de validation"
 last_lists: "Dernières listes qui ont répondu :"
-answer_as_a_list: Répondez au nom d'une liste
+answer_as_a_list: "Répondez au nom d'une liste"
 are_you_candidate: "Vous êtes candidat(e) ?"
-city: Commune
-cities: Communes
+city: "Commune"
+cities: "Communes"
 color_of_city_with_answer: "En orange"
-colored_city_legend: les communes ayant au moins une réponse
+colored_city_legend: "les communes ayant au moins une réponse"
 created_by: "Créé par %name%"
-map_hint: Cliquez sur la commune pour voir les réponses
-map_hint_mobile: Cliquez ici pour voir les réponses
-answer_value_Y: Oui
-answer_value_N: Non
-answer_value_D: Ne se prononce pas
+map_hint: "Cliquez sur la commune pour voir les réponses"
+map_hint_mobile: "Cliquez ici pour voir les réponses"
+answer_value_Y: "Oui"
+answer_value_N: "Non"
+answer_value_D: "Ne se prononce pas"
 answers: "Consultez leurs réponses ci-dessous"
-answer_form: Répondez aux questions citoyennes
+answer_form: "Répondez aux questions citoyennes"
 answer_form_hint: "En répondant pour une liste électorale, vous certifiez être un(e) des candidat(e)s de cette liste et avoir l’aval de votre liste pour répondre aux questions citoyennes de ce site."
-i_agree: Je suis d'accord
-previous: Précédent
-next: Suivant
+i_agree: "Je suis d'accord"
+previous: "Précédent"
+next: "Suivant"
 share: "Partagez / Interpellez !"
-form_list_name: Nom de la liste
-firstname: Prénom
-lastname: Nom
-your_name: Votre nom
-your_details: Vos coordonnées
-your_role: Votre rôle
+form_list_name: "Nom de la liste"
+firstname: "Prénom"
+lastname: "Nom"
+your_name: "Votre nom"
+your_details: "Vos coordonnées"
+your_role: "Votre rôle"
 your_role_hint: "Tête de liste, membre de la liste..."
 role: "Rôle"
 contacts: "Contacts"
-phone: Téléphone
-email: Email
-head_of_list1: Nom de la tête de liste
-head_of_list2: Nom de la seconde personne de la liste
+phone: "Téléphone"
+email: "Email"
+head_of_list1: "Nom de la tête de liste"
+head_of_list2: "Nom de la seconde personne de la liste"
 heads_of_list: "Têtes de liste"
 question_step2: "Dans quelle commune se présente votre liste ?"
 question_step3: "Informations sur la liste"
@@ -63,12 +63,12 @@ question_step4: "Informations sur le déclarant"
 question_step4_hint: "Ces informations ne seront pas publiques. Elles sont destinées à vérifier l'identité du déclarant."
 form_supported_by: "Déclarer les soutiens qui ont été officiellement apportés à votre liste (mouvements, partis politiques) - sinon laisser ce champ vide"
 form_supported_by_hint: "Soutiens"
-answer: Précisions
+answer: "Précisions"
 answer_text: "Souhaitez-vous commenter ?"
 overview: "Finalisation avant validation"
 overview_hint: "Vérifiez soigneusement toutes vos réponses. Modifiez-les au besoin, puis validez le formulaire.\nAttention, plus aucune modification ne sera possible après validation."
-btn_overview: Récapitulatif
-submit: Valider
+btn_overview: "Récapitulatif"
+submit: "Valider"
 field_empty: "Cette question n'a pas reçu de réponse."
 mail_confirmation_title: "[Les Questions Citoyennes] Merci pour votre participation !"
 mail_confirmation_body_title: "Merci pour votre participation !"
@@ -113,7 +113,7 @@ unknown_draft: "Brouillon inconnu"
 draft_completed: "Le brouillon est complété, il ne peut plus être modifié."
 unknown_page: "La page n'existe pas."
 draft_give_url: "Pensez bien à cliquer sur le bouton « Sauvegarder » en fin de chaque partie une fois que vous aurez répondu à chacune des questions.\nVous pourrez revenir ultérieurement pour modifier votre brouillon en utilisant le lien ci-dessous. Pensez à bien le conserver."
-draft_alert: "Ce n’est qu’en toute fin de formulaire que vous validerez définitivement vos réponses."
+draft_alert: "Ce n’est qu’en toute fin de formulaire que vous validerez définitivement vos réponses (menu \"Finalisation avant inscription\")."
 copy: "Copier"
 copy_to_clipboard: "Copier dans le presse-papier"
 copied: "Copié !"
@@ -143,6 +143,11 @@ notification_email_not_sent: "L'email d'avertissement d'une nouvelle réponse n'
 notification_email_title: "[Les Questions Citoyennes] Nouvelle réponse à %city%"
 notification_email_body_title: "\"%list%\" a répondu à %city%"
 notification_email_body_text: "Consultez leurs réponses en cliquant ici :"
+
+list_notification_email_not_sent: "L'email de confirmation n'a pas pu être envoyée à %email%"
+list_notification_email_title: "[Les Questions Citoyennes] Votre liste est visible sur le site, partagez !"
+list_notification_email_body_title: "Vos réponses sont visibles sur Questions-Citoyennes.fr"
+list_notification_email_body_text: "Partagez vos réponses sur votre site et les réseaux sociaux en utilisant ce lien ci-dessous :"
 
 
 
