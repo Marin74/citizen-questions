@@ -36,7 +36,7 @@
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ url("answer_form_overview", {"draft": electoralList.draftId}) }}">
                                     {% if app.request.attributes.get('_route') == "answer_form_overview" %}
-                                        <strong>{{ "overview"|trans }}</strong>
+                                        <strong>{{ nbSteps+1 }}. {{ "overview"|trans }}</strong>
                                     {% else %}
                                         {{ nbSteps+1 }}. {{ "overview"|trans }}
                                     {% endif %}
