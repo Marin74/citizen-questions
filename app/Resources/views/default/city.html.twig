@@ -59,7 +59,7 @@
                 
                 <div class="px-3 py-3 pb-md-4 mx-auto">
                 	
-                	<h6><em>{{ "ask_question_beginning"|trans }}</em></h6>
+                	<h5><em>{{ "ask_question_beginning"|trans }}</em></h5>
                 	<br>
                 	
                 	
@@ -79,7 +79,7 @@
                     			<hr>
                     		{% endif %}
                     		
-                			<h6><em>...{{ question.text }}</em></h6>
+                			<h5><em>...{{ question.text }}</em></h5>
                 		{% endif %}
             			
             			{% set lastCategory = question.category %}
@@ -106,7 +106,7 @@
         	
         	<div class="px-3 py-3 pb-md-4 mx-auto">
             	
-            	<h6><em>{{ "ask_question_beginning"|trans }}</em></h6>
+            	<h5><em>{{ "ask_question_beginning"|trans }}</em></h5>
             	<br>
             	
             	
@@ -126,16 +126,12 @@
                 			<hr>
                 		{% endif %}
                 		
-            			<h6><em>...{{ answer.question.text }}</em></h6>
+            			<h5><em>...{{ answer.question.text }}</em></h5>
             		{% endif %}
             		
-            		<a style="color: #ff6c00;" href="{{ url("list", {"id": answer.list.id, "name": answer.list.nameForUrl}) }}"><strong>{{ answer.list.name }}</strong></a>
-                                
-                    <ul style="margin-bottom: 0;">
-        				<li>
-        					<strong><em>{{ ("answer_value_"~answer.value)|trans }}</em></strong>
-        				</li>
-        			</ul>
+            		<a style="color: #ff6c00;" href="{{ url("list", {"id": answer.list.id, "name": answer.list.nameForUrl}) }}"><strong>{{ answer.list.name }}</strong></a> - <strong><em>{{ ("answer_value_"~answer.value)|trans }}</em></strong>
+                    <br> 
+
         			{% if answer.text is not empty %}
             			<p>
             				<em style="font-size: 0.8em;">{{ answer.text|nl2br }}</em>
