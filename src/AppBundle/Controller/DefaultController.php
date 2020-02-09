@@ -89,9 +89,7 @@ class DefaultController extends Controller
         
         $city = $repoCity->findOneByInsee($request->get("insee"));
         $email = trim($request->get("email"));
-        $generalQuestions = $repoQuestion->findBy(array("city" => null, "groupOfCities" => null));
-        $cityQuestions = array();
-        $groupOfCitiesQuestions = array();
+        $questions = array();
         $answers = array();
         
         if($city != null) {
@@ -110,6 +108,31 @@ class DefaultController extends Controller
             ;
             
             $answers = $qb->getQuery()->execute();
+            
+            if(count($answers) == 0) {
+                
+                $generalQuestions = $repoQuestion->findBy(array("city" => null, "groupOfCities" => null));
+                
+                $dictQuestions = array();// "CATEGORY-QUESTION" => question
+                foreach($generalQuestions as $question) {
+                    $dictQuestions[$question->getCategory()->getId()."-".$question->getId()] = $question;
+                }
+                foreach($city->getQuestions() as $question) {
+                    $dictQuestions[$question->getCategory()->getId()."-".$question->getId()] = $question;
+                }
+                foreach($city->getGroupsOfCities() as $groupOfCities) {
+                    
+                    foreach($groupOfCities->getQuestions() as $question) {
+                        $dictQuestions[$question->getCategory()->getId()."-".$question->getId()] = $question;
+                    }
+                }
+                
+                ksort($dictQuestions);// Sort by key
+                
+                foreach($dictQuestions as $question) {
+                    $questions[] = $question;
+                }
+            }
         }
         
         
@@ -135,7 +158,8 @@ class DefaultController extends Controller
         
         return $this->render('default/city.html.twig', [
             "city"      => $city,
-            "answers"   => $answers
+            "answers"   => $answers,
+            "questions" => $questions
         ]);
     }
     

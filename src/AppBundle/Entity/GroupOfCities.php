@@ -111,6 +111,11 @@ class GroupOfCities
         return $this->groupOfCities;
     }
     
+    public function getQuestions()
+    {
+        return $this->questions;
+    }
+    
     public function getOriginalQuestions()
     {
         return $this->originalQuestions;

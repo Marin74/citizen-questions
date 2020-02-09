@@ -48,9 +48,46 @@
           </p>
         </div>
         {% if city.validatedLists|length == 0 %}
-            <div class="px-3 py-3 pb-md-4 mx-auto text-center">
-        		<h2>{{ "no_list"|trans }}</h2>
-            </div>
+        	{% if questions|length == 0 %}
+                <div class="px-3 py-3 pb-md-4 mx-auto text-center">
+            		<h2>{{ "no_list"|trans }}</h2>
+                </div>
+            {% else %}
+                <div class="px-3 py-3 pb-md-4 mx-auto text-center">
+            		<h2>{{ "no_list_questions_below"|trans|nl2br }}</h2>
+                </div>
+                
+                <div class="px-3 py-3 pb-md-4 mx-auto">
+                	
+                	<h6><em>{{ "ask_question_beginning"|trans }}</em></h6>
+                	<br>
+                	
+                	
+                    {% set lastCategory = null %}
+                    {% set lastQuestion = null %}
+                    
+                	{% for question in questions %}
+                	
+                        {% if lastCategory == null or question.category.id != lastCategory.id %}
+                        	<br>
+                			<h5>{{ question.category.name }}</h5>
+                		{% endif %}
+                	
+                        {% if lastQuestion == null or question.id != lastQuestion.id %}
+                		
+                    		{% if loop.index > 1 %}
+                    			<hr>
+                    		{% endif %}
+                    		
+                			<h6><em>...{{ question.text }}</em></h6>
+                		{% endif %}
+            			
+            			{% set lastCategory = question.category %}
+            			{% set lastQuestion = question %}
+                	
+                	{% endfor %}
+            	</div>
+            {% endif %}
         {% else %}
         	<div class="px-3 py-3 pb-md-4 mx-auto">
         	
