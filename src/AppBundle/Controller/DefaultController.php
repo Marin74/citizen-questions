@@ -88,6 +88,7 @@ class DefaultController extends Controller
         $translator = $this->get("translator");
         
         $city = $repoCity->findOneByInsee($request->get("insee"));
+        $cities = $repoCity->findBy(array(), array("name" => "ASC"));
         $email = trim($request->get("email"));
         $questions = array();
         $answers = array();
@@ -158,6 +159,7 @@ class DefaultController extends Controller
         
         return $this->render('default/city.html.twig', [
             "city"      => $city,
+            "cities"    => $cities,
             "answers"   => $answers,
             "questions" => $questions
         ]);
@@ -170,9 +172,11 @@ class DefaultController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $repoAnswer = $em->getRepository("AppBundle:Answer");
+        $repoCity = $em->getRepository("AppBundle:City");
         $repoElectoralList = $em->getRepository("AppBundle:ElectoralList");
         
         $list = $repoElectoralList->findOneBy(array("id" => $request->get("id"), "status" => ElectoralList::STATUS_VALIDATED));
+        $cities = $repoCity->findBy(array(), array("name" => "ASC"));
         
         $answers = array();
         
@@ -192,6 +196,7 @@ class DefaultController extends Controller
         // replace this example code with whatever you need
         return $this->render('default/list.html.twig', [
             "list"      => $list,
+            "cities"    => $cities,
             "answers"   => $answers
         ]);
     }

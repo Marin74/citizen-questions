@@ -99,20 +99,31 @@
     
          	// Control that shows state info on hover
             var info = L.control();
-            
-            info.onAdd = function (map) {
-        		this._div = L.DomUtil.create('div', 'info');
-        		this.update();
-        		return this._div;
-            };
-            
-            info.update = function (props) {
     
-            	this._div.innerHTML = "";
-    			this._div.style.backgroundColor = 'transparent';
-        	};
-        	
-        	info.addTo(map);
+            var legend = L.control({position: 'bottomright'});
+    
+            legend.onAdd = function (map) {
+    
+                var div = L.DomUtil.create('div', 'info legend'),
+                grades = ["#ff6c00"],
+                legends = ["{{ "color_of_city_with_answer"|trans }}"]
+                labels = [" {{ "colored_city_legend"|trans }}"];
+    
+                // loop through our density intervals and generate a label with a colored square for each interval
+                for (var i = 0; i < grades.length; i++) {
+                    div.innerHTML +=
+                        '<h6 style="padding: 0px;"><em style="color: '+grades[i]+'; background: white; padding-left: 5px; padding-right: 5px;"> '+legends[i]+'</em> '+labels[i]+"</h6>";
+            	}
+    
+                div.style.color = 'black';
+    			div.style.padding = '0px 10px 5px 10px';
+    			div.style.borderRadius = '0.5em';
+    			div.style.backgroundColor = 'white';
+    
+            return div;
+            };
+    
+            legend.addTo(map);
       	  
         	
         	var district_boundary;
@@ -137,14 +148,88 @@
                 
                 layer.on({
                     mouseover: highlightFeature,
-                    mouseout: resetHighlight
+                    mouseout: resetHighlight,
+                    click: zoomToFeature
                 });
             }
         
             function resetHighlight(e) {
+                e.target.closePopup();
+                district_boundary.resetStyle(e.target);
+                info.update();
+            }
+        
+            function zoomToFeature(e) {
+    
+                {% if is_mobile() == false %}
+                	var whereToGo = "{{ url("city", {"insee": "XXX", "name": "YYY"}) }}";
+                	{% for city in cities %}
+                		if(e.target.feature.properties.insee == "{{ city.insee }}") {
+                            whereToGo = whereToGo.replace("XXX", "{{ city.insee }}");
+                            whereToGo = whereToGo.replace("YYY", "{{ city.nameForUrl }}");
+                		}
+                	{% endfor %}
+                    window.location.href = whereToGo;
+                {% endif %}
             }
         
             function highlightFeature(e) {
+                var layer = e.target;
+        
+                layer.setStyle({
+                    weight: 4,
+                    color: '#fff',
+                    dashArray: '',
+                    fillOpacity: 0.7
+                });
+    
+                var textPopup = "";
+    
+                {% for city in cities %}
+                    if(e.target.feature.properties.insee == "{{ city.insee }}") {
+    
+                    	textPopup = "<center>";
+                    	
+                        {% if is_mobile() %}
+                            var whereToGo = "{{ url("city", {"insee": "XXX", "name": "YYY"}) }}";
+                        	{% for city in cities %}
+                                whereToGo = whereToGo.replace("XXX", "{{ city.insee }}");
+                                whereToGo = whereToGo.replace("YYY", "{{ city.nameForUrl }}");
+                        	{% endfor %}
+                        	textPopup += "<a href='"+whereToGo+"' style='{% if city.validatedLists|length > 0 %}color: #ff6c00;{% endif %}'>";
+                    	{% endif %}
+                    	
+                    	textPopup += "<span style='{% if city.validatedLists|length > 0 %}color: #ff6c00;{% endif %}'><h5>{{ city.name }}</h5>";
+    
+                    	{% if city.validatedLists|length > 1 %}
+                    		textPopup += "{{ "nb_answers"|trans({"%nb%": city.validatedLists|length}) }}";
+                		{% else %}
+                			textPopup += "{{ "zero_one_answer"|trans({"%nb%": city.validatedLists|length}) }}";
+                    	{% endif %}
+    
+                    	{% if is_mobile() %}
+                			textPopup += "<br/><br/>{{ "map_hint_mobile"|trans }}";
+                		{% else %}
+                    		textPopup += "<br/><br/>{{ "map_hint"|trans }}";
+                		{% endif %}
+                    	textPopup += "</span>";
+    
+                    	{% if is_mobile() %}
+                    		textPopup += "</a></center>";
+                		{% endif %}
+            		}
+                {% endfor %}
+    
+                if(textPopup) {
+                    layer.bindPopup(textPopup);
+                    layer.openPopup();
+                }
+        
+                if (!L.Browser.ie && !L.Browser.opera) {
+                    layer.bringToFront();
+                }
+        
+                info.update(layer.feature.properties);
             }
         
             function style(feature) {
@@ -161,14 +246,23 @@
         
             function getColor(d) {
     
-            	if(d == "{{ list.city.insee }}") {
-                	return "#41ab5d";
-            	}
+                {% for city in cities %}
+                	
+                	if(d == "{{ city.insee }}") {
+                    	{% if city.validatedLists|length > 0 %}
+                    		return "#ff6c00";
+                    	{% endif %}
+                	}
+                {% endfor %}
         
         	    
             	
                 return "#cccccc";
             }
+    
+    
+    
+    
     
     
         });
