@@ -23,7 +23,13 @@
       	
       	
         <h1 class="display-4" style="font-family: Holiday; {% if is_mobile() %}font-size: 2.5rem;{% else %}font-size: 5rem;{% endif %}">{{ app_name }}</h1>
-        <p class="lead font-weight-normal" style="margin-top: 2rem;">{{ "subtitle"|trans|nl2br }}</p>
+        <p class="lead font-weight-normal" style="margin-top: 2rem;">
+        	{% if form_start is not empty and "now"|date("Y-m-d H:i:s") >= form_start|date("Y-m-d H:i:s") %}
+                {{ "subtitle_after"|trans|nl2br }}
+        	{% else %}
+                {{ "subtitle"|trans|nl2br }}
+            {% endif %}
+        </p>
 
         {% if (form_start and form_end is empty) or ("now"|date("Y-m-d H:i:s") < form_end|date("Y-m-d H:i:s") and "now"|date("Y-m-d H:i:s") >= form_start|date("Y-m-d H:i:s")) %}
             <p></p>
