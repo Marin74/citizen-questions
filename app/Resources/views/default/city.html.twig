@@ -96,7 +96,7 @@
             		
             		{% for list in city.validatedLists %}
             			<div style="{% if loop.index < city.validatedLists|length %}padding-bottom: 1rem;{% endif %}">
-                			<a href="{{ url("list", {"id": list.id, "name": list.nameForUrl}) }}"><h5 style="line-height: 0.6;">{{ list.name }}</h5></a>
+                			<a href="{{ url("list", {"id": list.id, "name": list.nameForUrl}) }}" style="color: #ff6c00;"><h5 style="line-height: 0.6; color: #ff6c00;">{{ list.name }}</h5></a>
                             {{ "list_led_by"|trans({"%name1%": list.firstnameHeadOfList1~" "~list.lastnameHeadOfList1, "%name2%": list.firstnameHeadOfList2~" "~list.lastnameHeadOfList2}) }}
                         </div>
             		{% endfor %}
@@ -129,7 +129,7 @@
             			<h6><em>...{{ answer.question.text }}</em></h6>
             		{% endif %}
             		
-            		<a href="{{ url("list", {"id": answer.list.id, "name": answer.list.nameForUrl}) }}"><strong>{{ answer.list.name }}</strong></a>
+            		<a style="color: #ff6c00;" href="{{ url("list", {"id": answer.list.id, "name": answer.list.nameForUrl}) }}"><strong>{{ answer.list.name }}</strong></a>
                                 
                     <ul style="margin-bottom: 0;">
         				<li>
