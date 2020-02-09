@@ -69,13 +69,13 @@
                 	{% for question in questions %}
                 	
                         {% if lastCategory == null or question.category.id != lastCategory.id %}
-                        	<br>
+                        	<br><br>
                 			<center><h4>{{ question.category.name|upper }}</h4></center>
                 		{% endif %}
                 	
                         {% if lastQuestion == null or question.id != lastQuestion.id %}
                 		
-                    		{% if loop.index > 1 %}
+                            {% if lastCategory != null and question.category.id == lastCategory.id %}
                     			<hr>
                     		{% endif %}
                     		
@@ -116,13 +116,13 @@
             	{% for answer in answers %}
             	
                     {% if lastCategory == null or answer.question.category.id != lastCategory.id %}
-                    	<br>
+                    	<br><br>
             			<center><h4>{{ answer.question.category.name|upper }}</h4></center>
             		{% endif %}
             	
                     {% if lastQuestion == null or answer.question.id != lastQuestion.id %}
             		
-                		{% if loop.index > 1 %}
+            			{% if lastCategory != null and answer.question.category.id == lastCategory.id %}
                 			<hr>
                 		{% endif %}
                 		

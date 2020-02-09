@@ -46,12 +46,12 @@
             	
     			{% for answer in answers %}
             		
-            		{% if loop.index > 1 %}
+                    {% if lastCategory != null and answer.question.category.id == lastCategory.id %}
             			<hr>
             		{% endif %}
             		
             		{% if lastCategory == null or answer.question.category.id != lastCategory.id %}
-            			<br>
+            			<br><br>
             			<center><h4>{{ answer.question.category.name|upper }}</h4></center>
             		{% endif %}
     			
