@@ -50,6 +50,13 @@ class Question
      * @ORM\JoinColumn(nullable=false, onDelete="CASCADE")
      */
     private $category;
+    
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="occurrence", type="integer")
+     */
+    private $occurrence;
 
     /**
      * @var \DateTime
@@ -156,6 +163,18 @@ class Question
     public function getCategory()
     {
         return $this->category;
+    }
+    
+    public function setOccurrence($occurrence)
+    {
+        $this->occurrence = $occurrence;
+        
+        return $this;
+    }
+    
+    public function getOccurrence()
+    {
+        return $this->occurrence;
     }
     
     public function concernsThisCity(City $city)
