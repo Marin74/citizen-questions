@@ -171,6 +171,8 @@
     
 	<div class="px-3 py-3 pb-md-4 mx-auto">
 		<center>
+			<h4 class="font-weight-normal">{{ "explanations_1"|trans|nl2br }} <a href="{{ url("contact") }}">{{ "here"|trans }}</a>.</h4>
+			
 			{% if form_start is not empty and "now"|date("Y-m-d H:i:s") >= form_start|date("Y-m-d H:i:s") %}
 				<p>{{ "explanations_2_bis"|trans|nl2br }} <a href="{{ url("questions") }}">{{ "here"|trans }}</a>{{ "explanations_3_bis"|trans }}</p>
 			{% else %}
