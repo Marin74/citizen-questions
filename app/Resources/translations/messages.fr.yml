@@ -152,7 +152,7 @@ list_notification_email_not_sent: "L'email de confirmation n'a pas pu être envo
 list_notification_email_title: "[Les Questions Citoyennes] Votre liste est visible sur le site, partagez !"
 list_notification_email_body_title: "Vos réponses sont visibles sur Questions-Citoyennes.fr"
 list_notification_email_body_text: "Partagez vos réponses sur votre site et les réseaux sociaux en utilisant ce lien ci-dessous :"
-
+occurrence_hint: "Nombre de fois que la question a été posée"
 
 
 

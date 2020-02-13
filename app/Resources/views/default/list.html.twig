@@ -55,7 +55,7 @@
             			<center><h4>{{ answer.question.category.name|upper }}</h4></center>
             		{% endif %}
     			
-        			<h5><em>...{{ answer.question.text }}</em></h5>
+        			<h5><em>...{{ answer.question.text }}</em> <span class="badge badge-dark" data-toggle="tooltip" data-placement="bottom" title="{{ "occurrence_hint"|trans }}" style="cursor: default;">{{ answer.question.occurrence }}</span></h5>
     					
         			<ul style="margin-bottom: 0;">
         				<li>

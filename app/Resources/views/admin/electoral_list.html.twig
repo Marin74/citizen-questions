@@ -141,7 +141,7 @@
 
 								{% for answer in list.answers %}
 									<p>
-										<strong><em>...{{ answer.question.text }}</em></strong> {{ ("answer_value_"~answer.value)|trans }}
+										<strong><em>...{{ answer.question.text }}</em></strong> <span class="badge badge-dark" data-toggle="tooltip" data-placement="bottom" title="{{ "occurrence_hint"|trans }}" style="cursor: default;">{{ answer.question.occurrence }}</span> {{ ("answer_value_"~answer.value)|trans }}
 								        {% if answer.text is not empty %}
 								        	<br>
 								        	<em>{{ answer.text }}</em>
