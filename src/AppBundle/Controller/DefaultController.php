@@ -116,15 +116,48 @@ class DefaultController extends Controller
                 
                 $dictQuestions = array();// "POSITION-CATEGORY-QUESTION" => question
                 foreach($generalQuestions as $question) {
-                    $dictQuestions[$question->getCategory()->getPosition()."-".$question->getCategory()->getId()."-".$question->getId()] = $question;
+                    $index = "";
+                    if($question->getId() >= 100) {
+                        $index = "".$question->getId();
+                    }
+                    elseif($question->getId() >= 10) {
+                        $index = "0".$question->getId();
+                    }
+                    else {// < 10
+                        $index = "00".$question->getId();
+                    }
+                    
+                    $dictQuestions[$question->getCategory()->getPosition()."-".$question->getCategory()->getId()."-".$index] = $question;
                 }
                 foreach($city->getQuestions() as $question) {
-                    $dictQuestions[$question->getCategory()->getPosition()."-".$question->getCategory()->getId()."-".$question->getId()] = $question;
+                    $index = "";
+                    if($question->getId() >= 100) {
+                        $index = "".$question->getId();
+                    }
+                    elseif($question->getId() >= 10) {
+                        $index = "0".$question->getId();
+                    }
+                    else {// < 10
+                        $index = "00".$question->getId();
+                    }
+                    
+                    $dictQuestions[$question->getCategory()->getPosition()."-".$question->getCategory()->getId()."-".$index] = $question;
                 }
                 foreach($city->getGroupsOfCities() as $groupOfCities) {
                     
                     foreach($groupOfCities->getQuestions() as $question) {
-                        $dictQuestions[$question->getCategory()->getPosition()."-".$question->getCategory()->getId()."-".$question->getId()] = $question;
+                        $index = "";
+                        if($question->getId() >= 100) {
+                            $index = "".$question->getId();
+                        }
+                        elseif($question->getId() >= 10) {
+                            $index = "0".$question->getId();
+                        }
+                        else {// < 10
+                            $index = "00".$question->getId();
+                        }
+                        
+                        $dictQuestions[$question->getCategory()->getPosition()."-".$question->getCategory()->getId()."-".$index] = $question;
                     }
                 }
                 
