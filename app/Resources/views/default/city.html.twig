@@ -78,7 +78,7 @@
                             {% if lastCategory != null and question.category.id == lastCategory.id %}
                     			<hr>
                     		{% endif %}
-                			<h5><em>...{{ question.text }}</em> <span class="badge badge-dark" data-toggle="tooltip" data-placement="bottom" title="{{ "occurrence_hint"|trans }}" style="cursor: default;">{{ question.occurrence }}</span></h5>
+                			<h5><em>...{{ question.text|nl2br }}</em> <span class="badge badge-dark" data-toggle="tooltip" data-placement="bottom" title="{{ "occurrence_hint"|trans }}" style="cursor: default;">{{ question.occurrence }}</span></h5>
                 		{% endif %}
             			
             			{% set lastCategory = question.category %}
@@ -125,7 +125,7 @@
                 			<hr>
                 		{% endif %}
                 		
-            			<h5><em>...{{ answer.question.text }}</em> <span class="badge badge-dark" data-toggle="tooltip" data-placement="bottom" title="{{ "occurrence_hint"|trans }}" style="cursor: default;">{{ answer.question.occurrence }}</span></h5>
+            			<h5><em>...{{ answer.question.text|nl2br }}</em> <span class="badge badge-dark" data-toggle="tooltip" data-placement="bottom" title="{{ "occurrence_hint"|trans }}" style="cursor: default;">{{ answer.question.occurrence }}</span></h5>
             		{% endif %}
             		
             		<a style="color: #ff6c00;" href="{{ url("list", {"id": answer.list.id, "name": answer.list.nameForUrl}) }}"><strong>{{ answer.list.name }}</strong></a> - <strong><em>{{ ("answer_value_"~answer.value)|trans }}</em></strong>

@@ -147,7 +147,6 @@ notification_email_not_sent: "L'email d'avertissement d'une nouvelle réponse n'
 notification_email_title: "[Les Questions Citoyennes] Nouvelle réponse à %city%"
 notification_email_body_title: "\"%list%\" a répondu à %city%"
 notification_email_body_text: "Consultez leurs réponses en cliquant ici :"
-
 list_notification_email_not_sent: "L'email de confirmation n'a pas pu être envoyée à %email%"
 list_notification_email_title: "[Les Questions Citoyennes] Votre liste est visible sur le site, partagez !"
 list_notification_email_body_title: "Vos réponses sont visibles sur Questions-Citoyennes.fr"
