@@ -114,17 +114,17 @@ class DefaultController extends Controller
                 
                 $generalQuestions = $repoQuestion->findBy(array("city" => null, "groupOfCities" => null));
                 
-                $dictQuestions = array();// "CATEGORY-QUESTION" => question
+                $dictQuestions = array();// "POSITION-CATEGORY-QUESTION" => question
                 foreach($generalQuestions as $question) {
-                    $dictQuestions[$question->getCategory()->getId()."-".$question->getId()] = $question;
+                    $dictQuestions[$question->getCategory()->getPosition()."-".$question->getCategory()->getId()."-".$question->getId()] = $question;
                 }
                 foreach($city->getQuestions() as $question) {
-                    $dictQuestions[$question->getCategory()->getId()."-".$question->getId()] = $question;
+                    $dictQuestions[$question->getCategory()->getPosition()."-".$question->getCategory()->getId()."-".$question->getId()] = $question;
                 }
                 foreach($city->getGroupsOfCities() as $groupOfCities) {
                     
                     foreach($groupOfCities->getQuestions() as $question) {
-                        $dictQuestions[$question->getCategory()->getId()."-".$question->getId()] = $question;
+                        $dictQuestions[$question->getCategory()->getPosition()."-".$question->getCategory()->getId()."-".$question->getId()] = $question;
                     }
                 }
                 

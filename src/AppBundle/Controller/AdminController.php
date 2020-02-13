@@ -147,7 +147,7 @@ class AdminController extends Controller
                 } catch(\Exception $e) {
                     $this->addFlash(
                         'warning',
-                        $translator->trans("list_notification_email_not_sent", ["%email%" => $notificationEmail->getEmail()])
+                        $translator->trans("list_notification_email_not_sent", ["%email%" => $list->getContactEmail()])
                     );
                 }
             }
