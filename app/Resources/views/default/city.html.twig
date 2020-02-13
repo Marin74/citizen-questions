@@ -48,7 +48,7 @@
           </p>
         </div>
         {% if city.validatedLists|length == 0 %}
-        	{% if questions|length == 0 %}
+        	{% if questions|length == 0 or form_start is not empty and "now"|date("Y-m-d H:i:s") >= form_start|date("Y-m-d H:i:s") %}
                 <div class="px-3 py-3 pb-md-4 mx-auto text-center">
             		<h2>{{ "no_list"|trans }}</h2>
                 </div>
