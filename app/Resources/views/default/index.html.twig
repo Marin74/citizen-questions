@@ -169,18 +169,6 @@
         </div>
     {% endif %}
     
-	<div class="px-3 py-3 pb-md-4 mx-auto">
-		<center>
-			{% if form_start is not empty and "now"|date("Y-m-d H:i:s") >= form_start|date("Y-m-d H:i:s") %}
-				<p>{{ "explanations_2_bis"|trans|nl2br }} <a href="{{ url("questions") }}">{{ "here"|trans }}</a>{{ "explanations_3_bis"|trans }}</p>
-			{% else %}
-    			<h4 class="font-weight-normal">
-    			    {{ "explanations_2"|trans|nl2br }} <a href="{{ url("questions") }}">{{ "here"|trans }}</a> {{ "explanations_3"|trans }}
-				</h4>
-			{% endif %}
-    	</center>
-	</div>
-    
     <div id="map" style="min-height: 80vh"></div>
     
     {% if lists|length > 0 %}
@@ -273,6 +261,20 @@
           </div>
         </div>
     {% endif %}
+    
+    
+    
+	<div class="px-3 py-3 pb-md-4 mx-auto">
+		<center>
+			{% if form_start is not empty and "now"|date("Y-m-d H:i:s") >= form_start|date("Y-m-d H:i:s") %}
+				<p>{{ "explanations_2_bis"|trans|nl2br }} <a href="{{ url("questions") }}">{{ "here"|trans }}</a>.</p>
+			{% else %}
+    			<h4 class="font-weight-normal">
+    			    {{ "explanations_2"|trans|nl2br }} <a href="{{ url("questions") }}">{{ "here"|trans }}</a> {{ "explanations_3"|trans }}
+				</h4>
+			{% endif %}
+    	</center>
+	</div>
         
 	
 {% endblock %}
