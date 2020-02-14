@@ -13,18 +13,23 @@
 
     <div class="px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
       <h1 class="display-4">{{ "original_questions"|trans }}</h1>
-      <p class="lead">
+      
       	{% if form_start is empty %}
-      	    {{ "questions_soon"|trans({"%date%": form_start|date("Y-m-d H:i:s")|localizeddate("full", "short", locale, time_zone)}) }}
-      	{% elseif "now"|date("Y-m-d H:i:s") < form_start|date("Y-m-d H:i:s") %}
-      	    {{ "questions_soon_date"|trans({"%date%": form_start|date("Y-m-d H:i:s")|localizeddate("full", "short", locale, time_zone)}) }}
-      	{% else %}
-      	    <p>{{ "original_questions_hint"|trans }}</p>
+  			<p class="lead">
+      	        {{ "questions_soon"|trans({"%date%": form_start|date("Y-m-d H:i:s")|localizeddate("full", "short", locale, time_zone)}) }}
+      		</p>
+  	    {% elseif "now"|date("Y-m-d H:i:s") < form_start|date("Y-m-d H:i:s") %}
+  			<p class="lead">
+      	        {{ "questions_soon_date"|trans({"%date%": form_start|date("Y-m-d H:i:s")|localizeddate("full", "short", locale, time_zone)}) }}
+      		</p>
+  	    {% else %}
+      	    <p class="lead" style="text-align: left !important;">{{ "original_questions_hint"|trans|nl2br }}</p>
+      	    <p></p>
       	    
       	    {% if questions|length > 0 %}
       	    
                 <p></p>
-                <p>
+                <p><br>
                 	<strong><em>{{ "ask_question_beginning"|trans }}</em></strong>
                 </p>
       	    
@@ -66,7 +71,6 @@
                 </div>
       	    {% endif %}
       	{% endif %}
-      </p>
     </div>
 {% endblock %}
 
