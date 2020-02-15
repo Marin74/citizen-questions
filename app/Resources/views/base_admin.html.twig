@@ -25,61 +25,27 @@
   </head>
   <body>
   
-  
-  
-    <nav class="navbar navbar-expand-lg navbar-light sticky-top" style="background-color: #3495eb;">
-    	<a class="navbar-brand" href="{{ url("homepage") }}" style="font-family: Holiday; color: white; max-width: 50%;">{{ app_name }}</a>
-		{% if is_mobile() and app.request.attributes.get('_route') in ["answer_form_questions", "answer_form_overview"] %}
-        
-			<button class="navbar-toggler" style="color: white; border-color: white;" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon""></span>
-              </button>
-  
-              <div class="collapse navbar-collapse" id="navbarText">
-              	<ul class="navbar-nav mr-auto">
-              		
-                    
-          		{% set currentPosition = 0 %}{# Used to display the chapter number near each question #}
-        				
-                {% if form_end is not empty and "now"|date("Y-m-d H:i:s") >= form_end|date("Y-m-d H:i:s") %}
-                {% elseif form_start is not empty and "now"|date("Y-m-d H:i:s") < form_start|date("Y-m-d H:i:s") %}
-                {% elseif electoralList is not null %}
-                
-                    {% for usedCategory in usedCategories %}
-                    
-                    	{# Check also the category is fully completed #}
-                    	<li class="nav-item active">
-                            <a class="nav-link" style="{% if usedCategoriesFull[loop.index0] %}color: var(--green);{% else %}color: white;{% endif %}" href="{{ url("answer_form_questions", {"step": usedCategory.position, "draft": electoralList.draftId}) }}">
-                                {% if url(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')) == url("answer_form_questions", {"step": usedCategory.position, "draft": electoralList.draftId}) %}
-                                
-            	                    {% set currentPosition = loop.index %}
-            	                    
-                                    <strong>{{ loop.index }}. {{ usedCategory.name }}</strong>
-                                {% else %}
-                                    {{ loop.index }}. {{ usedCategory.name }}
-                                {% endif %}
-                            </a>
-                        </li>
-                    {% endfor %}
-                    
-                    <li class="nav-item active">
-                        <a class="nav-link" style="color: white;" href="{{ url("answer_form_overview", {"draft": electoralList.draftId}) }}">
-                            {% if app.request.attributes.get('_route') == "answer_form_overview" %}
-                                <strong>{{ nbSteps+1 }}. {{ "overview"|trans }}</strong>
-                            {% else %}
-                                {{ nbSteps+1 }}. {{ "overview"|trans }}
-                            {% endif %}
-                        </a>
-                    </li>
-                {% endif %}
-              	</ul>
-          	
-        	</div>
-        	
-        {% endif %}
-    </nav>
-  
 
+    <nav class="site-header sticky-top py-1" style="background-color: #3495eb;">
+      <div class="{% if is_mobile() %}container{% endif %} d-flex flex-column flex-md-row justify-content-between" style="{% if is_mobile() == false %}margin-left: 5%;{% endif %}">
+        <a class="py-2" href="{{ url("homepage") }}" style="font-family: Holiday; color: white;">
+        	{{ app_name }}
+        <!--
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="d-block mx-auto" role="img" viewBox="0 0 24 24" focusable="false"><title>{{ app_name }}</title><circle cx="12" cy="12" r="10"/><path d="M14.31 8l5.74 9.94M9.69 8h11.48M7.38 12l5.74-9.94M9.69 16L3.95 6.06M14.31 16H2.83m13.79-4l-5.74 9.94"/></svg>
+        -->
+        </a>
+        <a class="py-2 d-none d-md-inline-block" href="#" {% if env == "dev" or env == "test" %}style="color: lightgreen;"{% endif %}>{% if env == "dev" or env == "test" %}{{ ("env_"~env)|trans }}{% endif %}</a>
+        <a class="py-2 d-none d-md-inline-block" href="#"></a>
+        <a class="py-2 d-none d-md-inline-block" href="#"></a>
+        <a class="py-2 d-none d-md-inline-block" href="#"></a>
+        <a class="py-2 d-none d-md-inline-block" href="#"></a>
+        <a class="py-2 d-none d-md-inline-block" href="#"></a>
+        <a class="py-2 d-none d-md-inline-block" href="#"></a>
+        <a class="py-2 d-none d-md-inline-block" href="#"></a>
+        <a class="py-2 d-none d-md-inline-block" href="#"></a>
+        <a class="py-2 d-none d-md-inline-block" href="#"></a>
+      </div>
+    </nav>
     
 	{% block body %}
 	{% endblock %}
