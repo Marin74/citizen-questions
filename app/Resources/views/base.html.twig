@@ -49,7 +49,7 @@
                     
                     	{# Check also the category is fully completed #}
                     	<li class="nav-item active">
-                            <a class="nav-link" style="{% if usedCategoriesFull[loop.index0] %}color: var(--green);{% else %}color: white;{% endif %}" href="{{ url("answer_form_questions", {"step": usedCategory.position, "draft": electoralList.draftId}) }}">
+                            <a class="nav-link" style="{% if usedCategoriesFull[loop.index0] %}color: darkgreen;{% else %}color: white;{% endif %}" href="{{ url("answer_form_questions", {"step": usedCategory.position, "draft": electoralList.draftId}) }}">
                                 {% if url(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')) == url("answer_form_questions", {"step": usedCategory.position, "draft": electoralList.draftId}) %}
                                 
             	                    {% set currentPosition = loop.index %}
