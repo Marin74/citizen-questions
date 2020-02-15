@@ -26,6 +26,7 @@ class AdminController extends Controller
         
         return $this->render('admin/index.html.twig', [
             "lastOriginalQuestions" => $repoOriginalQuestion->findBy(array(), array("id" => "DESC")),
+            "lists"                 => $repoElectoralList->findBy(array(), array("id" => "DESC")),
             "listsToValidate"       => $repoElectoralList->findBy(array("status" => ElectoralList::STATUS_PENDING), array("id" => "ASC"))
         ]);
     }
