@@ -28,46 +28,6 @@
             // Prevent the zoom when we scroll the webpage
             map.scrollWheelZoom.disable();
 
-			// Control that shows state info on hover
-            var info = L.control();
-            
-            info.onAdd = function (map) {
-        		this._div = L.DomUtil.create('div', 'info');
-        		this.update();
-        		return this._div;
-            };
-
-            info.update = function (props) {
-            	
-        		var name1 = "";
-        		var result1 = "";
-        		var color1 = "";
-        		var name2 = "";
-        		var result2 = "";
-        		var color2 = "";
-        		var area = "";
-        		
-            	if(props != null) {
-        			this._div.style.color = 'black';
-        			this._div.style.backgroundColor = 'grey';
-        			this._div.style.padding = '0px 10px 5px 10px';
-        			this._div.style.borderRadius = '0.5em';
-        			this._div.style.backgroundColor = 'white';
-            	}
-            	else {
-    			this._div.style.backgroundColor = 'transparent';
-            	}
-
-            	this._div.innerHTML = "TEST !!!";
-    			/*this._div.innerHTML = (area ? "<h5>" + area + "</h5>": "") +
-    			(props && name1 ?
-    			'<strong style="color:' + color1 + ';">' + name1 + '</strong><strong> : ' + result1 + ' %</strong><br />' +
-    			'<strong style="color:' + color2 + ';">' + name2 + '</strong> : ' + result2 + ' %'
-     			: '&nbsp;');*/
-        	};
-        	
-        	info.addTo(map);
-
         	
         	var district_boundary;
 
@@ -97,7 +57,6 @@
         
             function resetHighlight(e) {
                 district_boundary.resetStyle(e.target);
-                info.update();
             }
         
             function zoomToFeature(e) {
@@ -118,20 +77,19 @@
             function highlightFeature(e) {
                 var layer = e.target;
 
-                // TODO
-        
-                /*layer.setStyle({
+                layer.setStyle({
                     weight: 4,
                     color: '#fff',
                     dashArray: '',
                     fillOpacity: 0.7
                 });
-        
+                
                 if (!L.Browser.ie && !L.Browser.opera) {
                     layer.bringToFront();
                 }
-        
-                info.update(layer.feature.properties);*/
+                
+
+                // TODO
             }
             
             function style(feature) {
