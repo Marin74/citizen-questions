@@ -71,7 +71,7 @@
                 	{% endfor %}
                     window.location.href = whereToGo;
                 {% else %}
-
+                	var layer = e.target;
                 	layer.bindPopup("Chargement...");
                 	layer.openPopup();
                 {% endif %}
