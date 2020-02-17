@@ -70,6 +70,10 @@
                 		}
                 	{% endfor %}
                     window.location.href = whereToGo;
+                {% else %}
+
+                	layer.bindPopup("Chargement...");
+                	layer.openPopup();
                 {% endif %}
             }
 
@@ -92,10 +96,10 @@
 
 
 
-                
 
-                layer.bindPopup("Chargement...");
                 {% if is_mobile() == false %}
+
+                	layer.bindPopup("Chargement...");
                 	layer.openPopup();
                 {% endif %}
                 
