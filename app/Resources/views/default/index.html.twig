@@ -380,10 +380,8 @@
                     	
                         {% if is_mobile() %}
                             var whereToGo = "{{ url("city", {"insee": "XXX", "name": "YYY"}) }}";
-                        	{% for city in cities %}
-                                whereToGo = whereToGo.replace("XXX", "{{ city.insee }}");
-                                whereToGo = whereToGo.replace("YYY", "{{ city.nameForUrl }}");
-                        	{% endfor %}
+                            whereToGo = whereToGo.replace("XXX", "{{ city.insee }}");
+                            whereToGo = whereToGo.replace("YYY", "{{ city.nameForUrl }}");
                         	textPopup += "<a href='"+whereToGo+"' style='{% if city.validatedLists|length > 0 %}color: #ff6c00;{% endif %}'>";
                     	{% endif %}
                     	
@@ -435,10 +433,8 @@
                     	
                         {% if is_mobile() %}
                             var whereToGo = "{{ url("city", {"insee": "XXX", "name": "YYY"}) }}";
-                        	{% for city in cities %}
-                                whereToGo = whereToGo.replace("XXX", "{{ city.insee }}");
-                                whereToGo = whereToGo.replace("YYY", "{{ city.nameForUrl }}");
-                        	{% endfor %}
+                            whereToGo = whereToGo.replace("XXX", "{{ city.insee }}");
+                            whereToGo = whereToGo.replace("YYY", "{{ city.nameForUrl }}");
                         	textPopup += "<a href='"+whereToGo+"' style='{% if city.validatedLists|length > 0 %}color: #ff6c00;{% endif %}'>";
                     	{% endif %}
                     	
