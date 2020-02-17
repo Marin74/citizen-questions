@@ -300,7 +300,7 @@
 
 
      	// Control that shows state info on hover
-        var info = L.control();
+        //var info = L.control();
 
         var legend = L.control({position: 'bottomright'});
 
@@ -358,7 +358,7 @@
         function resetHighlight(e) {
             e.target.closePopup();
             district_boundary.resetStyle(e.target);
-            info.update();
+            //info.update();
         }
     
         function zoomToFeature(e) {
@@ -431,7 +431,7 @@
                 layer.bringToFront();
             }
     
-            info.update(layer.feature.properties);
+            //info.update(layer.feature.properties);
         }
     
         function style(feature) {

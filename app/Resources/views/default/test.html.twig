@@ -101,15 +101,17 @@
             }
         
             function zoomToFeature(e) {
-                // TODO
-            	var whereToGo = "{{ url("city", {"insee": "XXX", "name": "YYY"}) }}";
-            	{% for city in cities %}
-            		if(e.target.feature.properties.insee == "{{ city.insee }}") {
-                        whereToGo = whereToGo.replace("XXX", "{{ city.insee }}");
-                        whereToGo = whereToGo.replace("YYY", "{{ city.nameForUrl }}");
-            		}
-            	{% endfor %}
-                window.location.href = whereToGo;
+                
+            	{% if is_mobile() == false %}
+                	var whereToGo = "{{ url("city", {"insee": "XXX", "name": "YYY"}) }}";
+                	{% for city in cities %}
+                		if(e.target.feature.properties.insee == "{{ city.insee }}") {
+                            whereToGo = whereToGo.replace("XXX", "{{ city.insee }}");
+                            whereToGo = whereToGo.replace("YYY", "{{ city.nameForUrl }}");
+                		}
+                	{% endfor %}
+                    window.location.href = whereToGo;
+                {% endif %}
             }
 
             
