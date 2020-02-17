@@ -15,6 +15,67 @@ use AppBundle\Entity\OriginalQuestion;
 class DefaultController extends Controller
 {
     /**
+     * @Route("/test", name="test")
+     */
+    public function testAction(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $translator = $this->get("translator");
+        $repoCity = $em->getRepository("AppBundle:City");
+        $repoGroupOfCities = $em->getRepository("AppBundle:GroupOfCities");
+        $repoElectoralList = $em->getRepository("AppBundle:ElectoralList");
+        
+        $cities = $repoCity->findBy(array(), array("name" => "ASC"));
+        $groupsOfCities = $repoGroupOfCities->findBy(array(), array("name" => "ASC"));
+        $lists = $repoElectoralList->findBy(array("status" => ElectoralList::STATUS_VALIDATED), array("validationDate" => "DESC"), 10);
+        
+        if($request->getMethod() == "POST") {
+            $originalQuestion = new OriginalQuestion();
+            $originalQuestion->setText(trim($request->get("text")));
+            
+            // Cities
+            $tempCities = array();
+            
+            foreach($cities as $city) {
+                if($request->get("city_".$city->getId()) == "".$city->getId()) {
+                    $tempCities[] = $city;
+                }
+            }
+            
+            if(count($tempCities) < count($cities)) {
+                $originalQuestion->setCities($tempCities);
+            }
+            
+            // Groups of cities
+            $tempGroupsOfCities = array();
+            
+            foreach($groupsOfCities as $groupOfCities) {
+                if($request->get("groupOfCities_".$groupOfCities->getId()) == "".$groupOfCities->getId()) {
+                    $tempGroupsOfCities[] = $groupOfCities;
+                }
+            }
+            
+            if(count($tempGroupsOfCities) < count($groupsOfCities)) {
+                $originalQuestion->setGroupsOfCities($tempGroupsOfCities);
+            }
+            
+            $em->persist($originalQuestion);
+            $em->flush();
+            
+            $this->addFlash(
+                'success',
+                $translator->trans("ask_question_succeeded")
+                );
+        }
+        
+        return $this->render('default/test.html.twig', [
+            "cities"            => $cities,
+            "groupsOfCities"    => $groupsOfCities,
+            "lists"             => $lists
+        ]);
+    }
+    
+    /**
      * @Route("/", name="homepage")
      */
     public function indexAction(Request $request)
