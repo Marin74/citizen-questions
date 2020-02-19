@@ -191,6 +191,7 @@ class DefaultController extends Controller
         }
         
         return $this->render('default/city.html.twig', [
+            "ogTitle"   => $city == null ? null : $city->getName(),
             "city"      => $city,
             "cities"    => $cities,
             "answers"   => $answers,
@@ -228,6 +229,7 @@ class DefaultController extends Controller
         
         // replace this example code with whatever you need
         return $this->render('default/list.html.twig', [
+            "ogTitle"   => $list == null ? null : $list->getName(),
             "list"      => $list,
             "cities"    => $cities,
             "answers"   => $answers
