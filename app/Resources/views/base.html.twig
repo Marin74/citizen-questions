@@ -8,7 +8,7 @@
     
 	<meta property="og:url"				content="{{ url(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')) }}" />
      <meta property="og:type"			content="website" />
-     <meta property="og:title"			content="{% if ogTitle is defined %}{{ ogTitle }} - {% endif %}{{ app_name }}" />
+     <meta property="og:title"			content="{% if ogTitle is defined and ogTitle is not empty %}{{ ogTitle }} - {% endif %}{{ app_name }}" />
      
 
     <!-- Bootstrap CSS -->
