@@ -24,8 +24,13 @@
       	
         <h1 class="display-4" style="font-family: Holiday; {% if is_mobile() %}font-size: 2.5rem;{% else %}font-size: 5rem;{% endif %}">{{ app_name }}</h1>
 	  </div>
+	  <div class="col-md-6 mx-auto">
+	  	<p class="lead font-weight-normal" style="margin-top: 2rem;">
+	  		{{ "subtitle_begin"|trans }}
+	  	</p>
+	  </div>
 	  <div class="col-md-10 mx-auto">
-        <p class="lead font-weight-normal" style="margin-top: 2rem;">
+	  	<p class="lead font-weight-normal">
         	{% if form_start is not empty and "now"|date("Y-m-d H:i:s") >= form_start|date("Y-m-d H:i:s") %}
                 {{ "subtitle_after"|trans|nl2br }}
         	{% else %}
