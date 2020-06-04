@@ -50,4 +50,5 @@
 # Eclipse files
 /.project
 
-
+# IntelliJ
+/.idea/
